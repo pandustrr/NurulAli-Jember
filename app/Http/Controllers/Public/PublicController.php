@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Public;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 
 class PublicController extends Controller
 {
-    /**
-     * Halaman Utama sudah ditangani langsung di web.php untuk demo
-     */
-     
     public function about()
     {
-        // TODO: Ambil profil, visi misi dari database jika dinamis
         return Inertia::render('Public/About');
     }
 
@@ -24,7 +19,6 @@ class PublicController extends Controller
 
     public function pendaftaran()
     {
-        // Tampilkan form pendaftaran
         return Inertia::render('Public/Pendaftaran');
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Public\PublicController;
+use App\Http\Controllers\Admin\PpdbController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// --- AREA PUBLIK ---
+// --- AREA PUBLIK (Akses Terbuka) ---
 Route::get('/', function () {
     return Inertia::render('Public/Home', [
         'canLogin' => Route::has('login'),
@@ -21,16 +22,17 @@ Route::get('/info-ppdb', [PublicController::class, 'infoPpdb'])->name('info-ppdb
 Route::get('/pendaftaran', [PublicController::class, 'pendaftaran'])->name('pendaftaran');
 
 
-// --- AREA ADMIN ---
+// --- AREA ADMIN (Butuh Login) ---
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Admin/Dashboard');
     })->name('dashboard');
 
-    // Nanti controller Admin di sini (contoh)
-    // Route::get('/admin/pendaftar', [Admin\PpdbController::class, 'index'])->name('admin.pendaftar');
+    // Route untuk Admin mengelola PPDB
+    Route::get('/admin/pendaftar', [PpdbController::class, 'index'])->name('admin.pendaftar');
 });
 
+// Profile Management Bawaan Breeze
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
