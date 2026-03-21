@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@inertiajs/react';
 
 export default function Footer() {
     return (
@@ -20,10 +21,11 @@ export default function Footer() {
                     <div>
                         <h4 className="text-lg font-bold mb-6">Tautan Cepat</h4>
                         <ul className="space-y-4 text-slate-400">
-                            <li><a href="#" className="hover:text-emerald-500 transition-colors">Tentang Kami</a></li>
-                            <li><a href="#" className="hover:text-emerald-500 transition-colors">Lembaga Pendidikan</a></li>
-                            <li><a href="#" className="hover:text-emerald-500 transition-colors">Pendaftaran PPDB</a></li>
-                            <li><a href="#" className="hover:text-emerald-500 transition-colors">Informasi Biaya</a></li>
+                            <li><Link href="/about" className="hover:text-emerald-500 transition-colors">Tentang Kami</Link></li>
+                            <li><Link href="/lembaga" className="hover:text-emerald-500 transition-colors">Lembaga Pendidikan</Link></li>
+                            <li><Link href="/info-ppdb" className="hover:text-emerald-500 transition-colors">Informasi PPDB</Link></li>
+                            <li><Link href="/pendaftaran" className="hover:text-emerald-500 transition-colors">Pendaftaran</Link></li>
+                            <li><Link href="/kontak" className="hover:text-emerald-500 transition-colors">Kontak</Link></li>
                         </ul>
                     </div>
 

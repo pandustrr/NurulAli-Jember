@@ -21,4 +21,14 @@ class PublicController extends Controller
     {
         return Inertia::render('Public/Pendaftaran');
     }
+
+    public function lembaga()
+    {
+        return Inertia::render('Public/Lembaga');
+    }
+
+    public function kontak()
+    {
+        return Inertia::render('Public/Kontak');
+    }
 }

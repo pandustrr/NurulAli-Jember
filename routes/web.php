@@ -18,8 +18,10 @@ Route::get('/', function () {
 });
 
 Route::get('/about', [PublicController::class, 'about'])->name('about');
+Route::get('/lembaga', [PublicController::class, 'lembaga'])->name('lembaga');
 Route::get('/info-ppdb', [PublicController::class, 'infoPpdb'])->name('info-ppdb');
 Route::get('/pendaftaran', [PublicController::class, 'pendaftaran'])->name('pendaftaran');
+Route::get('/kontak', [PublicController::class, 'kontak'])->name('kontak');
 
 
 // --- AREA ADMIN (Butuh Login) ---

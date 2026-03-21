@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 export default function Navbar() {
+    const { url } = usePage();
+    const isHome = url === '/';
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -15,38 +17,44 @@ export default function Navbar() {
     const navLinks = [
         { name: 'Beranda', href: '/' },
         { name: 'About', href: '/about' },
-        { name: 'Lembaga', href: '#lembaga' },
+        { name: 'Lembaga', href: '/lembaga' },
         { name: 'Info PPDB', href: '/info-ppdb' },
-        { name: 'Pedaftaran', href: '/pendaftaran' },
-        { name: 'Kontak', href: '#kontak' },
+        { name: 'Pendaftaran', href: '/pendaftaran' },
+        { name: 'Kontak', href: '/kontak' },
     ];
 
+    // Determine colors based on page and scroll state
+    const navBackground = isHome
+        ? (scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5')
+        : 'bg-white shadow-sm py-3 border-b border-slate-100';
+
+    const textColor = isHome
+        ? (scrolled ? 'text-slate-900' : 'text-white')
+        : 'text-slate-900';
+
+    const logoColor = isHome
+        ? (scrolled ? 'text-slate-900' : 'text-white')
+        : 'text-slate-900';
+
     return (
-        <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
-                }`}
-        >
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBackground}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                        <div className="bg-emerald-700 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="bg-emerald-700 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-900/20 group-hover:scale-110 transition-transform">
                             ن
                         </div>
-                        <span
-                            className={`text-xl font-bold transition-colors ${scrolled ? 'text-slate-900' : 'text-white'
-                                }`}
-                        >
+                        <span className={`text-xl font-bold tracking-tight transition-colors ${logoColor}`}>
                             Nurul Ali
                         </span>
-                    </div>
+                    </Link>
 
                     <div className="hidden md:flex items-center space-x-8">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className={`text-sm font-medium transition-colors hover:text-emerald-500 ${scrolled ? 'text-slate-700' : 'text-white'
-                                    }`}
+                                className={`text-sm font-semibold transition-all hover:text-emerald-500 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-emerald-500 after:transition-all hover:after:w-full ${textColor}`}
                             >
                                 {link.name}
                             </Link>
@@ -54,8 +62,7 @@ export default function Navbar() {
                     </div>
 
                     <div className="md:hidden">
-                        {/* Mobile menu button could go here */}
-                        <button className={`${scrolled ? 'text-slate-900' : 'text-white'}`}>
+                        <button className={`${textColor} p-2 hover:bg-slate-100 rounded-lg transition-colors`}>
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
                             </svg>

@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function PPDB() {
+export default function PPDBInfo() {
+    const [activeFaq, setActiveFaq] = useState(null);
+
+    const faqs = [
+        {
+            q: "Kapan pendaftaran santri baru dibuka?",
+            a: "Pendaftaran Gelombang 1 dibuka mulai Januari hingga Maret, dan Gelombang 2 pada April hingga Juni setiap tahunnya."
+        },
+        {
+            q: "Apa saja syarat masuk Ponpes Nurul Ali?",
+            a: "Syarat utama meliputi ijazah terakhir, akta kelahiran, kartu keluarga, dan surat keterangan sehat. Calon santri juga akan mengikuti tes seleksi masuk."
+        },
+        {
+            q: "Apakah ada program beasiswa?",
+            a: "Ya, kami menyediakan beasiswa bagi santri berprestasi dan santri dari keluarga kurang mampu yang memiliki semangat tinggi untuk menghafal Al-Qur'an."
+        },
+        {
+            q: "Bagaimana sistem pendidikan yang diterapkan?",
+            a: "Kami menerapkan sistem terpadu antara kurikulum kepesantrenan (salaf modern) dan kurikulum nasional pendidikan formal (MTs & MA)."
+        }
+    ];
+
     return (
-        <section id="info-ppdb" className="py-24 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <span className="text-emerald-700 font-bold tracking-widest text-sm uppercase block mb-4">Info PPDB</span>
-                    <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Penerimaan Peserta Didik Baru</h2>
-                    <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                        Tahun Pelajaran 2026/2027 — Informasi lengkap jadwal, persyaratan, dan biaya pendidikan.
+        <section className="bg-white">
+            {/* Hero Info PPDB */}
+            <div className="relative py-24 bg-emerald-900 text-white overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                    <div className="grid grid-cols-6 h-full">
+                        {[...Array(24)].map((_, i) => (
+                            <div key={i} className="border-r border-b border-emerald-500/20"></div>
+                        ))}
+                    </div>
+                </div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <span className="inline-block px-4 py-1 bg-emerald-700 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Penerimaan Santri Baru</span>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-8">Informasi PPDB 2024/2025</h1>
+                    <p className="text-xl text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
+                        Membuka kesempatan bagi generasi muda untuk menimba ilmu dan menjadi penghafal Al-Qur'an yang unggul.
                     </p>
                 </div>
+            </div>
 
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                     {/* Column 1: Jadwal */}
                     <div className="bg-slate-50/50 rounded-[2.5rem] p-10 border border-slate-100">
@@ -116,6 +147,41 @@ export default function PPDB() {
                             </div>
                         </div>
                     </div>
+                </div>
+                {/* FAQ Section */}
+                <div className="mt-32">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Pertanyaan Sering Diajukan (FAQ)</h2>
+                        <p className="text-slate-500 italic">Temukan jawaban cepat untuk pertanyaan umum seputar pendaftaran.</p>
+                    </div>
+
+                    <div className="max-w-3xl mx-auto space-y-4">
+                        {faqs.map((faq, i) => (
+                            <div key={i} className="border border-slate-100 rounded-2xl overflow-hidden transition-all duration-300">
+                                <button
+                                    onClick={() => setActiveFaq(activeFaq === i ? null : i)}
+                                    className={`w-full p-6 text-left flex justify-between items-center transition-colors ${activeFaq === i ? 'bg-emerald-50 text-emerald-900' : 'bg-white text-slate-900 hover:bg-slate-50'}`}
+                                >
+                                    <span className="font-bold">{faq.q}</span>
+                                    <span className={`transform transition-transform duration-300 ${activeFaq === i ? 'rotate-180' : ''}`}>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </span>
+                                </button>
+                                <div className={`overflow-hidden transition-all duration-300 ${activeFaq === i ? 'max-h-40 opacity-100 border-t border-emerald-100' : 'max-h-0 opacity-0'}`}>
+                                    <div className="p-6 text-slate-600 text-sm leading-relaxed bg-emerald-50/30">
+                                        {faq.a}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mt-24 text-center pb-12">
+                    <p className="text-slate-500 mb-6">Masih punya pertanyaan lainnya?</p>
+                    <a href="/kontak" className="text-emerald-700 font-bold hover:underline">Hubungi Admin PPDB via WhatsApp &rarr;</a>
                 </div>
             </div>
         </section>
