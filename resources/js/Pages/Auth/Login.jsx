@@ -32,66 +32,72 @@ export default function Login({ status, canResetPassword }) {
             )}
 
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Username/Email" />
+                <div className="space-y-2">
+                    <InputLabel htmlFor="email" value="Username/Email" className="text-slate-700 font-bold" />
 
                     <TextInput
                         id="email"
                         type="text"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 rounded-2xl py-4 px-5 transition-all text-slate-900"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
+                        placeholder="admin atau email..."
                     />
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                <div className="mt-6 space-y-2">
+                    <InputLabel htmlFor="password" value="Password" className="text-slate-700 font-bold" />
 
                     <TextInput
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 rounded-2xl py-4 px-5 transition-all text-slate-900"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
+                        placeholder="••••••••"
                     />
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="mt-4 block">
-                    <label className="flex items-center">
+                <div className="mt-6 flex items-center justify-between">
+                    <label className="flex items-center cursor-pointer group">
                         <Checkbox
                             name="remember"
                             checked={data.remember}
                             onChange={(e) =>
                                 setData('remember', e.target.checked)
                             }
+                            className="rounded-lg border-slate-200 text-emerald-600 focus:ring-emerald-500"
                         />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
+                        <span className="ms-2 text-sm text-slate-500 group-hover:text-slate-700 transition-colors">
+                            Ingat saya
                         </span>
                     </label>
-                </div>
 
-                <div className="mt-4 flex items-center justify-end">
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="text-xs font-bold text-slate-400 hover:text-emerald-600 transition-colors uppercase tracking-widest"
                         >
-                            Forgot your password?
+                            Lupa sandi?
                         </Link>
                     )}
+                </div>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
+                <div className="mt-8">
+                    <PrimaryButton
+                        className="w-full justify-center py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-xl shadow-emerald-200 transition-all uppercase tracking-widest active:scale-95 disabled:opacity-50"
+                        disabled={processing}
+                    >
+                        Masuk Sekarang
                     </PrimaryButton>
                 </div>
             </form>

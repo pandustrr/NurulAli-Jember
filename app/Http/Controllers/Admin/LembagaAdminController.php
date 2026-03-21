@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lembaga;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class LembagaAdminController extends Controller
 {
@@ -21,9 +22,14 @@ class LembagaAdminController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'icon' => 'nullable|string',
-            'color' => 'nullable|string',
+            'detailed_description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('lembaga', 'public');
+            $validated['image'] = '/storage/' . $path;
+        }
 
         Lembaga::create($validated);
 
@@ -35,9 +41,18 @@ class LembagaAdminController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'icon' => 'nullable|string',
-            'color' => 'nullable|string',
+            'detailed_description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($lembaga->image) {
+                Storage::disk('public')->delete(str_replace('/storage/', '', $lembaga->image));
+            }
+            $path = $request->file('image')->store('lembaga', 'public');
+            $validated['image'] = '/storage/' . $path;
+        }
 
         $lembaga->update($validated);
 
@@ -46,6 +61,9 @@ class LembagaAdminController extends Controller
 
     public function destroy(Lembaga $lembaga)
     {
+        if ($lembaga->image) {
+            Storage::disk('public')->delete(str_replace('/storage/', '', $lembaga->image));
+        }
         $lembaga->delete();
         return redirect()->back()->with('success', 'Lembaga berhasil dihapus.');
     }

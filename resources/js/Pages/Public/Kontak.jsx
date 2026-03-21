@@ -72,7 +72,7 @@ export default function Kontak({ settings }) {
 
                             <div className="bg-white p-4 rounded-3xl shadow-sm border border-slate-100 h-80 relative overflow-hidden group">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.336495116743!2d113.6845!3d-8.1745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6943997d9fd29%3A0x7d6c5c56c2c31!2sJember%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1711040000000!5m2!1sen!2sid"
+                                    src={settings.maps_link || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.6!2d113.8!3d-8.1!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMDknMzYuMCJTIDExM8KwNTAnMjQuMCJF!5e0!3m2!1sen!2sid!4v1711000000000!5m2!1sen!2sid"}
                                     className="w-full h-full border-0 rounded-2xl"
                                     allowFullScreen=""
                                     loading="lazy"
