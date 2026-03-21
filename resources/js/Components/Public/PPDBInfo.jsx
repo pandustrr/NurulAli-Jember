@@ -1,26 +1,12 @@
 import React, { useState } from 'react';
 
-export default function PPDBInfo() {
+export default function PPDBInfo({ ppdb_settings = {} }) {
     const [activeFaq, setActiveFaq] = useState(null);
 
-    const faqs = [
-        {
-            q: "Kapan pendaftaran santri baru dibuka?",
-            a: "Pendaftaran Gelombang 1 dibuka mulai Januari hingga Maret, dan Gelombang 2 pada April hingga Juni setiap tahunnya."
-        },
-        {
-            q: "Apa saja syarat masuk Ponpes Nurul Ali?",
-            a: "Syarat utama meliputi ijazah terakhir, akta kelahiran, kartu keluarga, dan surat keterangan sehat. Calon santri juga akan mengikuti tes seleksi masuk."
-        },
-        {
-            q: "Apakah ada program beasiswa?",
-            a: "Ya, kami menyediakan beasiswa bagi santri berprestasi dan santri dari keluarga kurang mampu yang memiliki semangat tinggi untuk menghafal Al-Qur'an."
-        },
-        {
-            q: "Bagaimana sistem pendidikan yang diterapkan?",
-            a: "Kami menerapkan sistem terpadu antara kurikulum kepesantrenan (salaf modern) dan kurikulum nasional pendidikan formal (MTs & MA)."
-        }
-    ];
+    const faqs = ppdb_settings?.faqs ? JSON.parse(ppdb_settings.faqs) : [];
+    const schedules = ppdb_settings?.schedule ? JSON.parse(ppdb_settings.schedule) : [];
+    const requirements = ppdb_settings?.requirements ? JSON.parse(ppdb_settings.requirements) : [];
+    const fees = ppdb_settings?.fees ? JSON.parse(ppdb_settings.fees) : [];
 
     return (
         <section className="bg-white">
@@ -35,7 +21,7 @@ export default function PPDBInfo() {
                 </div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <span className="inline-block px-4 py-1 bg-emerald-700 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Penerimaan Santri Baru</span>
-                    <h1 className="text-4xl md:text-6xl font-bold mb-8">Informasi PPDB 2024/2025</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Informasi PPDB Terbaru</h1>
                     <p className="text-xl text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
                         Membuka kesempatan bagi generasi muda untuk menimba ilmu dan menjadi penghafal Al-Qur'an yang unggul.
                     </p>
@@ -48,7 +34,7 @@ export default function PPDBInfo() {
                     <div className="bg-slate-50/50 rounded-[2.5rem] p-10 border border-slate-100">
                         <div className="flex items-center gap-4 mb-10">
                             <div className="bg-emerald-50 text-emerald-600 p-3 rounded-2xl">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24 font-bold">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                             </div>
@@ -56,16 +42,9 @@ export default function PPDBInfo() {
                         </div>
 
                         <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200">
-                            {[
-                                { label: 'Gelombang I', date: '1 Januari - 28 Februari 2026' },
-                                { label: 'Gelombang II', date: '1 Maret - 30 April 2026', active: true },
-                                { label: 'Gelombang III', date: '1 Mei - 30 Juni 2026' },
-                                { label: 'Pengumuman', date: '15 Juli 2026' },
-                                { label: 'Daftar Ulang', date: '16 - 31 Juli 2026' },
-                                { label: 'Masa Orientasi', date: '1 Agustus 2026' },
-                            ].map((item, i) => (
+                            {schedules.map((item, i) => (
                                 <div key={i} className="flex gap-6 relative z-10">
-                                    <div className={`w-4 h-4 rounded-full mt-1 border-4 border-white shadow-sm ${item.active ? 'bg-emerald-500 ring-4 ring-emerald-500/20' : 'bg-amber-400'}`}></div>
+                                    <div className={`w-4 h-4 rounded-full mt-1 border-4 border-white shadow-sm ${item.active ? 'bg-emerald-500 ring-4 ring-emerald-500/20' : 'bg-slate-300'}`}></div>
                                     <div>
                                         <div className="flex items-center gap-3">
                                             <h4 className="font-bold text-slate-900">{item.label}</h4>
@@ -90,15 +69,7 @@ export default function PPDBInfo() {
                         </div>
 
                         <ul className="space-y-5">
-                            {[
-                                'Fotokopi Akta Kelahiran (2 lembar)',
-                                'Fotokopi Kartu Keluarga (2 lembar)',
-                                'Fotokopi Ijazah/SKHUN terlegalisir (2 lembar)',
-                                'Pas foto 3x4 berlatar merah (4 lembar)',
-                                'Surat Rekomendasi dari sekolah asal',
-                                'Surat pernyataan kesanggupan orang tua',
-                                'Mengisi formulir pendaftaran online',
-                            ].map((item, i) => (
+                            {requirements.map((item, i) => (
                                 <li key={i} className="flex items-start gap-3">
                                     <div className="mt-1 flex-shrink-0 bg-emerald-100 text-emerald-700 rounded-full p-0.5">
                                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,12 +94,7 @@ export default function PPDBInfo() {
                         </div>
 
                         <div className="space-y-6 flex-grow">
-                            {[
-                                { label: 'Uang Pangkal', price: 'Rp 3.500.000' },
-                                { label: 'SPP Bulanan', price: 'Rp 850.000 / bulan' },
-                                { label: 'Biaya Asrama', price: 'Rp 500.000 / bulan' },
-                                { label: 'Biaya Seragam', price: 'Rp 750.000' },
-                            ].map((item, i) => (
+                            {fees.map((item, i) => (
                                 <div key={i} className="flex justify-between items-center pb-4 border-b border-slate-200 text-sm md:text-base">
                                     <span className="text-slate-500 font-medium">{item.label}</span>
                                     <span className="text-emerald-800 font-bold">{item.price}</span>
@@ -148,6 +114,7 @@ export default function PPDBInfo() {
                         </div>
                     </div>
                 </div>
+
                 {/* FAQ Section */}
                 <div className="mt-32">
                     <div className="text-center mb-16">
@@ -169,7 +136,7 @@ export default function PPDBInfo() {
                                         </svg>
                                     </span>
                                 </button>
-                                <div className={`overflow-hidden transition-all duration-300 ${activeFaq === i ? 'max-h-40 opacity-100 border-t border-emerald-100' : 'max-h-0 opacity-0'}`}>
+                                <div className={`overflow-hidden transition-all duration-300 ${activeFaq === i ? 'max-h-64 opacity-100 border-t border-emerald-100' : 'max-h-0 opacity-0'}`}>
                                     <div className="p-6 text-slate-600 text-sm leading-relaxed bg-emerald-50/30">
                                         {faq.a}
                                     </div>

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Navbar from '@/Components/Public/Navbar';
 import Hero from '@/Components/Public/Hero';
 import PhotoGallery from '@/Components/Public/PhotoGallery';
 import Footer from '@/Components/Public/Footer';
-import { Link } from '@inertiajs/react';
 
-export default function Home({ auth }) {
+export default function Home({ settings, lembagas }) {
     const whyUs = [
         {
             title: 'Kurikulum Terpadu',
@@ -32,19 +31,19 @@ export default function Home({ auth }) {
 
     return (
         <div className="min-h-screen bg-white">
-            <Head title="Pondok Pesantren Nurul Ali - Membentuk Generasi Qurani" />
+            <Head title={`${settings.site_name || 'Pondok Pesantren Nurul Ali'} - Membentuk Generasi Qurani`} />
 
             <Navbar />
 
             <main>
-                <Hero />
+                <Hero settings={settings} />
 
                 {/* Why Choose Us Section */}
                 <section className="py-24 bg-slate-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
                             <span className="text-emerald-700 font-bold tracking-widest text-sm uppercase block mb-4">Keunggulan</span>
-                            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Mengapa Memilih Nurul Ali?</h2>
+                            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Mengapa Memilih Kami?</h2>
                             <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed">
                                 Kami berkomitmen memberikan lingkungan pendidikan terbaik bagi putra-putri Anda untuk berkembang secara intelektual dan spiritual.
                             </p>
@@ -72,9 +71,9 @@ export default function Home({ auth }) {
                             <div className="absolute bottom-0 left-0 -mb-20 -ml-20 bg-emerald-600 w-64 h-64 rounded-full opacity-20 blur-3xl"></div>
 
                             <div className="relative z-10 text-center max-w-3xl mx-auto">
-                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">Siap Bergabung dengan Keluarga Besar Nurul Ali?</h2>
+                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">Siap Bergabung dengan Keluarga Besar Kami?</h2>
                                 <p className="text-emerald-50 text-xl mb-10 opacity-90">
-                                    Pendaftaran Santri Baru Tahun Ajaran 2024/2025 telah dibuka. Kuota terbatas!
+                                    Pendaftaran Santri Baru Tahun Ajaran Terbaru telah dibuka. Kuota terbatas!
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                     <Link href="/pendaftaran" className="px-8 py-4 bg-white text-emerald-800 font-bold rounded-2xl hover:bg-emerald-50 transition-colors shadow-lg">

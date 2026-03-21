@@ -1,12 +1,26 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import Navbar from '@/Components/Public/Navbar';
 import Footer from '@/Components/Public/Footer';
 
-export default function Kontak() {
+export default function Kontak({ settings }) {
+    const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post(route('kontak.send'), {
+            onSuccess: () => reset(),
+        });
+    };
+
     return (
         <div className="min-h-screen bg-slate-50">
-            <Head title="Kontak - Pondok Pesantren Nurul Ali" />
+            <Head title={`Hubungi Kami - ${settings.site_name || 'Nurul Ali'}`} />
 
             <Navbar />
 
@@ -21,7 +35,7 @@ export default function Kontak() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-slate-900">
                         <div className="space-y-8">
                             <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
                                 <h3 className="text-xl font-bold text-slate-900 mb-6">Informasi Kontak</h3>
@@ -32,7 +46,7 @@ export default function Kontak() {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-slate-900">Alamat</p>
-                                            <p className="text-slate-600 mt-1">Jl. Raya Jember No. 123, Kaliwates, Jember, Jawa Timur</p>
+                                            <p className="text-slate-600 mt-1">{settings.address || 'Loading...'}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-4">
@@ -41,7 +55,7 @@ export default function Kontak() {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-slate-900">Telepon / WA</p>
-                                            <p className="text-slate-600 mt-1">(0331) 1234567 / 0812-3456-7890</p>
+                                            <p className="text-slate-600 mt-1">{settings.phone || '-'}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-4">
@@ -50,52 +64,82 @@ export default function Kontak() {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-slate-900">Email</p>
-                                            <p className="text-slate-600 mt-1">info@nurulali.sch.id</p>
+                                            <p className="text-slate-600 mt-1">{settings.email || '-'}</p>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div className="mt-10 pt-10 border-t border-slate-100">
-                                    <p className="font-bold text-slate-900 mb-4">Media Sosial</p>
-                                    <div className="flex gap-4">
-                                        {['Instagram', 'YouTube', 'Facebook', 'Twitter'].map((social) => (
-                                            <a key={social} href="#" className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-600 hover:text-white transition-all shadow-sm">
-                                                <span className="text-xs font-bold uppercase tracking-tighter">{social.substring(0, 2)}</span>
-                                            </a>
-                                        ))}
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Map Placeholder */}
                             <div className="bg-white p-4 rounded-3xl shadow-sm border border-slate-100 h-80 relative overflow-hidden group">
-                                <div className="absolute inset-0 bg-slate-200 animate-pulse group-hover:bg-slate-300 transition-colors"></div>
-                                <div className="absolute inset-0 flex items-center justify-center flex-col gap-2 z-10">
-                                    <span className="text-4xl">📍</span>
-                                    <p className="font-bold text-slate-500">Google Maps Loading...</p>
-                                    <button className="px-4 py-2 bg-white rounded-xl shadow-md text-slate-900 text-xs font-bold hover:bg-emerald-50 transition-colors">Buka Map</button>
-                                </div>
-                                <div className="absolute inset-0 border-[16px] border-white rounded-[2.5rem] pointer-events-none"></div>
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.336495116743!2d113.6845!3d-8.1745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6943997d9fd29%3A0x7d6c5c56c2c31!2sJember%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1711040000000!5m2!1sen!2sid"
+                                    className="w-full h-full border-0 rounded-2xl"
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                ></iframe>
                             </div>
                         </div>
 
                         <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-100">
-                            <h3 className="text-xl font-bold text-slate-900 mb-8">Kirim Pesan</h3>
-                            <form className="space-y-6">
+                            <h3 className="text-xl font-bold text-slate-900 mb-8 text-center md:text-left">Kirim Pesan</h3>
+                            {recentlySuccessful && (
+                                <div className="mb-6 p-4 bg-emerald-50 text-emerald-700 font-bold rounded-xl border border-emerald-100 animate-in fade-in slide-in-from-top-4">
+                                    ✓ Pesan Anda berhasil dikirim! Kami akan menghubungi Anda segera.
+                                </div>
+                            )}
+                            <form onSubmit={submit} className="space-y-6">
                                 <div>
                                     <label className="block text-sm font-semibold text-slate-700 mb-2">Nama Anda</label>
-                                    <input type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder="Nama Lengkap" />
+                                    <input
+                                        type="text"
+                                        value={data.name}
+                                        onChange={e => setData('name', e.target.value)}
+                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
+                                        placeholder="Nama Lengkap"
+                                        required
+                                    />
+                                    {errors.name && <p className="text-rose-500 text-xs mt-1 font-bold">{errors.name}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-semibold text-slate-700 mb-2">Email</label>
-                                    <input type="email" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder="nama@email.com" />
+                                    <input
+                                        type="email"
+                                        value={data.email}
+                                        onChange={e => setData('email', e.target.value)}
+                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
+                                        placeholder="nama@email.com"
+                                        required
+                                    />
+                                    {errors.email && <p className="text-rose-500 text-xs mt-1 font-bold">{errors.email}</p>}
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-700 mb-2">Subjek (Opsional)</label>
+                                    <input
+                                        type="text"
+                                        value={data.subject}
+                                        onChange={e => setData('subject', e.target.value)}
+                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all"
+                                        placeholder="e.g. Pertanyaan Pendaftaran"
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-semibold text-slate-700 mb-2">Pesan</label>
-                                    <textarea className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all h-32" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                                    <textarea
+                                        value={data.message}
+                                        onChange={e => setData('message', e.target.value)}
+                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all h-32"
+                                        placeholder="Tuliskan pesan Anda di sini..."
+                                        required
+                                    ></textarea>
+                                    {errors.message && <p className="text-rose-500 text-xs mt-1 font-bold">{errors.message}</p>}
                                 </div>
-                                <button type="submit" className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 transition-all transform hover:-translate-y-1">
-                                    Kirim Pesan
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-400 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 transition-all transform hover:-translate-y-1"
+                                >
+                                    {processing ? 'Mengirim...' : 'Kirim Pesan'}
                                 </button>
                             </form>
                         </div>

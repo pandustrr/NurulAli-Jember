@@ -4,7 +4,7 @@ import Navbar from '@/Components/Public/Navbar';
 import Footer from '@/Components/Public/Footer';
 import Programs from '@/Components/Public/Programs';
 
-export default function Lembaga() {
+export default function Lembaga({ lembagas }) {
     return (
         <div className="min-h-screen bg-white">
             <Head title="Lembaga Pendidikan - Pondok Pesantren Nurul Ali" />
@@ -12,7 +12,7 @@ export default function Lembaga() {
             <Navbar />
 
             <main className="pt-20">
-                <Programs />
+                <Programs lembagas={lembagas} />
             </main>
 
             <Footer />
