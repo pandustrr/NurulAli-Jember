@@ -17,6 +17,13 @@ class LembagaAdminController extends Controller
         ]);
     }
 
+    public function accounts()
+    {
+        return Inertia::render('Admin/Lembaga/Accounts', [
+            'lembagas' => Lembaga::all()
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -24,7 +31,16 @@ class LembagaAdminController extends Controller
             'description' => 'nullable|string',
             'detailed_description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'admin_name' => 'nullable|string|max:255',
+            'username' => 'nullable|string|max:255|unique:lembagas,username',
+            'email' => 'nullable|email|max:255|unique:lembagas,email',
+            'password' => 'nullable|string|min:6',
+            'contact' => 'nullable|string|max:20',
         ]);
+
+        if ($request->filled('password')) {
+            $validated['password'] = bcrypt($request->password);
+        }
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('lembaga', 'public');
@@ -43,7 +59,18 @@ class LembagaAdminController extends Controller
             'description' => 'nullable|string',
             'detailed_description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'admin_name' => 'nullable|string|max:255',
+            'username' => 'nullable|string|max:255|unique:lembagas,username,' . $lembaga->id,
+            'email' => 'nullable|email|max:255|unique:lembagas,email,' . $lembaga->id,
+            'password' => 'nullable|string|min:6',
+            'contact' => 'nullable|string|max:20',
         ]);
+
+        if ($request->filled('password')) {
+            $validated['password'] = bcrypt($request->password);
+        } else {
+            unset($validated['password']);
+        }
 
         if ($request->hasFile('image')) {
             // Delete old image

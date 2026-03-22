@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/pendaftar/{pendaftar}/status', [PpdbController::class, 'updateStatus'])->name('admin.pendaftar.status');
 
     // CMS Management
+    Route::get('/admin/lembaga/accounts', [LembagaAdminController::class, 'accounts'])->name('admin.lembaga.accounts');
     Route::resource('/admin/lembaga', LembagaAdminController::class)->names('admin.lembaga');
     Route::get('/admin/tentang', [AboutAdminController::class, 'index'])->name('admin.tentang');
     Route::post('/admin/tentang', [AboutAdminController::class, 'update'])->name('admin.tentang.update');

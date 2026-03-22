@@ -12,6 +12,11 @@ class Lembaga extends Model
         'detailed_description',
         'icon',
         'color',
-        'image'
+        'image',
+        'admin_name',
+        'username',
+        'email',
+        'password',
+        'contact'
     ];
 }
