@@ -56,19 +56,19 @@ export default function Index({ settings }) {
 
             <form onSubmit={submit} className="space-y-12 max-w-5xl">
                 {/* Schedules */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-xl font-bold text-emerald-800 flex items-center gap-2"><span>📅</span> Jadwal Gelombang</h3>
                         <button type="button" onClick={addSchedule} className="text-emerald-600 text-sm font-bold">+ Tambah</button>
                     </div>
                     <div className="space-y-4">
                         {data.schedule.map((item, i) => (
-                            <div key={i} className="flex gap-4 items-end bg-slate-50 p-4 rounded-2xl">
-                                <div className="flex-grow space-y-2">
+                            <div key={i} className="flex gap-4 items-end bg-slate-50 p-4 rounded-xl">
+                                <div className="grow space-y-2">
                                     <label className="text-[10px] font-bold uppercase text-slate-400">Label</label>
                                     <input value={item.label} onChange={e => updateSchedule(i, 'label', e.target.value)} className="w-full bg-transparent border-b border-slate-200 outline-none focus:border-emerald-500 font-bold text-slate-700" placeholder="Gelombang I" />
                                 </div>
-                                <div className="flex-grow space-y-2">
+                                <div className="grow space-y-2">
                                     <label className="text-[10px] font-bold uppercase text-slate-400">Rentang Waktu</label>
                                     <input value={item.date} onChange={e => updateSchedule(i, 'date', e.target.value)} className="w-full bg-transparent border-b border-slate-200 outline-none focus:border-emerald-500 text-slate-600 text-sm" placeholder="Januari - Maret" />
                                 </div>
@@ -83,16 +83,16 @@ export default function Index({ settings }) {
                 </div>
 
                 {/* Requirements */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-xl font-bold text-emerald-800 flex items-center gap-2"><span>📋</span> Persyaratan Berkas</h3>
                         <button type="button" onClick={addReq} className="text-emerald-600 text-sm font-bold">+ Tambah</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {data.requirements.map((req, i) => (
-                            <div key={i} className="flex gap-2 bg-slate-50 p-3 rounded-xl">
+                            <div key={i} className="flex gap-2 bg-slate-50 p-3 rounded-lg">
                                 <span className="text-emerald-300 font-bold">#</span>
-                                <input value={req} onChange={e => updateReq(i, e.target.value)} className="flex-grow bg-transparent outline-none text-sm text-slate-600" />
+                                <input value={req} onChange={e => updateReq(i, e.target.value)} className="grow bg-transparent outline-none text-sm text-slate-600" />
                                 <button type="button" onClick={() => removeReq(i)} className="text-rose-400 hover:text-rose-600">×</button>
                             </div>
                         ))}
@@ -100,7 +100,7 @@ export default function Index({ settings }) {
                 </div>
 
                 {/* Fees */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-xl font-bold text-emerald-800 flex items-center gap-2"><span>💰</span> Rincian Biaya</h3>
                         <button type="button" onClick={addFee} className="text-emerald-600 text-sm font-bold">+ Tambah</button>
@@ -108,7 +108,7 @@ export default function Index({ settings }) {
                     <div className="space-y-4">
                         {data.fees.map((fee, i) => (
                             <div key={i} className="flex gap-4 items-center border-b border-slate-100 pb-4">
-                                <input value={fee.label} onChange={e => updateFee(i, 'label', e.target.value)} className="flex-grow font-bold text-slate-700 outline-none" placeholder="Jenis Biaya" />
+                                <input value={fee.label} onChange={e => updateFee(i, 'label', e.target.value)} className="grow font-bold text-slate-700 outline-none" placeholder="Jenis Biaya" />
                                 <input value={fee.price} onChange={e => updateFee(i, 'price', e.target.value)} className="w-48 text-right font-bold text-emerald-700 outline-none" placeholder="Rp 0" />
                                 <button type="button" onClick={() => removeFee(i)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg">🗑️</button>
                             </div>
@@ -117,17 +117,17 @@ export default function Index({ settings }) {
                 </div>
 
                 {/* FAQs */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-xl font-bold text-emerald-800 flex items-center gap-2"><span>❓</span> FAQ (Tanya Jawab)</h3>
                         <button type="button" onClick={addFaq} className="text-emerald-600 text-sm font-bold">+ Tambah</button>
                     </div>
                     <div className="space-y-6">
                         {data.faqs.map((faq, i) => (
-                            <div key={i} className="space-y-2 p-6 bg-slate-50 rounded-2xl relative group">
+                            <div key={i} className="space-y-2 p-6 bg-slate-50 rounded-xl relative group">
                                 <button type="button" onClick={() => removeFaq(i)} className="absolute top-4 right-4 text-rose-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity">🗑️ Hapus</button>
-                                <input value={faq.q} onChange={e => updateFaq(i, 'q', e.target.value)} className="w-full bg-white px-4 py-2 rounded-xl font-bold border border-slate-200 outline-none focus:border-emerald-500" placeholder="Pertanyaan?" />
-                                <textarea value={faq.a} onChange={e => updateFaq(i, 'a', e.target.value)} rows="2" className="w-full bg-white px-4 py-2 rounded-xl text-sm border border-slate-200 outline-none focus:border-emerald-500" placeholder="Jawaban..." />
+                                <input value={faq.q} onChange={e => updateFaq(i, 'q', e.target.value)} className="w-full bg-white px-4 py-2 rounded-lg font-bold border border-slate-200 outline-none focus:border-emerald-500" placeholder="Pertanyaan?" />
+                                <textarea value={faq.a} onChange={e => updateFaq(i, 'a', e.target.value)} rows="2" className="w-full bg-white px-4 py-2 rounded-lg text-sm border border-slate-200 outline-none focus:border-emerald-500" placeholder="Jawaban..." />
                             </div>
                         ))}
                     </div>
@@ -137,7 +137,7 @@ export default function Index({ settings }) {
                     <button
                         type="submit"
                         disabled={processing}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-2xl font-bold shadow-xl shadow-emerald-200 transition-all transform hover:-translate-y-1 active:scale-95 disabled:opacity-50"
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-xl font-bold shadow-xl shadow-emerald-200 transition-all transform hover:-translate-y-1 active:scale-95 disabled:opacity-50"
                     >
                         {processing ? 'Menyimpan...' : 'Update Pengaturan PPDB'}
                     </button>

@@ -1,12 +1,19 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link } from '@inertiajs/react';
+import { 
+    UserGroupIcon, 
+    CheckCircleIcon, 
+    ClockIcon, 
+    InboxArrowDownIcon,
+    RocketLaunchIcon
+} from '@heroicons/react/24/outline';
 
 export default function Dashboard({ stats, recent_pendaftars }) {
     const cards = [
-        { label: 'Total Pendaftar', value: stats.total_pendaftar, icon: '👥', color: 'bg-blue-50 text-blue-600', sub: 'Semua pendaftar' },
-        { label: 'Selesai Verifikasi', value: stats.verified_pendaftar, icon: '✅', color: 'bg-emerald-50 text-emerald-600', sub: 'Pendaftar diterima' },
-        { label: 'Menunggu', value: stats.pending_pendaftar, icon: '⏳', color: 'bg-amber-50 text-amber-600', sub: 'Perlu dicek' },
-        { label: 'Pesan Baru', value: stats.unread_messages, icon: '📩', color: 'bg-rose-50 text-rose-600', sub: 'Pesan belum dibaca' },
+        { label: 'Total Pendaftar', value: stats.total_pendaftar, icon: UserGroupIcon, color: 'bg-blue-50 text-blue-600', sub: 'Semua pendaftar' },
+        { label: 'Selesai Verifikasi', value: stats.verified_pendaftar, icon: CheckCircleIcon, color: 'bg-emerald-50 text-emerald-600', sub: 'Pendaftar diterima' },
+        { label: 'Menunggu', value: stats.pending_pendaftar, icon: ClockIcon, color: 'bg-amber-50 text-amber-600', sub: 'Perlu dicek' },
+        { label: 'Pesan Baru', value: stats.unread_messages, icon: InboxArrowDownIcon, color: 'bg-rose-50 text-rose-600', sub: 'Pesan belum dibaca' },
     ];
 
     return (
@@ -15,9 +22,9 @@ export default function Dashboard({ stats, recent_pendaftars }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                 {cards.map((card, i) => (
-                    <div key={i} className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex items-center gap-6 group hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                        <div className={`w-16 h-16 rounded-[1.5rem] ${card.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform`}>
-                            {card.icon}
+                    <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6 group hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
+                        <div className={`w-16 h-16 rounded-xl ${card.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                            <card.icon className="w-8 h-8" />
                         </div>
                         <div>
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">{card.label}</p>
@@ -29,7 +36,7 @@ export default function Dashboard({ stats, recent_pendaftars }) {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-900">
                 {/* Recent Registrations Table */}
-                <div className="lg:col-span-2 bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
+                <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
                     <div className="p-8 border-b border-slate-50 flex justify-between items-center">
                         <h3 className="font-bold text-lg text-slate-800">Pendaftar Terbaru</h3>
                         <Link href={route('admin.pendaftar')} className="text-emerald-600 text-sm font-bold hover:underline">Lihat Semua →</Link>
@@ -62,16 +69,19 @@ export default function Dashboard({ stats, recent_pendaftars }) {
 
                 {/* Quick Actions / Unit Status */}
                 <div className="space-y-6">
-                    <div className="bg-emerald-900 rounded-[2.5rem] p-8 text-white shadow-xl shadow-emerald-200">
-                        <h3 className="font-bold text-lg mb-6 flex items-center gap-2"><span>🚀</span> Quick Actions</h3>
+                    <div className="bg-emerald-900 rounded-2xl p-8 text-white shadow-xl shadow-emerald-200">
+                        <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
+                            <RocketLaunchIcon className="w-6 h-6 text-amber-400" />
+                            <span>Quick Actions</span>
+                        </h3>
                         <div className="space-y-4">
-                            <Link href={route('admin.lembaga.index')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold transition-all border border-white/10">Update Data Lembaga</Link>
-                            <Link href={route('admin.ppdb-settings')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold transition-all border border-white/10">Ubah Jadwal PPDB</Link>
+                            <Link href={route('admin.lembaga.index')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-all border border-white/10">Update Data Lembaga</Link>
+                            <Link href={route('admin.ppdb-settings')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-all border border-white/10">Ubah Jadwal PPDB</Link>
                         </div>
                     </div>
-                    <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm">
+                    <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
                         <div className="flex items-center gap-4 mb-6">
-                            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl font-bold">
+                            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl font-bold">
                                 {stats.total_lembaga}
                             </div>
                             <h3 className="font-bold text-slate-800">Unit Pendidikan</h3>

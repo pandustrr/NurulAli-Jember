@@ -3,12 +3,12 @@ import InputError from '@/Components/UI/InputError';
 import InputLabel from '@/Components/UI/InputLabel';
 import PrimaryButton from '@/Components/UI/PrimaryButton';
 import TextInput from '@/Components/UI/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
+import LoginLayout from '@/Layouts/LoginLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
+        username: '',
         password: '',
         remember: false,
     });
@@ -22,7 +22,7 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout>
+        <LoginLayout>
             <Head title="Log in" />
 
             {status && (
@@ -33,21 +33,21 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div className="space-y-2">
-                    <InputLabel htmlFor="email" value="Username/Email" className="text-slate-700 font-bold" />
+                    <InputLabel htmlFor="username" value="Username" className="text-slate-700 font-bold" />
 
                     <TextInput
-                        id="email"
+                        id="username"
                         type="text"
-                        name="email"
-                        value={data.email}
+                        name="username"
+                        value={data.username}
                         className="mt-1 block w-full bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 rounded-2xl py-4 px-5 transition-all text-slate-900"
                         autoComplete="username"
                         isFocused={true}
-                        onChange={(e) => setData('email', e.target.value)}
-                        placeholder="admin atau email..."
+                        onChange={(e) => setData('username', e.target.value)}
+                        placeholder="Masukkan username..."
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={errors.username} className="mt-2" />
                 </div>
 
                 <div className="mt-6 space-y-2">
@@ -81,15 +81,6 @@ export default function Login({ status, canResetPassword }) {
                             Ingat saya
                         </span>
                     </label>
-
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="text-xs font-bold text-slate-400 hover:text-emerald-600 transition-colors uppercase tracking-widest"
-                        >
-                            Lupa sandi?
-                        </Link>
-                    )}
                 </div>
 
                 <div className="mt-8">
@@ -101,7 +92,7 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </LoginLayout>
     );
 }
 

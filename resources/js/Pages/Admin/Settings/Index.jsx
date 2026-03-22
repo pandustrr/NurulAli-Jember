@@ -42,7 +42,7 @@ export default function Index({ settings }) {
 
             <form onSubmit={submit} className="max-w-4xl space-y-8">
                 {/* General Info */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <h3 className="text-xl font-bold mb-6 text-emerald-800 flex items-center gap-2">
                         <span>🏫</span> Informasi Umum
                     </h3>
@@ -52,7 +52,7 @@ export default function Index({ settings }) {
                             <input
                                 value={data.school_name}
                                 onChange={e => setData('school_name', e.target.value)}
-                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
                         <div className="space-y-2">
@@ -61,7 +61,7 @@ export default function Index({ settings }) {
                                 value={data.vision}
                                 onChange={e => setData('vision', e.target.value)}
                                 rows="3"
-                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
                         <div className="space-y-4">
@@ -74,7 +74,7 @@ export default function Index({ settings }) {
                                     <input
                                         value={m}
                                         onChange={e => handleMissionChange(i, e.target.value)}
-                                        className="flex-grow px-5 py-3 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none text-sm"
+                                        className="grow px-5 py-3 rounded-lg bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none text-sm"
                                         placeholder={`Misi #${i + 1}`}
                                     />
                                     <button type="button" onClick={() => removeMission(i)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors">🗑️</button>
@@ -87,14 +87,14 @@ export default function Index({ settings }) {
                                 value={data.history}
                                 onChange={e => setData('history', e.target.value)}
                                 rows="6"
-                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Contact Info */}
-                <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <h3 className="text-xl font-bold mb-6 text-emerald-800 flex items-center gap-2">
                         <span>📞</span> Kontak & Alamat
                     </h3>
@@ -104,7 +104,7 @@ export default function Index({ settings }) {
                             <input
                                 value={data.email}
                                 onChange={e => setData('email', e.target.value)}
-                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
                         <div className="space-y-2">
@@ -112,7 +112,7 @@ export default function Index({ settings }) {
                             <input
                                 value={data.phone}
                                 onChange={e => setData('phone', e.target.value)}
-                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
                         <div className="space-y-2 md:col-span-2">
@@ -120,7 +120,7 @@ export default function Index({ settings }) {
                             <input
                                 value={data.address}
                                 onChange={e => setData('address', e.target.value)}
-                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
                         <div className="space-y-2 md:col-span-2">
@@ -128,7 +128,7 @@ export default function Index({ settings }) {
                             <input
                                 value={data.maps_link}
                                 onChange={e => setData('maps_link', e.target.value)}
-                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
                     </div>
@@ -138,7 +138,7 @@ export default function Index({ settings }) {
                     <button
                         type="submit"
                         disabled={processing}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-2xl font-bold shadow-xl shadow-emerald-200 transition-all transform hover:-translate-y-1 active:scale-95 disabled:opacity-50"
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-xl font-bold shadow-xl shadow-emerald-200 transition-all transform hover:-translate-y-1 active:scale-95 disabled:opacity-50"
                     >
                         {processing ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                     </button>

@@ -70,7 +70,7 @@ export default function Index({ lembagas }) {
                 </div>
                 <button
                     onClick={() => openModal()}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-emerald-200 transition-all flex items-center gap-2"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-emerald-200 transition-all flex items-center gap-2"
                 >
                     <span>➕</span> Tambah Lembaga
                 </button>
@@ -78,18 +78,18 @@ export default function Index({ lembagas }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {lembagas.map((item) => (
-                    <div key={item.id} className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-8 flex flex-col hover:shadow-xl hover:shadow-slate-200/50 transition-all group">
+                    <div key={item.id} className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 flex flex-col hover:shadow-xl hover:shadow-slate-200/50 transition-all group">
                         <div className="flex justify-between items-start mb-6">
                             {item.image ? (
-                                <img src={item.image} alt={item.title} className="w-16 h-16 rounded-2xl object-cover shadow-md" />
+                                <img src={item.image} alt={item.title} className="w-16 h-16 rounded-xl object-cover shadow-md" />
                             ) : (
-                                <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-2xl text-slate-400">
+                                <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-2xl text-slate-400">
                                     🏢
                                 </div>
                             )}
                             <div className="flex gap-2">
-                                <button onClick={() => openModal(item)} className="p-2 bg-blue-50 text-blue-600 rounded-xl hover:bg-blue-100 transition-colors">✏️</button>
-                                <button onClick={() => handleDelete(item.id)} className="p-2 bg-rose-50 text-rose-600 rounded-xl hover:bg-rose-100 transition-colors">🗑️</button>
+                                <button onClick={() => openModal(item)} className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">✏️</button>
+                                <button onClick={() => handleDelete(item.id)} className="p-2 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-colors">🗑️</button>
                             </div>
                         </div>
                         <h3 className="text-xl font-bold text-slate-900 mb-2 truncate">{item.title}</h3>
@@ -106,7 +106,7 @@ export default function Index({ lembagas }) {
             {/* Modal Form */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 text-slate-900 overflow-y-auto">
-                    <div className="bg-white w-full max-w-2xl rounded-[3rem] p-10 shadow-2xl animate-in fade-in zoom-in duration-300 my-8">
+                    <div className="bg-white w-full max-w-2xl rounded-2xl p-10 shadow-2xl animate-in fade-in zoom-in duration-300 my-8">
                         <h3 className="text-2xl font-bold mb-6">{editData ? 'Edit Lembaga' : 'Tambah Lembaga Baru'}</h3>
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
@@ -115,7 +115,7 @@ export default function Index({ lembagas }) {
                                     value={data.title}
                                     onChange={e => setData('title', e.target.value)}
                                     type="text"
-                                    className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                    className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                                     placeholder="Contoh: Madrasah Aliyah (MA)"
                                 />
                                 {errors.title && <p className="text-rose-500 text-xs mt-1">{errors.title}</p>}
@@ -128,7 +128,7 @@ export default function Index({ lembagas }) {
                                         onChange={e => setData('image', e.target.files[0])}
                                         type="file"
                                         accept="image/*"
-                                        className="w-full px-5 py-3 rounded-2xl bg-slate-50 text-sm transition-all outline-none"
+                                        className="w-full px-5 py-3 rounded-xl bg-slate-50 text-sm transition-all outline-none"
                                     />
                                     {errors.image && <p className="text-rose-500 text-xs mt-1">{errors.image}</p>}
                                 </div>
@@ -152,7 +152,7 @@ export default function Index({ lembagas }) {
                                     value={data.description}
                                     onChange={e => setData('description', e.target.value)}
                                     rows="2"
-                                    className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                    className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                                     placeholder="Muncul di halaman utama lembaga..."
                                 />
                                 {errors.description && <p className="text-rose-500 text-xs mt-1">{errors.description}</p>}
@@ -164,7 +164,7 @@ export default function Index({ lembagas }) {
                                     value={data.detailed_description}
                                     onChange={e => setData('detailed_description', e.target.value)}
                                     rows="5"
-                                    className="w-full px-5 py-4 rounded-2xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
+                                    className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                                     placeholder="Jelaskan secara detail tentang fasilitas, kurikulum, dll..."
                                 />
                                 {errors.detailed_description && <p className="text-rose-500 text-xs mt-1">{errors.detailed_description}</p>}
@@ -174,14 +174,14 @@ export default function Index({ lembagas }) {
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="flex-grow py-4 border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 transition-colors"
+                                    className="grow py-4 border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 transition-colors"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="flex-grow py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 transition-colors disabled:opacity-50 shadow-lg shadow-emerald-200"
+                                    className="grow py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 shadow-lg shadow-emerald-200"
                                 >
                                     {editData ? 'Simpan Perubahan' : 'Tambah Lembaga'}
                                 </button>

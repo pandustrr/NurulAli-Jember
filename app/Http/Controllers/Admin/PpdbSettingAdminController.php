@@ -9,9 +9,16 @@ use Inertia\Inertia;
 
 class PpdbSettingAdminController extends Controller
 {
-    public function index()
+    public function info()
     {
-        return Inertia::render('Admin/PpdbSettings/Index', [
+        return Inertia::render('Admin/PpdbSettings/Info', [
+            'settings' => PpdbSetting::all()->pluck('value', 'key')
+        ]);
+    }
+
+    public function registration()
+    {
+        return Inertia::render('Admin/PpdbSettings/Registration', [
             'settings' => PpdbSetting::all()->pluck('value', 'key')
         ]);
     }
@@ -27,6 +34,6 @@ class PpdbSettingAdminController extends Controller
             );
         }
 
-        return redirect()->back()->with('success', 'Pengaturan PPDB berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Pengaturan berhasil diperbarui.');
     }
 }
