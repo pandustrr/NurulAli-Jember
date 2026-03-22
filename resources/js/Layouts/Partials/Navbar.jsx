@@ -18,7 +18,7 @@ export default function Navbar() {
 
     const navLinks = [
         { name: 'Beranda', href: '/' },
-        { name: 'About', href: '/about' },
+        { name: 'Tentang', href: '/tentang' },
         { name: 'Lembaga', href: '/lembaga' },
         { name: 'Info PPDB', href: '/info-ppdb' },
         { name: 'Pendaftaran PPDB', href: '/pendaftaran' },

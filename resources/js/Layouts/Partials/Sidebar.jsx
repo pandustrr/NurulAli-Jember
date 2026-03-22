@@ -12,7 +12,9 @@ import {
     ChevronRightIcon,
     ChevronDownIcon,
     InformationCircleIcon,
-    ClipboardDocumentCheckIcon
+    ClipboardDocumentCheckIcon,
+    BuildingLibraryIcon,
+    PhoneIcon
 } from '@heroicons/react/24/outline';
 
 export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
@@ -23,7 +25,8 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
     const menuItems = [
         { name: 'Dashboard', icon: Squares2X2Icon, route: 'dashboard' },
         { name: 'Lembaga', icon: AcademicCapIcon, route: 'admin.lembaga.index', activePattern: 'admin.lembaga.*' },
-        { name: 'Site Settings', icon: Cog6ToothIcon, route: 'admin.settings' },
+        { name: 'Tentang', icon: BuildingLibraryIcon, route: 'admin.tentang' },
+        { name: 'Kontak', icon: PhoneIcon, route: 'admin.kontak' },
     ];
 
     const ppdbSubItems = [

@@ -24,7 +24,7 @@ class PublicController extends Controller
         ]);
     }
 
-    public function about()
+    public function tentang()
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
         return Inertia::render('Public/About/Index', [

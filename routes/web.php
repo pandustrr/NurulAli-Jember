@@ -5,7 +5,8 @@ use App\Http\Controllers\Public\PublicController;
 use App\Http\Controllers\Admin\PpdbController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LembagaAdminController;
-use App\Http\Controllers\Admin\SettingAdminController;
+use App\Http\Controllers\Admin\AboutAdminController;
+use App\Http\Controllers\Admin\KontakAdminController;
 use App\Http\Controllers\Admin\PpdbSettingAdminController;
 use App\Http\Controllers\Admin\MessageAdminController;
 use Illuminate\Foundation\Application;
@@ -15,7 +16,7 @@ use Inertia\Inertia;
 // --- AREA PUBLIK (Akses Terbuka) ---
 Route::get('/', [PublicController::class, 'home'])->name('home');
 
-Route::get('/about', [PublicController::class, 'about'])->name('about');
+Route::get('/tentang', [PublicController::class, 'tentang'])->name('tentang');
 Route::get('/lembaga', [PublicController::class, 'lembaga'])->name('lembaga');
 Route::get('/info-ppdb', [PublicController::class, 'infoPpdb'])->name('info-ppdb');
 Route::get('/pendaftaran', [PublicController::class, 'pendaftaran'])->name('pendaftaran');
@@ -34,8 +35,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // CMS Management
     Route::resource('/admin/lembaga', LembagaAdminController::class)->names('admin.lembaga');
-    Route::get('/admin/settings', [SettingAdminController::class, 'index'])->name('admin.settings');
-    Route::post('/admin/settings', [SettingAdminController::class, 'update'])->name('admin.settings.update');
+    Route::get('/admin/tentang', [AboutAdminController::class, 'index'])->name('admin.tentang');
+    Route::post('/admin/tentang', [AboutAdminController::class, 'update'])->name('admin.tentang.update');
+    Route::get('/admin/kontak', [KontakAdminController::class, 'index'])->name('admin.kontak');
+    Route::post('/admin/kontak', [KontakAdminController::class, 'update'])->name('admin.kontak.update');
     Route::get('/admin/ppdb-info', [PpdbSettingAdminController::class, 'info'])->name('admin.ppdb-info');
     Route::get('/admin/ppdb-registration', [PpdbSettingAdminController::class, 'registration'])->name('admin.ppdb-registration');
     Route::post('/admin/ppdb-settings', [PpdbSettingAdminController::class, 'update'])->name('admin.ppdb-settings.update');
