@@ -2,7 +2,7 @@ import InputError from '@/Components/UI/InputError';
 import InputLabel from '@/Components/UI/InputLabel';
 import PrimaryButton from '@/Components/UI/PrimaryButton';
 import TextInput from '@/Components/UI/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
+import LoginLayout from '@/Layouts/LoginLayout';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
@@ -19,7 +19,7 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <GuestLayout>
+        <LoginLayout>
             <Head title="Confirm Password" />
 
             <div className="mb-4 text-sm text-gray-600">
@@ -50,7 +50,7 @@ export default function ConfirmPassword() {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </LoginLayout>
     );
 }
 

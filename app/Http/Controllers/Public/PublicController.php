@@ -18,7 +18,7 @@ class PublicController extends Controller
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
         $lembagas = Lembaga::all();
-        return Inertia::render('Public/Home', [
+        return Inertia::render('Public/Home/Index', [
             'settings' => $settings,
             'lembagas' => $lembagas
         ]);
@@ -27,7 +27,7 @@ class PublicController extends Controller
     public function about()
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
-        return Inertia::render('Public/About', [
+        return Inertia::render('Public/About/Index', [
             'settings' => $settings
         ]);
     }
@@ -36,7 +36,7 @@ class PublicController extends Controller
     {
         $lembagas = Lembaga::all();
         $settings = SiteSetting::all()->pluck('value', 'key');
-        return Inertia::render('Public/Lembaga', [
+        return Inertia::render('Public/Lembaga/Index', [
             'lembagas' => $lembagas,
             'settings' => $settings
         ]);
@@ -46,7 +46,7 @@ class PublicController extends Controller
     {
         $ppdb_settings = PpdbSetting::all()->pluck('value', 'key');
         $settings = SiteSetting::all()->pluck('value', 'key');
-        return Inertia::render('Public/InfoPpdb', [
+        return Inertia::render('Public/InfoPpdb/Index', [
             'ppdb_settings' => $ppdb_settings,
             'settings' => $settings
         ]);
@@ -55,7 +55,7 @@ class PublicController extends Controller
     public function pendaftaran()
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
-        return Inertia::render('Public/Pendaftaran', [
+        return Inertia::render('Public/Pendaftaran/Index', [
             'settings' => $settings
         ]);
     }
@@ -88,7 +88,7 @@ class PublicController extends Controller
     public function kontak()
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
-        return Inertia::render('Public/Kontak', [
+        return Inertia::render('Public/Kontak/Index', [
             'settings' => $settings
         ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Public\PublicController;
 use App\Http\Controllers\Admin\PpdbController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -36,7 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/admin/lembaga', LembagaAdminController::class)->names('admin.lembaga');
     Route::get('/admin/settings', [SettingAdminController::class, 'index'])->name('admin.settings');
     Route::post('/admin/settings', [SettingAdminController::class, 'update'])->name('admin.settings.update');
-    Route::get('/admin/ppdb-settings', [PpdbSettingAdminController::class, 'index'])->name('admin.ppdb-settings');
+    Route::get('/admin/ppdb-info', [PpdbSettingAdminController::class, 'info'])->name('admin.ppdb-info');
+    Route::get('/admin/ppdb-registration', [PpdbSettingAdminController::class, 'registration'])->name('admin.ppdb-registration');
     Route::post('/admin/ppdb-settings', [PpdbSettingAdminController::class, 'update'])->name('admin.ppdb-settings.update');
     Route::get('/admin/messages', [MessageAdminController::class, 'index'])->name('admin.messages');
     Route::post('/admin/messages/{message}/read', [MessageAdminController::class, 'markAsRead'])->name('admin.messages.read');

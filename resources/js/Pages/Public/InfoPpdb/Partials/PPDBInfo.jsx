@@ -1,0 +1,156 @@
+import React, { useState } from 'react';
+
+export default function PPDBInfo({ ppdb_settings = {} }) {
+    const [activeFaq, setActiveFaq] = useState(null);
+
+    const faqs = ppdb_settings?.faqs ? JSON.parse(ppdb_settings.faqs) : [];
+    const schedules = ppdb_settings?.schedule ? JSON.parse(ppdb_settings.schedule) : [];
+    const requirements = ppdb_settings?.requirements ? JSON.parse(ppdb_settings.requirements) : [];
+    const fees = ppdb_settings?.fees ? JSON.parse(ppdb_settings.fees) : [];
+
+    return (
+        <section className="bg-white">
+            {/* Hero Info PPDB */}
+            <div className="relative py-24 bg-emerald-900 text-white overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                    <div className="grid grid-cols-6 h-full">
+                        {[...Array(24)].map((_, i) => (
+                            <div key={i} className="border-r border-b border-emerald-500/20"></div>
+                        ))}
+                    </div>
+                </div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <span className="inline-block px-4 py-1 bg-emerald-700 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Penerimaan Santri Baru</span>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Informasi PPDB Terbaru</h1>
+                    <p className="text-xl text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
+                        Membuka kesempatan bagi generasi muda untuk menimba ilmu dan menjadi penghafal Al-Qur'an yang unggul.
+                    </p>
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                    {/* Column 1: Jadwal */}
+                    <div className="bg-slate-50/50 rounded-2xl p-10 border border-slate-100">
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="bg-emerald-50 text-emerald-600 p-3 rounded-xl">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900">Jadwal PPDB</h3>
+                        </div>
+
+                        <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200">
+                            {schedules.map((item, i) => (
+                                <div key={i} className="flex gap-6 relative z-10">
+                                    <div className={`w-4 h-4 rounded-full mt-1 border-4 border-white shadow-sm ${item.active ? 'bg-emerald-500 ring-4 ring-emerald-500/20' : 'bg-slate-300'}`}></div>
+                                    <div>
+                                        <div className="flex items-center gap-3">
+                                            <h4 className="font-bold text-slate-900">{item.label}</h4>
+                                            {item.active && <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Aktif</span>}
+                                        </div>
+                                        <p className="text-sm text-slate-500 mt-1">{item.date}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Column 2: Persyaratan */}
+                    <div className="bg-slate-50/50 rounded-2xl p-10 border border-slate-100">
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="bg-amber-50 text-amber-600 p-3 rounded-xl">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900">Persyaratan</h3>
+                        </div>
+
+                        <ul className="space-y-5">
+                            {requirements.map((item, i) => (
+                                <li key={i} className="flex items-start gap-3">
+                                    <div className="mt-1 shrink-0 bg-emerald-100 text-emerald-700 rounded-full p-0.5">
+                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-slate-600 text-sm md:text-base leading-snug">{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Column 3: Biaya */}
+                    <div className="bg-slate-50/50 rounded-2xl p-10 border border-slate-100 flex flex-col">
+                        <div className="flex items-center gap-4 mb-10 shrink-0">
+                            <div className="bg-blue-50 text-blue-600 p-3 rounded-xl">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900">Informasi Biaya</h3>
+                        </div>
+
+                        <div className="space-y-6 grow">
+                            {fees.map((item, i) => (
+                                <div key={i} className="flex justify-between items-center pb-4 border-b border-slate-200 text-sm md:text-base">
+                                    <span className="text-slate-500 font-medium">{item.label}</span>
+                                    <span className="text-emerald-800 font-bold">{item.price}</span>
+                                </div>
+                            ))}
+
+                            <div className="mt-8 bg-amber-50 p-6 rounded-xl border border-amber-100 flex gap-4">
+                                <div className="text-amber-600 shrink-0 mt-1">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <p className="text-xs text-amber-800 leading-relaxed font-medium">
+                                    Tersedia beasiswa bagi santri berprestasi & kurang mampu. Hubungi admin untuk informasi lebih lanjut.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* FAQ Section */}
+                <div className="mt-32">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Pertanyaan Sering Diajukan (FAQ)</h2>
+                        <p className="text-slate-500 italic">Temukan jawaban cepat untuk pertanyaan umum seputar pendaftaran.</p>
+                    </div>
+
+                    <div className="max-w-3xl mx-auto space-y-4">
+                        {faqs.map((faq, i) => (
+                            <div key={i} className="border border-slate-100 rounded-xl overflow-hidden transition-all duration-300">
+                                <button
+                                    onClick={() => setActiveFaq(activeFaq === i ? null : i)}
+                                    className={`w-full p-6 text-left flex justify-between items-center transition-colors ${activeFaq === i ? 'bg-emerald-50 text-emerald-900' : 'bg-white text-slate-900 hover:bg-slate-50'}`}
+                                >
+                                    <span className="font-bold">{faq.q}</span>
+                                    <span className={`transform transition-transform duration-300 ${activeFaq === i ? 'rotate-180' : ''}`}>
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </span>
+                                </button>
+                                <div className={`overflow-hidden transition-all duration-300 ${activeFaq === i ? 'max-h-64 opacity-100 border-t border-emerald-100' : 'max-h-0 opacity-0'}`}>
+                                    <div className="p-6 text-slate-600 text-sm leading-relaxed bg-emerald-50/30">
+                                        {faq.a}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mt-24 text-center pb-12">
+                    <p className="text-slate-500 mb-6">Masih punya pertanyaan lainnya?</p>
+                    <a href="/kontak" className="text-emerald-700 font-bold hover:underline">Hubungi Admin PPDB via WhatsApp &rarr;</a>
+                </div>
+            </div>
+        </section>
+    );
+}
