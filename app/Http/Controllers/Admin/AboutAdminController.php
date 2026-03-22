@@ -7,11 +7,11 @@ use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class SettingAdminController extends Controller
+class AboutAdminController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Settings/Index', [
+        return Inertia::render('Admin/About/Index', [
             'settings' => SiteSetting::all()->pluck('value', 'key')
         ]);
     }
@@ -27,6 +27,6 @@ class SettingAdminController extends Controller
             );
         }
 
-        return redirect()->back()->with('success', 'Pengaturan berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Informasi sekolah berhasil diperbarui.');
     }
 }

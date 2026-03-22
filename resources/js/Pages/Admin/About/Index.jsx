@@ -5,15 +5,11 @@ export default function Index({ settings }) {
     // Parse JSON strings back to arrays if needed
     const missionArray = settings.mission ? JSON.parse(settings.mission) : [];
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing } = useForm({
         school_name: settings.school_name || '',
         vision: settings.vision || '',
         mission: missionArray,
         history: settings.history || '',
-        email: settings.email || '',
-        phone: settings.phone || '',
-        address: settings.address || '',
-        maps_link: settings.maps_link || '',
     });
 
     const handleMissionChange = (index, value) => {
@@ -33,18 +29,18 @@ export default function Index({ settings }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('admin.settings.update'));
+        post(route('admin.tentang.update'));
     };
 
     return (
-        <AdminLayout header="Pengaturan Website">
-            <Head title="Admin - Settings" />
+        <AdminLayout header="Pengaturan Konten (Tentang)">
+            <Head title="Admin - Tentang" />
 
             <form onSubmit={submit} className="max-w-4xl space-y-8">
                 {/* General Info */}
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <h3 className="text-xl font-bold mb-6 text-emerald-800 flex items-center gap-2">
-                        <span>🏫</span> Informasi Umum
+                        <span>🏫</span> Profil & Visi Misi
                     </h3>
                     <div className="space-y-6">
                         <div className="space-y-2">
@@ -82,52 +78,11 @@ export default function Index({ settings }) {
                             ))}
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700">Sejarah Singkat</label>
+                            <label className="text-sm font-bold text-slate-700">Sejarah Singkat (Tampil di Hal. About)</label>
                             <textarea
                                 value={data.history}
                                 onChange={e => setData('history', e.target.value)}
-                                rows="6"
-                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Contact Info */}
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                    <h3 className="text-xl font-bold mb-6 text-emerald-800 flex items-center gap-2">
-                        <span>📞</span> Kontak & Alamat
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700">Email</label>
-                            <input
-                                value={data.email}
-                                onChange={e => setData('email', e.target.value)}
-                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700">Telepon / Whatsapp</label>
-                            <input
-                                value={data.phone}
-                                onChange={e => setData('phone', e.target.value)}
-                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
-                            />
-                        </div>
-                        <div className="space-y-2 md:col-span-2">
-                            <label className="text-sm font-bold text-slate-700">Alamat Lengkap</label>
-                            <input
-                                value={data.address}
-                                onChange={e => setData('address', e.target.value)}
-                                className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
-                            />
-                        </div>
-                        <div className="space-y-2 md:col-span-2">
-                            <label className="text-sm font-bold text-slate-700">Link Google Maps (URL)</label>
-                            <input
-                                value={data.maps_link}
-                                onChange={e => setData('maps_link', e.target.value)}
+                                rows="8"
                                 className="w-full px-5 py-4 rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-emerald-500 transition-all outline-none"
                             />
                         </div>
@@ -140,7 +95,7 @@ export default function Index({ settings }) {
                         disabled={processing}
                         className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-xl font-bold shadow-xl shadow-emerald-200 transition-all transform hover:-translate-y-1 active:scale-95 disabled:opacity-50"
                     >
-                        {processing ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
+                        {processing ? 'Menyimpan...' : 'Simpan Perubahan Tentang'}
                     </button>
                 </div>
             </form>

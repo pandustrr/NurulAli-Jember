@@ -6,25 +6,25 @@ export default function Footer() {
     const { site_settings } = usePage().props;
 
     return (
-        <footer id="kontak" className="bg-slate-950 text-white py-20">
+        <footer id="kontak" className="bg-slate-950 text-white py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-10">
                     <div className="col-span-1 md:col-span-2">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="bg-emerald-600 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="bg-emerald-600 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xl">
                                 ن
                             </div>
-                            <span className="text-2xl font-bold tracking-tight">{site_settings?.site_name || 'Nurul Ali'}</span>
+                            <span className="text-xl font-bold tracking-tight">{site_settings?.site_name || 'Nurul Ali'}</span>
                         </div>
-                        <p className="text-slate-400 max-w-sm leading-relaxed">
+                        <p className="text-slate-400 max-w-sm leading-relaxed text-sm">
                             {site_settings?.vision || 'Pondok Pesantren Nurul Ali berkomitmen mencetak generasi yang unggul dalam Imtaq dan Iptek, berakhlakul karimah, dan mandiri.'}
                         </p>
                     </div>
 
                     <div>
-                        <h4 className="text-lg font-bold mb-6 text-emerald-500 uppercase tracking-widest text-sm">Tautan Cepat</h4>
-                        <ul className="space-y-4 text-slate-400">
-                            <li><Link href="/about" className="hover:text-emerald-500 transition-colors">Tentang Kami</Link></li>
+                        <h4 className="font-bold mb-4 text-emerald-500 uppercase tracking-widest text-xs">Tautan Cepat</h4>
+                        <ul className="space-y-3 text-slate-400 text-sm">
+                            <li><Link href="/tentang" className="hover:text-emerald-500 transition-colors">Tentang Kami</Link></li>
                             <li><Link href="/lembaga" className="hover:text-emerald-500 transition-colors">Lembaga Pendidikan</Link></li>
                             <li><Link href="/info-ppdb" className="hover:text-emerald-500 transition-colors">Informasi PPDB</Link></li>
                             <li><Link href="/pendaftaran" className="hover:text-emerald-500 transition-colors">Pendaftaran</Link></li>
@@ -33,7 +33,7 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="text-lg font-bold mb-6 text-emerald-500 uppercase tracking-widest text-sm">Hubungi Kami</h4>
+                        <h4 className="font-bold mb-4 text-emerald-500 uppercase tracking-widest text-xs">Hubungi Kami</h4>
                         <ul className="space-y-4 text-slate-400 text-sm">
                             <li className="flex items-start gap-3 leading-relaxed">
                                 <MapPinIcon className="w-5 h-5 text-emerald-500 mt-1 shrink-0" />

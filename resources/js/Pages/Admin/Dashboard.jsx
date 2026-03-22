@@ -75,8 +75,8 @@ export default function Dashboard({ stats, recent_pendaftars }) {
                             <span>Quick Actions</span>
                         </h3>
                         <div className="space-y-4">
-                            <Link href={route('admin.lembaga.index')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-all border border-white/10">Update Data Lembaga</Link>
-                            <Link href={route('admin.ppdb-settings')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-all border border-white/10">Ubah Jadwal PPDB</Link>
+                            <Link href={route('admin.lembaga.index')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-all border border-white/10 outline-none">Update Data Lembaga</Link>
+                            <Link href={route('admin.ppdb-registration')} className="block w-full text-center py-4 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-all border border-white/10 outline-none">Ubah Jadwal PPDB</Link>
                         </div>
                     </div>
                     <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
