@@ -41,6 +41,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/kontak', [KontakAdminController::class, 'index'])->name('admin.kontak');
     Route::post('/admin/kontak', [KontakAdminController::class, 'update'])->name('admin.kontak.update');
     Route::get('/admin/ppdb-info', [PpdbSettingAdminController::class, 'info'])->name('admin.ppdb-info');
+    Route::get('/admin/ppdb-examples', [PpdbSettingAdminController::class, 'examples'])->name('admin.ppdb-examples');
+    Route::post('/admin/ppdb-examples', [PpdbSettingAdminController::class, 'storeExample'])->name('admin.ppdb-examples.store');
+    Route::delete('/admin/ppdb-examples/{example}', [PpdbSettingAdminController::class, 'destroyExample'])->name('admin.ppdb-examples.destroy');
     Route::get('/admin/ppdb-registration', [PpdbSettingAdminController::class, 'registration'])->name('admin.ppdb-registration');
     Route::post('/admin/ppdb-settings', [PpdbSettingAdminController::class, 'update'])->name('admin.ppdb-settings.update');
     Route::get('/admin/messages', [MessageAdminController::class, 'index'])->name('admin.messages');

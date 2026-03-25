@@ -93,111 +93,109 @@ export default function Accounts({ lembagas }) {
         >
             <Head title="Admin - Akun Lembaga" />
 
-            <div className="mb-10 flex flex-col xl:flex-row xl:items-end justify-end gap-8">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    {/* Quick Filters */}
-                    <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
-                        <button 
-                            onClick={() => setActiveFilter('all')}
-                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === 'all' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-                        >
-                            Semua ({lembagas.length})
-                        </button>
-                        <button 
-                            onClick={() => setActiveFilter('completed')}
-                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === 'completed' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-                        >
-                            Sudah Set
-                        </button>
-                        <button 
-                            onClick={() => setActiveFilter('incomplete')}
-                            className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === 'incomplete' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-                        >
-                            Belum Lengkap
-                        </button>
+            <div className="max-w-6xl mx-auto space-y-6 pb-20 font-medium">
+                {/* Static Filter & Search Bar */}
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-slate-100/30 p-5 rounded-2xl border border-slate-100 mb-8 font-bold">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 grow">
+                        {/* Quick Filters (Pill Style) */}
+                        <div className="flex bg-slate-200/50 p-1 rounded-xl border border-slate-200/50 font-bold shrink-0">
+                            {[
+                                { id: 'all', label: `Semua (${lembagas.length})` },
+                                { id: 'completed', label: 'Lengkap' },
+                                { id: 'incomplete', label: 'Belum Set' }
+                            ].map((filter) => (
+                                <button
+                                    key={filter.id}
+                                    onClick={() => setActiveFilter(filter.id)}
+                                    className={`px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all duration-300 ${activeFilter === filter.id ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-white/40'}`}
+                                >
+                                    {filter.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Modern Search Input */}
+                        <div className="relative group grow max-w-md">
+                            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                <MagnifyingGlassIcon className={`h-4 w-4 transition-colors duration-300 ${searchQuery ? 'text-emerald-500' : 'text-slate-400 group-focus-within:text-emerald-500'}`} />
+                            </div>
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Cari lembaga atau nama pengelola..."
+                                className="block w-full pl-10 pr-10 py-2.5 bg-white border border-slate-100 rounded-xl text-[11px] font-bold text-slate-700 placeholder:text-slate-300 focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500/30 outline-none transition-all"
+                            />
+                            {searchQuery && (
+                                <button 
+                                    onClick={() => setSearchQuery('')} 
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-300 hover:text-rose-500 transition-colors focus:outline-none"
+                                >
+                                    <XMarkIcon className="h-4 w-4" />
+                                </button>
+                            )}
+                        </div>
                     </div>
 
                     <button 
                         onClick={openAddModal}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3.5 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-emerald-200/50 flex items-center gap-2 transition-all active:scale-95"
+                        className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-xl shadow-slate-200/50 flex items-center justify-center gap-2.5 transition-all active:scale-95 shrink-0"
                     >
                         <PlusIcon className="w-4 h-4" />
-                        Tambah Lembaga
+                        <span>Tambah Lembaga</span>
                     </button>
                 </div>
-            </div>
 
-            <div className="mb-6">
-                {/* Search Bar */}
-                <div className="relative w-full group max-w-md">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <MagnifyingGlassIcon className="h-5 w-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
-                    </div>
-                    <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Ketik nama lembaga atau admin..."
-                        className="block w-full pl-11 pr-10 py-4 bg-white border border-slate-100 rounded-2xl text-sm font-bold text-slate-700 shadow-sm focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
-                    />
-                    {searchQuery && (
-                        <button onClick={() => setSearchQuery('')} className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-300 hover:text-slate-700 transition-colors">
-                            <XMarkIcon className="h-5 w-5" />
-                        </button>
-                    )}
-                </div>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-100/60 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-slate-50/50 border-b border-slate-100">
-                                <th className="p-5 pl-8 text-[11px] font-black text-slate-400 uppercase tracking-widest">Lembaga</th>
-                                <th className="p-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Kepala / Admin</th>
-                                <th className="p-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Username Login</th>
-                                <th className="p-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">Kontak & Email</th>
-                                <th className="p-5 pr-8 text-[11px] font-black text-slate-400 uppercase tracking-widest text-right">Aksi</th>
+                            <tr className="bg-slate-50/50 border-b border-slate-100/50">
+                                <th className="p-4 pl-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Lembaga Terdaftar</th>
+                                <th className="p-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Pengelola / Admin</th>
+                                <th className="p-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Username Login</th>
+                                <th className="p-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Informasi Kontak</th>
+                                <th className="p-4 pr-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Opsi Pengelolaan</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
                             {filteredLembagas.map((item) => (
-                                <tr key={item.id} className="hover:bg-slate-50/30 transition-colors group">
-                                    <td className="p-5 pl-8">
+                                <tr key={item.id} className="hover:bg-slate-50/20 transition-colors group">
+                                    <td className="p-4 pl-6">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-black">
+                                            <div className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 flex items-center justify-center text-base font-black transition-colors border border-slate-100">
                                                 {item.title.charAt(0)}
                                             </div>
                                             <div>
-                                                <span className="block font-bold text-slate-800 tracking-tight">{item.title}</span>
-                                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">ID: #{item.id.toString().padStart(3, '0')}</span>
+                                                <span className="block font-bold text-slate-800 tracking-tight text-[13px]">{item.title}</span>
+                                                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Registered ID: #{item.id}</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="p-5 text-sm font-bold text-slate-600">
+                                    <td className="p-4 text-[13px] font-bold text-slate-600">
                                         {item.admin_name || '-'}
                                     </td>
-                                    <td className="p-5">
-                                        <code className="bg-emerald-50 px-2.5 py-1 rounded-lg text-[11px] font-black text-emerald-700 tracking-tight border border-emerald-100 shadow-sm">
+                                    <td className="p-4">
+                                        <code className="bg-slate-50 group-hover:bg-emerald-50 px-2.5 py-1 rounded text-[10px] font-black text-slate-500 group-hover:text-emerald-700 tracking-tight border border-slate-100 group-hover:border-emerald-100 shadow-sm transition-all">
                                             {item.username || '(belum set)'}
                                         </code>
                                     </td>
-                                    <td className="p-5">
-                                        <div className="space-y-1.5">
-                                            <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
-                                                <EnvelopeIcon className="w-3.5 h-3.5 text-slate-400" />
+                                    <td className="p-4">
+                                        <div className="space-y-1">
+                                            <div className="flex items-center gap-2 text-[10px] text-slate-500 font-medium">
+                                                <EnvelopeIcon className="w-3.5 h-3.5 text-slate-300" />
                                                 <span>{item.email || '-'}</span>
                                             </div>
-                                            <div className="flex items-center gap-2 text-[11px] text-slate-700 font-black">
+                                            <div className="flex items-center gap-2 text-[10px] text-slate-700 font-black">
                                                 <PhoneIcon className="w-3.5 h-3.5 text-emerald-500" />
                                                 <span>{item.contact || '-'}</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="p-5 pr-8 text-right">
+                                    <td className="p-4 pr-6 text-right">
                                         <button 
                                             onClick={() => openEditModal(item)}
-                                            className="px-4 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition-all shadow-sm flex items-center gap-2 ml-auto active:scale-95"
+                                            className="px-4 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition-all shadow-sm flex items-center gap-2 ml-auto active:scale-95"
                                         >
                                             <PencilSquareIcon className="w-3.5 h-3.5" />
                                             <span>Update Akun</span>
@@ -208,6 +206,8 @@ export default function Accounts({ lembagas }) {
                         </tbody>
                     </table>
                 </div>
+            </div>
+
             </div>
 
             <LembagaAccountModal 

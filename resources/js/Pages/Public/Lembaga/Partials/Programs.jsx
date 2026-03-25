@@ -36,7 +36,7 @@ export default function Programs({ lembagas = [] }) {
                                 className="group relative bg-white p-10 rounded-2xl border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-900/10 hover:-translate-y-3 cursor-pointer"
                             >
                                 <div className="absolute top-0 right-0 p-8 text-slate-100 group-hover:text-emerald-500/20 transition-colors duration-500 pointer-events-none">
-                                    <span className="text-6xl font-bold opacity-10 italic">0{index + 1}</span>
+                                    <span className="text-6xl font-bold opacity-10">0{index + 1}</span>
                                 </div>
 
                                 <div className={`${style.color} w-16 h-16 rounded-xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 text-2xl`}>
