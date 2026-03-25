@@ -39,7 +39,7 @@ export default function About({ settings }) {
                                 <FlagIcon className="w-10 h-10 text-emerald-600" />
                                 <h3 className="text-2xl font-bold text-slate-900">Visi Kami</h3>
                             </div>
-                            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed italic">
+                            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
                                 "{settings.vision}"
                             </p>
                         </div>
@@ -71,7 +71,7 @@ export default function About({ settings }) {
                                 />
                             </div>
                             <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-xl shadow-xl border border-slate-50 max-w-xs">
-                                <p className="text-slate-500 italic text-sm leading-relaxed">
+                                <p className="text-slate-500 text-sm leading-relaxed">
                                     "Membentuk santri yang tidak hanya alim secara intelektual, tapi juga mulia dalam akhlak dan mandiri dalam kehidupan."
                                 </p>
                             </div>

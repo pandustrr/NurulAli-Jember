@@ -113,6 +113,7 @@ class PublicDataSeeder extends Seeder
 
         // PPDB Settings
         $ppdb = [
+            'ppdb_info' => "Pendaftaran Santri Baru Pondok Pesantren Nurul Ali Jember dilakukan secara online melalui website ini.\n\nAlur Pendaftaran:\n1. Mengisi formulir pendaftaran pada halaman 'Pendaftaran'.\n2. Melakukan konfirmasi pembayaran biaya pendaftaran.\n3. Mengunggah berkas persyaratan (Akta, KK, Ijazah).\n4. Mengikuti tes seleksi (Wawancara & Baca Tulis Al-Qur'an).\n5. Pengumuman Kelulusan.\n6. Daftar ulang.",
             'schedule' => json_encode([
                 ['label' => 'Gelombang I', 'date' => '1 Januari - 28 Februari 2026', 'active' => false],
                 ['label' => 'Gelombang II', 'date' => '1 Maret - 30 April 2026', 'active' => true],

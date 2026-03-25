@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\Lembaga;
 use App\Models\SiteSetting;
+use App\Models\PpdbExample;
 use App\Models\PpdbSetting;
 use App\Models\Pendaftar;
 use App\Models\Message;
@@ -48,15 +49,17 @@ class PublicController extends Controller
         $settings = SiteSetting::all()->pluck('value', 'key');
         return Inertia::render('Public/InfoPpdb/Index', [
             'ppdb_settings' => $ppdb_settings,
-            'settings' => $settings
+            'settings' => $settings,
         ]);
     }
 
     public function pendaftaran()
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
+        $examples = PpdbExample::all();
         return Inertia::render('Public/Pendaftaran/Index', [
-            'settings' => $settings
+            'settings' => $settings,
+            'examples' => $examples
         ]);
     }
 

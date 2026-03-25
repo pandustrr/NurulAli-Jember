@@ -1,154 +1,242 @@
 import React, { useState } from 'react';
+import { 
+    CheckCircleIcon, 
+    InformationCircleIcon, 
+    QuestionMarkCircleIcon, 
+    ChevronDownIcon,
+    PaperClipIcon,
+    ArrowRightIcon,
+    CalendarDaysIcon,
+    BanknotesIcon,
+    ClipboardDocumentListIcon,
+    ClockIcon
+} from '@heroicons/react/24/outline';
 
 export default function PPDBInfo({ ppdb_settings = {} }) {
     const [activeFaq, setActiveFaq] = useState(null);
 
+    // Parse Settings Data
     const faqs = ppdb_settings?.faqs ? JSON.parse(ppdb_settings.faqs) : [];
-    const schedules = ppdb_settings?.schedule ? JSON.parse(ppdb_settings.schedule) : [];
+    const schedule = ppdb_settings?.schedule ? JSON.parse(ppdb_settings.schedule) : [];
     const requirements = ppdb_settings?.requirements ? JSON.parse(ppdb_settings.requirements) : [];
     const fees = ppdb_settings?.fees ? JSON.parse(ppdb_settings.fees) : [];
+    const infoText = ppdb_settings?.ppdb_info || "Informasi pendaftaran belum tersedia.";
 
     return (
-        <section className="bg-white">
-            {/* Hero Info PPDB */}
-            <div className="relative py-24 bg-emerald-900 text-white overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full opacity-10">
-                    <div className="grid grid-cols-6 h-full">
-                        {[...Array(24)].map((_, i) => (
-                            <div key={i} className="border-r border-b border-emerald-500/20"></div>
+        <section className="bg-slate-50/50 min-h-screen font-medium">
+            {/* Header Hero */}
+            <div className="bg-emerald-950 pt-40 pb-28 px-4 relative overflow-hidden text-center">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="grid grid-cols-12 h-full">
+                        {[...Array(48)].map((_, i) => (
+                            <div key={i} className="border-r border-b border-emerald-400/20"></div>
                         ))}
                     </div>
                 </div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <span className="inline-block px-4 py-1 bg-emerald-700 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Penerimaan Santri Baru</span>
-                    <h1 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Informasi PPDB Terbaru</h1>
-                    <p className="text-xl text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
-                        Membuka kesempatan bagi generasi muda untuk menimba ilmu dan menjadi penghafal Al-Qur'an yang unggul.
+                <div className="relative z-10 max-w-4xl mx-auto">
+                    <span className="inline-block px-5 py-2 bg-emerald-600/30 backdrop-blur-md rounded-full text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-emerald-500/20">
+                        Enrollment Center
+                    </span>
+                    <h1 className="text-4xl md:text-7xl font-black text-white mb-8 tracking-tighter uppercase leading-none">
+                        Informasi <span className="text-emerald-500">Pendaftaran</span>
+                    </h1>
+                    <p className="text-lg md:text-xl text-emerald-100/60 max-w-2xl mx-auto leading-relaxed font-medium">
+                        Temukan seluruh detail yang Anda butuhkan untuk bergabung menjadi keluarga besar Pondok Pesantren Nurul Ali Jember.
                     </p>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-                    {/* Column 1: Jadwal */}
-                    <div className="bg-slate-50/50 rounded-2xl p-10 border border-slate-100">
-                        <div className="flex items-center gap-4 mb-10">
-                            <div className="bg-emerald-50 text-emerald-600 p-3 rounded-xl">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20 pb-24">
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12">
+                    
+                    {/* Main Content Area */}
+                    <div className="xl:col-span-8 space-y-12">
+                        
+                        {/* 1. Jadwal Gelombang */}
+                        <div className="bg-white p-6 md:p-10 rounded-3xl shadow-xl shadow-slate-200/40 border border-white">
+                            <div className="flex items-center gap-4 border-b border-slate-50 pb-6 mb-8">
+                                <div className="bg-emerald-50 p-2.5 rounded-xl text-emerald-600">
+                                    <CalendarDaysIcon className="w-7 h-7" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight uppercase">Jadwal Gelombang</h3>
+                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Masa pendaftaran santri baru aktif</p>
+                                </div>
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900">Jadwal PPDB</h3>
-                        </div>
-
-                        <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200">
-                            {schedules.map((item, i) => (
-                                <div key={i} className="flex gap-6 relative z-10">
-                                    <div className={`w-4 h-4 rounded-full mt-1 border-4 border-white shadow-sm ${item.active ? 'bg-emerald-500 ring-4 ring-emerald-500/20' : 'bg-slate-300'}`}></div>
-                                    <div>
-                                        <div className="flex items-center gap-3">
-                                            <h4 className="font-bold text-slate-900">{item.label}</h4>
-                                            {item.active && <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Aktif</span>}
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {schedule.length === 0 && (
+                                    <div className="col-span-full py-12 text-center text-slate-300 font-black uppercase text-[10px] tracking-widest">
+                                        Data jadwal belum tersedia
+                                    </div>
+                                )}
+                                {schedule.map((item, i) => (
+                                    <div key={i} className={`p-6 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 ${item.active ? 'bg-emerald-50/50 border-emerald-100 shadow-lg shadow-emerald-900/5 ring-1 ring-emerald-500/20' : 'bg-slate-50/50 border-slate-100 opacity-60'}`}>
+                                        <div className="min-w-0">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <h4 className="font-black text-slate-800 text-lg tracking-tight truncate">{item.label}</h4>
+                                                {item.active && (
+                                                    <span className="bg-emerald-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase">Aktif</span>
+                                                )}
+                                            </div>
+                                            <div className="flex items-center gap-2 text-slate-500 font-bold text-xs tracking-tight">
+                                                <ClockIcon className="w-3.5 h-3.5" />
+                                                <span>{item.date}</span>
+                                            </div>
                                         </div>
-                                        <p className="text-sm text-slate-500 mt-1">{item.date}</p>
+                                        <div className={`shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${item.active ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-400'}`}>
+                                            <CalendarDaysIcon className="w-5 h-5" />
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Column 2: Persyaratan */}
-                    <div className="bg-slate-50/50 rounded-2xl p-10 border border-slate-100">
-                        <div className="flex items-center gap-4 mb-10">
-                            <div className="bg-amber-50 text-amber-600 p-3 rounded-xl">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                                ))}
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900">Persyaratan</h3>
                         </div>
 
-                        <ul className="space-y-5">
-                            {requirements.map((item, i) => (
-                                <li key={i} className="flex items-start gap-3">
-                                    <div className="mt-1 shrink-0 bg-emerald-100 text-emerald-700 rounded-full p-0.5">
-                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7" />
-                                        </svg>
+                        {/* 2. Informasi Umum */}
+                        <div className="bg-white p-6 md:p-10 rounded-3xl shadow-xl shadow-slate-200/40 border border-white">
+                            <div className="flex items-center gap-4 border-b border-slate-50 pb-6 mb-8">
+                                <div className="bg-emerald-50 p-2.5 rounded-xl text-emerald-600">
+                                    <InformationCircleIcon className="w-7 h-7" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight uppercase">Informasi Umum</h3>
+                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Alur dan panduan pendaftaran</p>
+                                </div>
+                            </div>
+                            <div className="prose prose-emerald max-w-none text-slate-600 leading-relaxed text-sm md:text-base whitespace-pre-line font-bold">
+                                {infoText}
+                            </div>
+                        </div>
+
+                        {/* 3. Persyaratan Berkas */}
+                        <div className="bg-white p-6 md:p-10 rounded-3xl shadow-xl shadow-slate-200/40 border border-white">
+                            <div className="flex items-center gap-4 border-b border-slate-50 pb-6 mb-8">
+                                <div className="bg-emerald-50 p-2.5 rounded-xl text-emerald-600">
+                                    <ClipboardDocumentListIcon className="w-7 h-7" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight uppercase">Dokumen Persyaratan</h3>
+                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Berkas wajib yang harus disiapkan</p>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {requirements.length === 0 && (
+                                    <div className="col-span-full py-12 text-center text-slate-300 font-black uppercase text-[10px] tracking-widest">
+                                        Data persyaratan belum tersedia
                                     </div>
-                                    <span className="text-slate-600 text-sm md:text-base leading-snug">{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Column 3: Biaya */}
-                    <div className="bg-slate-50/50 rounded-2xl p-10 border border-slate-100 flex flex-col">
-                        <div className="flex items-center gap-4 mb-10 shrink-0">
-                            <div className="bg-blue-50 text-blue-600 p-3 rounded-xl">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                </svg>
+                                )}
+                                {requirements.map((req, i) => (
+                                    <div key={i} className="flex gap-4 p-5 bg-slate-50/50 rounded-2xl border border-slate-100 items-start group hover:bg-white hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300">
+                                        <div className="bg-emerald-100 text-emerald-600 p-1.5 rounded-lg shrink-0 mt-0.5 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                            <CheckCircleIcon className="w-4 h-4" />
+                                        </div>
+                                        <span className="text-slate-700 font-black text-[13px] leading-tight transition-colors">
+                                            {req}
+                                        </span>
+                                    </div>
+                                ))}
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900">Informasi Biaya</h3>
                         </div>
 
-                        <div className="space-y-6 grow">
-                            {fees.map((item, i) => (
-                                <div key={i} className="flex justify-between items-center pb-4 border-b border-slate-200 text-sm md:text-base">
-                                    <span className="text-slate-500 font-medium">{item.label}</span>
-                                    <span className="text-emerald-800 font-bold">{item.price}</span>
+                        {/* 4. Rincian Biaya */}
+                        <div className="bg-white p-6 md:p-10 rounded-3xl shadow-xl shadow-slate-200/40 border border-white">
+                            <div className="flex items-center gap-4 border-b border-slate-50 pb-6 mb-8">
+                                <div className="bg-emerald-50 p-2.5 rounded-xl text-emerald-600">
+                                    <BanknotesIcon className="w-7 h-7" />
                                 </div>
-                            ))}
-
-                            <div className="mt-8 bg-amber-50 p-6 rounded-xl border border-amber-100 flex gap-4">
-                                <div className="text-amber-600 shrink-0 mt-1">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight uppercase">Rincian Biaya</h3>
+                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Estimasi administrasi pendaftaran</p>
                                 </div>
-                                <p className="text-xs text-amber-800 leading-relaxed font-medium">
-                                    Tersedia beasiswa bagi santri berprestasi & kurang mampu. Hubungi admin untuk informasi lebih lanjut.
+                            </div>
+                            <div className="space-y-3">
+                                {fees.length === 0 && (
+                                    <div className="py-12 text-center text-slate-300 font-black uppercase text-[10px] tracking-widest">
+                                        Data rincian biaya belum tersedia
+                                    </div>
+                                )}
+                                {fees.map((fee, i) => (
+                                    <div key={i} className="flex justify-between items-center bg-slate-50/50 p-5 rounded-2xl border border-slate-100 hover:bg-emerald-50/30 hover:border-emerald-100 transition-all duration-300">
+                                        <h4 className="font-black text-slate-700 text-sm">{fee.label}</h4>
+                                        <span className="font-black text-emerald-700 text-lg tracking-tighter">{fee.price}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            {fees.length > 0 && (
+                                <p className="mt-8 p-4 bg-emerald-900/5 rounded-2xl text-[11px] text-emerald-800 font-bold leading-relaxed border border-emerald-100 text-center">
+                                    * Biaya pendaftaran di atas bersifat estimasi dan dapat berubah sewaktu-waktu sesuai kebijakan pengasuh.
                                 </p>
+                            )}
+                        </div>
+
+                    </div>
+
+                    {/* Sidebar Area */}
+                    <div className="xl:col-span-4 space-y-8 lg:sticky lg:top-32 h-fit">
+                        
+                        {/* Action Card */}
+                        <div className="bg-emerald-900 p-8 rounded-[40px] shadow-2xl shadow-emerald-950/20 text-white relative overflow-hidden group">
+                            <div className="absolute -right-16 -top-16 w-48 h-48 bg-emerald-600/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-1000"></div>
+                            <h4 className="text-2xl font-black mb-4 tracking-tight leading-tight uppercase">Siap Menjadi Santri Kami?</h4>
+                            <p className="text-emerald-100/60 mb-8 text-sm leading-relaxed font-bold">
+                                Klik tombol di bawah ini untuk mengisi formulir pendaftaran secara online.
+                            </p>
+                            <a 
+                                href="/pendaftaran" 
+                                className="w-full bg-white text-emerald-900 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-emerald-50 transition-all active:scale-95 group shadow-lg shadow-emerald-950/20"
+                            >
+                                Daftar Sekarang <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </a>
+                        </div>
+
+                        {/* FAQ Sidebar */}
+                        <div className="bg-white p-8 rounded-[40px] shadow-xl shadow-slate-200/40 border border-white overflow-hidden">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="bg-emerald-100 p-2 rounded-xl text-emerald-600">
+                                    <QuestionMarkCircleIcon className="w-5 h-5" />
+                                </div>
+                                <h4 className="text-lg font-black text-slate-800 tracking-tighter uppercase">Pertanyaan Umum</h4>
+                            </div>
+                            <div className="space-y-3">
+                                {faqs.map((faq, i) => (
+                                    <div key={i} className="border border-slate-50 rounded-2xl overflow-hidden hover:border-emerald-100 transition-colors">
+                                        <button 
+                                            onClick={() => setActiveFaq(activeFaq === i ? null : i)}
+                                            className="w-full text-left p-5 flex justify-between items-center gap-4 bg-slate-50/50 hover:bg-emerald-50/20 transition-colors"
+                                        >
+                                            <span className="text-[11px] font-black text-slate-700 tracking-tight leading-snug">{faq.q}</span>
+                                            <ChevronDownIcon className={`w-3.5 h-3.5 text-emerald-500 transition-transform duration-300 ${activeFaq === i ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <div className={`overflow-hidden transition-all duration-300 ${activeFaq === i ? 'max-h-64' : 'max-h-0'}`}>
+                                            <div className="p-5 text-[11px] text-slate-500 leading-relaxed font-bold bg-white border-t border-slate-50">
+                                                {faq.a}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                {/* FAQ Section */}
-                <div className="mt-32">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Pertanyaan Sering Diajukan (FAQ)</h2>
-                        <p className="text-slate-500 italic">Temukan jawaban cepat untuk pertanyaan umum seputar pendaftaran.</p>
-                    </div>
-
-                    <div className="max-w-3xl mx-auto space-y-4">
-                        {faqs.map((faq, i) => (
-                            <div key={i} className="border border-slate-100 rounded-xl overflow-hidden transition-all duration-300">
-                                <button
-                                    onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                                    className={`w-full p-6 text-left flex justify-between items-center transition-colors ${activeFaq === i ? 'bg-emerald-50 text-emerald-900' : 'bg-white text-slate-900 hover:bg-slate-50'}`}
-                                >
-                                    <span className="font-bold">{faq.q}</span>
-                                    <span className={`transform transition-transform duration-300 ${activeFaq === i ? 'rotate-180' : ''}`}>
-                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </span>
-                                </button>
-                                <div className={`overflow-hidden transition-all duration-300 ${activeFaq === i ? 'max-h-64 opacity-100 border-t border-emerald-100' : 'max-h-0 opacity-0'}`}>
-                                    <div className="p-6 text-slate-600 text-sm leading-relaxed bg-emerald-50/30">
-                                        {faq.a}
+                        {/* Contact Card */}
+                        <div className="p-8 bg-white border-white rounded-[40px] shadow-xl shadow-slate-200/40 space-y-6">
+                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Bantuan & Kontak</h4>
+                            <div className="space-y-4">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
+                                        <PaperClipIcon className="w-5 h-5" />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Butuh Bantuan?</p>
+                                        <p className="text-sm font-black text-slate-800 tracking-tight truncate">Hubungi Admin PPDB</p>
                                     </div>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
+                            <a href="/kontak" className="w-full bg-slate-50 flex items-center justify-center p-4 rounded-2xl text-emerald-700 font-black text-[10px] uppercase tracking-widest hover:bg-emerald-50 transition-colors border border-slate-100 hover:border-emerald-100">
+                                Lihat Kontak Kami &rarr;
+                            </a>
+                        </div>
 
-                <div className="mt-24 text-center pb-12">
-                    <p className="text-slate-500 mb-6">Masih punya pertanyaan lainnya?</p>
-                    <a href="/kontak" className="text-emerald-700 font-bold hover:underline">Hubungi Admin PPDB via WhatsApp &rarr;</a>
+                    </div>
                 </div>
             </div>
         </section>

@@ -6,6 +6,12 @@ export default function Navbar() {
     const { url, props } = usePage();
     const { site_settings } = props;
     const isHome = url === '/';
+    const isInfoPpdb = url.startsWith('/info-ppdb');
+    const isPendaftaran = url.startsWith('/pendaftaran');
+    
+    // Pages that should have transparent navbar at the top
+    const isTransparentPage = isHome || isInfoPpdb || isPendaftaran;
+    
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -26,15 +32,15 @@ export default function Navbar() {
     ];
 
     // Determine colors based on page and scroll state
-    const navBackground = isHome
+    const navBackground = isTransparentPage
         ? (scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5')
         : 'bg-white shadow-sm py-3 border-b border-slate-100';
 
-    const textColor = isHome
+    const textColor = isTransparentPage
         ? (scrolled ? 'text-slate-900' : 'text-white')
         : 'text-slate-900';
 
-    const logoColor = isHome
+    const logoColor = isTransparentPage
         ? (scrolled ? 'text-slate-900' : 'text-white')
         : 'text-slate-900';
 
