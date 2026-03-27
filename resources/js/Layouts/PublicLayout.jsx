@@ -3,6 +3,8 @@ import Navbar from './Partials/Navbar';
 import Footer from './Partials/Footer';
 import { Head } from '@inertiajs/react';
 
+import Toast from '@/Components/Fragments/Toast';
+
 export default function PublicLayout({ children, title }) {
     return (
         <div className="min-h-screen bg-white">
@@ -15,6 +17,7 @@ export default function PublicLayout({ children, title }) {
             </main>
             
             <Footer />
+            <Toast />
         </div>
     );
 }
