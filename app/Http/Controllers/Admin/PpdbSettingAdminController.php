@@ -13,15 +13,15 @@ class PpdbSettingAdminController extends Controller
 {
     public function info()
     {
-        return Inertia::render('Admin/PpdbSettings/Info', [
+        return Inertia::render('Admin/InfoPpdb/Info', [
             'settings' => PpdbSetting::all()->pluck('value', 'key'),
         ]);
     }
 
     public function examples()
     {
-        return Inertia::render('Admin/PpdbSettings/Examples', [
-            'examples' => PpdbExample::all()
+        return Inertia::render('Admin/InfoPpdb/ContohGambar', [
+            'gambar' => PpdbExample::all()
         ]);
     }
 
@@ -55,7 +55,7 @@ class PpdbSettingAdminController extends Controller
 
     public function registration()
     {
-        return Inertia::render('Admin/PpdbSettings/Registration', [
+        return Inertia::render('Admin/Pendaftaran/Registration', [
             'settings' => PpdbSetting::all()->pluck('value', 'key')
         ]);
     }

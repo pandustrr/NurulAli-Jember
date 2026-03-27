@@ -11,9 +11,36 @@ class PpdbController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/DataPendaftar', [
+        return Inertia::render('Admin/Pendaftaran/Index', [
             'pendaftars' => Pendaftar::latest()->get()
         ]);
+    }
+
+    public function update(Request $request, Pendaftar $pendaftar)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'nik' => 'required|string|size:16',
+            'place_birth' => 'required|string|max:255',
+            'date_birth' => 'required|date',
+            'parent_name' => 'required|string|max:255',
+            'whatsapp' => 'required|string|max:15',
+            'address' => 'required|string',
+            'school_origin' => 'required|string|max:255',
+            'payment_method' => 'required|in:cash,transfer',
+            'status' => 'required|in:pending,verified,rejected',
+            'payment_status' => 'required|in:unpaid,paid,verified',
+        ]);
+
+        $pendaftar->update($validated);
+
+        return redirect()->back()->with('success', 'Data pendaftar berhasil diperbarui.');
+    }
+
+    public function destroy(Pendaftar $pendaftar)
+    {
+        $pendaftar->delete();
+        return redirect()->back()->with('success', 'Data pendaftar berhasil dihapus.');
     }
 
     public function updateStatus(Request $request, Pendaftar $pendaftar)

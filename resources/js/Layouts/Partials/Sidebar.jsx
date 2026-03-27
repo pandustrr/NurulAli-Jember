@@ -75,13 +75,13 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
     ];
 
     const ppdbSubItems = [
-        { name: 'Contoh Berkas', icon: PhotoIcon, route: 'admin.ppdb-examples' },
         { name: 'Data Pendaftar', icon: UsersIcon, route: 'admin.pendaftar' },
+        { name: 'Setting Pendaftaran', icon: ClipboardDocumentCheckIcon, route: 'admin.ppdb-registration' },
     ];
 
-    const infoPpdbSettingSubItems = [
+    const infoPpdbSubItems = [
         { name: 'Info & FAQ', icon: InformationCircleIcon, route: 'admin.ppdb-info' },
-        { name: 'Info Pendaftaran', icon: ClipboardDocumentCheckIcon, route: 'admin.ppdb-registration' },
+        { name: 'Contoh Gambar', icon: PhotoIcon, route: 'admin.ppdb-examples' },
     ];
 
     const kontakSubItems = [
@@ -94,11 +94,11 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
         
         const content = (
             <>
-                <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-emerald-400' : ''} ${isSub ? 'w-4 h-4' : ''}`} />
-                <div className={`${isSidebarOpen ? 'ml-3' : 'hidden'} flex-1 flex items-center justify-between`}>
-                    <span className="font-medium whitespace-nowrap">{item.name}</span>
+                <item.icon className={`w-4 h-4 shrink-0 ${active ? 'text-emerald-400' : ''} ${isSub ? 'w-3.5 h-3.5' : ''}`} />
+                <div className={`${isSidebarOpen ? 'ml-2.5' : 'hidden'} flex-1 flex items-center justify-between`}>
+                    <span className="font-bold text-[13px] whitespace-nowrap">{item.name}</span>
                     {item.badge && (
-                        <span className="bg-emerald-500/20 text-emerald-400 text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-tighter">
+                        <span className="bg-emerald-500/20 text-emerald-400 text-[8px] font-bold px-1 py-0.5 rounded-full uppercase tracking-tighter">
                             {item.badge}
                         </span>
                     )}
@@ -108,7 +108,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
 
         if (!item.route) {
             return (
-                <div className={`flex items-center px-4 py-2.5 text-emerald-100/30 cursor-not-allowed ${isSub ? 'pl-8 py-2 text-[13px]' : ''}`}>
+                <div className={`flex items-center px-4 py-2 text-emerald-100/30 cursor-not-allowed ${isSub ? 'pl-8 py-1.5 text-[12px]' : ''}`}>
                     {content}
                 </div>
             );
@@ -118,7 +118,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
             <Link
                 href={route(item.route)}
                 onClick={() => isMobile && setIsSidebarOpen(false)}
-                className={`flex items-center px-4 py-2.5 transition-all duration-200 ${active ? 'bg-emerald-800 border-l-4 border-emerald-400 text-white' : 'hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white'} ${isSub ? 'pl-8 py-2 text-[13px] opacity-80' : ''}`}
+                className={`flex items-center px-4 py-2 transition-all duration-200 ${active ? 'bg-emerald-800 border-l-4 border-emerald-400 text-white' : 'hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white'} ${isSub ? 'pl-8 py-1.5 text-[12px] opacity-80' : ''}`}
             >
                 {content}
             </Link>
@@ -132,13 +132,13 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
                     if (!isSidebarOpen) setIsSidebarOpen(true);
                     setIsOpen();
                 }}
-                className={`w-full flex items-center justify-between px-4 py-2.5 transition-all duration-200 hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white ${isActive ? 'text-white bg-emerald-800/30' : ''}`}
+                className={`w-full flex items-center justify-between px-4 py-2 transition-all duration-200 hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white ${isActive ? 'text-white bg-emerald-800/30' : ''}`}
             >
-                <div className="flex items-center gap-3">
-                    <Icon className="w-5 h-5 shrink-0" />
+                <div className="flex items-center gap-2.5">
+                    <Icon className="w-4 h-4 shrink-0" />
                     {isSidebarOpen && (
-                        <div className="flex items-center gap-2">
-                            <span className="font-medium whitespace-nowrap">{name}</span>
+                        <div className="flex items-center gap-1.5">
+                            <span className="font-bold text-[13px] whitespace-nowrap">{name}</span>
                             {badge && (
                                 <span className="bg-amber-500/20 text-amber-400 text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-tighter">
                                     {badge}
@@ -161,7 +161,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
     );
 
     return (
-        <aside className={`${isSidebarOpen ? 'w-64' : 'w-16'} bg-emerald-900 text-white transition-all duration-300 flex flex-col h-full overflow-hidden shadow-2xl shrink-0`}>
+        <aside className={`${isSidebarOpen ? 'w-56' : 'w-16'} bg-emerald-900 text-white transition-all duration-300 flex flex-col h-full overflow-hidden shadow-2xl shrink-0`}>
             {/* Header */}
             <div className="px-5 flex items-center justify-between h-16 border-b border-emerald-800/50">
                 <Link 
@@ -196,17 +196,17 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
                 />
 
                 <DropdownMenu 
-                    name="Info PPDB Setting" 
+                    name="Info PPDB" 
                     icon={InformationCircleIcon}
                     isActive={isInfoPpdbSettingActive} 
                     isOpen={openMenus.infoPpdbSetting} 
                     setIsOpen={() => toggleMenu('infoPpdbSetting')} 
-                    subItems={infoPpdbSettingSubItems} 
+                    subItems={infoPpdbSubItems} 
                 />
 
                 <DropdownMenu 
-                    name="Pengaturan PPDB" 
-                    icon={CalendarDaysIcon} 
+                    name="Pendaftaran PPDB" 
+                    icon={ClipboardDocumentListIcon} 
                     isActive={isPpdbActive} 
                     isOpen={openMenus.ppdb} 
                     setIsOpen={() => toggleMenu('ppdb')} 
