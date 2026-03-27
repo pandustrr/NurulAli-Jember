@@ -167,7 +167,7 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
                         />
 
                         {/* 2. Main Registration Form Card */}
-                        <div className="bg-white p-6 md:p-12 rounded-[3.5rem] shadow-2xl shadow-emerald-950/20 border border-white ring-8 ring-white/10 backdrop-blur-xl">
+                        <div className="bg-white p-6 md:p-12 rounded-3xl shadow-2xl shadow-emerald-950/20 border border-white ring-8 ring-white/10 backdrop-blur-xl">
                             <div className="text-center mb-12">
                                 <span className="inline-block px-5 py-2 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-black tracking-[0.2em] uppercase mb-4 shadow-sm shadow-emerald-100/50 border border-emerald-100">Portal Pendaftaran Santri Baru</span>
                                 <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-none uppercase">Formulir Pendaftaran</h2>

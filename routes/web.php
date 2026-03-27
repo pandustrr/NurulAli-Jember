@@ -22,6 +22,7 @@ Route::get('/info-ppdb', [PublicController::class, 'infoPpdb'])->name('info-ppdb
 Route::get('/pendaftaran', [PublicController::class, 'pendaftaran'])->name('pendaftaran');
 Route::post('/pendaftaran', [PublicController::class, 'storePendaftaran'])->name('pendaftaran.store');
 Route::get('/kontak', [PublicController::class, 'kontak'])->name('kontak');
+Route::get('/santri/login', [PublicController::class, 'santriLogin'])->name('santri.login');
 Route::post('/kontak', [PublicController::class, 'sendMessage'])->name('kontak.send');
 
 

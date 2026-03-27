@@ -20,7 +20,7 @@ export default function SelectionSection({ data, toggleLembaga }) {
     const selectedIds = data.lembaga_ids || [];
 
     return (
-        <div className="bg-white/80 backdrop-blur-2xl p-6 md:p-10 rounded-[2.5rem] shadow-2xl shadow-emerald-950/20 border border-white ring-1 ring-slate-200/50">
+        <div className="bg-white/80 backdrop-blur-2xl p-6 md:p-10 rounded-[1.5rem] shadow-2xl shadow-emerald-950/20 border border-white ring-1 ring-slate-200/50">
             <div className="space-y-10">
                 <div className="space-y-8">
                     <div className="ml-1 flex flex-col md:flex-row justify-between md:items-end gap-4">
@@ -44,7 +44,7 @@ export default function SelectionSection({ data, toggleLembaga }) {
                                     key={lib.id}
                                     type="button"
                                     onClick={() => toggleLembaga(lib.id)}
-                                    className={`group relative p-6 rounded-4xl border-2 transition-all duration-500 text-center flex flex-col items-center gap-4 ${isSelected ? 'bg-emerald-600 border-emerald-600 shadow-2xl shadow-emerald-600/20 -translate-y-2' : 'bg-white border-slate-100 hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-950/5 hover:-translate-y-1'}`}
+                                    className={`group relative p-6 rounded-2xl border-2 transition-all duration-500 text-center flex flex-col items-center gap-4 ${isSelected ? 'bg-emerald-600 border-emerald-600 shadow-2xl shadow-emerald-600/20 -translate-y-2' : 'bg-white border-slate-100 hover:border-emerald-500 hover:shadow-2xl hover:shadow-emerald-950/5 hover:-translate-y-1'}`}
                                 >
                                     <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-white/20 text-white scale-110' : 'bg-emerald-50 text-emerald-600 shadow-inner group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white'}`}>
                                         <lib.icon className="w-7 h-7" />

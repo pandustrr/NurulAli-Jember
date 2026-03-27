@@ -361,7 +361,7 @@ export default function FormConfig({ settings, examples = [] }) {
                                                                     />
                                                                     <button 
                                                                         type="button"
-                                                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black text-[9px] uppercase tracking-widest transition-all ${isUploading === field.id ? 'bg-emerald-100 text-emerald-600 animate-pulse' : 'bg-slate-900 text-white hover:bg-slate-800 shadow-sm'}`}
+                                                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black text-[9px] uppercase tracking-widest transition-all ${isUploading === field.id ? 'bg-emerald-100 text-emerald-600 animate-pulse' : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-xl shadow-emerald-200/30'}`}
                                                                     >
                                                                         <CloudArrowUpIcon className="w-3.5 h-3.5" />
                                                                         {isUploading === field.id ? 'Mengunggah...' : 'Upload Panduan Gambar'}
