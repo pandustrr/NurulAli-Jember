@@ -22,12 +22,14 @@ export default function Kontak({ settings }) {
             <main className="pt-0 pb-16 font-medium bg-slate-50 min-h-screen">
                 {/* Header Hero - Matches Site Branding */}
                 <div className="bg-emerald-950 h-[578px] flex items-center justify-center px-4 relative overflow-hidden text-center">
-                    <div className="absolute inset-0 opacity-10">
-                        <div className="grid grid-cols-12 h-full">
-                            {[...Array(48)].map((_, i) => (
-                                <div key={i} className="border-r border-b border-emerald-400/20"></div>
-                            ))}
-                        </div>
+                    <div className="absolute inset-0">
+                        <img 
+                            src={settings.hero_kontak || '/hero_kontak.png'} 
+                            className="w-full h-full object-cover opacity-40 transition-transform duration-1000 scale-105" 
+                            alt="Hero Background"
+                        />
+                        <div className="absolute inset-0 bg-emerald-950/65 backdrop-blur-[0.5px]"></div>
+                        <div className="absolute inset-0 bg-linear-to-b from-transparent via-emerald-950/20 to-emerald-950"></div>
                     </div>
                     <div className="relative z-10 max-w-4xl mx-auto">
                         <span className="inline-block px-5 py-2 bg-emerald-600/30 backdrop-blur-md rounded-full text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-emerald-500/20">

@@ -65,6 +65,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
 
     const mainMenuItems = [
         { name: 'Dashboard', icon: Squares2X2Icon, route: 'dashboard' },
+        { name: 'Background Setting', icon: PhotoIcon, route: 'admin.site-settings' },
         { name: 'Beranda Setting', icon: HomeIcon, route: null, badge: 'On Going' },
         { name: 'Tentang Setting', icon: BuildingLibraryIcon, route: 'admin.tentang' },
     ];

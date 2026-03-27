@@ -8,7 +8,7 @@ export default function Hero({ settings = {} }) {
             <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105"
                 style={{
-                    backgroundImage: `url('https://media.base44.com/images/public/69b91c829d049ca7a587c0d1/22fdad0af_generated_a4a0dfda.png')`,
+                    backgroundImage: `url('${settings.hero_home || 'https://media.base44.com/images/public/69b91c829d049ca7a587c0d1/22fdad0af_generated_a4a0dfda.png'}')`,
                 }}
             >
                 {/* Subtle Diamond Pattern Overlay */}

@@ -141,7 +141,7 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
                 <div className="bg-emerald-950 h-[578px] flex items-center justify-center px-4 relative overflow-hidden text-center">
                     <div className="absolute inset-0">
                         <img 
-                            src="/hero_pendaftaran.png" 
+                            src={settings.hero_pendaftaran || '/hero_pendaftaran.png'} 
                             className="w-full h-full object-cover opacity-40 transition-transform duration-1000 scale-105" 
                             alt="Hero Background"
                         />

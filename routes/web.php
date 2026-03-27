@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AboutAdminController;
 use App\Http\Controllers\Admin\KontakAdminController;
 use App\Http\Controllers\Admin\PpdbSettingAdminController;
 use App\Http\Controllers\Admin\MessageAdminController;
+use App\Http\Controllers\Admin\SiteSettingAdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,6 +53,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/messages', [MessageAdminController::class, 'index'])->name('admin.messages');
     Route::post('/admin/messages/{message}/read', [MessageAdminController::class, 'markAsRead'])->name('admin.messages.read');
     Route::delete('/admin/messages/{message}', [MessageAdminController::class, 'destroy'])->name('admin.messages.destroy');
+
+    // Site Settings
+    Route::get('/admin/site-settings', [SiteSettingAdminController::class, 'index'])->name('admin.site-settings');
+    Route::post('/admin/site-settings', [SiteSettingAdminController::class, 'update'])->name('admin.site-settings.update');
 });
 
 // Profile Management Bawaan Breeze
