@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\SiteSetting;
 use App\Models\Lembaga;
 use App\Models\PpdbSetting;
+use App\Models\PpdbExample;
 
 class PublicDataSeeder extends Seeder
 {
@@ -139,10 +140,46 @@ class PublicDataSeeder extends Seeder
                 ['q' => "Apa saja syarat masuk Ponpes Nurul Ali?", 'a' => "Syarat utama meliputi ijazah terakhir, akta kelahiran..."],
                 ['q' => "Apakah ada program beasiswa?", 'a' => "Ya, kami menyediakan beasiswa bagi santri berprestasi..."],
             ]),
+            'form_config' => json_encode([
+                'sections' => [
+                    [
+                        'id' => 'section_1',
+                        'title' => 'Identitas Calon Santri',
+                        'description' => 'Identitas Calon Santri',
+                        'fields' => [
+                            ['id' => 'f_name', 'key' => 'name', 'label' => 'Nama Lengkap', 'placeholder' => 'Nama Lengkap', 'type' => 'text', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_nik', 'key' => 'nik', 'label' => 'NIK (Nomor Induk Kependudukan)', 'placeholder' => 'NIK (Nomor Induk Kependudukan)', 'type' => 'nik', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_pb', 'key' => 'place_birth', 'label' => 'Tempat Lahir', 'placeholder' => 'Tempat Lahir', 'type' => 'text', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_db', 'key' => 'date_birth', 'label' => 'Tanggal Lahir', 'placeholder' => 'Tanggal Lahir', 'type' => 'date', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_so', 'key' => 'school_origin', 'label' => 'Asal Sekolah', 'placeholder' => 'Asal Sekolah', 'type' => 'text', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_addr', 'key' => 'address', 'label' => 'Alamat Lengkap', 'placeholder' => 'Alamat Lengkap', 'type' => 'textarea', 'required' => true, 'example_id' => null],
+                        ]
+                    ],
+                    [
+                        'id' => 'section_2',
+                        'title' => 'Data Orang Tua / Wali',
+                        'description' => 'Orang Tua',
+                        'fields' => [
+                            ['id' => 'f_pn', 'key' => 'parent_name', 'label' => 'Nama Ayah/Ibu/Wali', 'placeholder' => 'Nama Ayah/Ibu/Wali', 'type' => 'text', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_wa', 'key' => 'whatsapp', 'label' => 'Nomor WhatsApp Aktif', 'placeholder' => 'Nomor WhatsApp Aktif', 'type' => 'tel', 'required' => true, 'example_id' => null],
+                        ]
+                    ]
+                ]
+            ]),
         ];
 
         foreach ($ppdb as $key => $value) {
             PpdbSetting::create(['key' => $key, 'value' => $value]);
+        }
+
+        // Seed Examples
+        $examples = [
+            'https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?auto=format&fit=crop&q=80&w=800',
+        ];
+
+        foreach ($examples as $img) {
+            PpdbExample::create(['image' => $img]);
         }
     }
 }

@@ -25,7 +25,7 @@ import {
 
 export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
     // Nav States
-    const isPpdbActive = route().current('admin.pendaftar') || route().current('admin.ppdb-info');
+    const isPpdbActive = route().current('admin.pendaftar') || route().current('admin.ppdb-form') || route().current('admin.ppdb-examples');
     const isKontakActive = route().current('admin.kontak') || route().current('admin.messages');
     const isLembagaActive = route().current('admin.lembaga.index') || route().current('admin.lembaga.accounts');
     const isInfoPpdbSettingActive = route().current('admin.ppdb-info') || route().current('admin.ppdb-registration');
@@ -81,7 +81,6 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
 
     const infoPpdbSubItems = [
         { name: 'Info & FAQ', icon: InformationCircleIcon, route: 'admin.ppdb-info' },
-        { name: 'Contoh Gambar', icon: PhotoIcon, route: 'admin.ppdb-examples' },
         { name: 'Setting Info PPDB', icon: ClipboardDocumentCheckIcon, route: 'admin.ppdb-registration' },
     ];
 
