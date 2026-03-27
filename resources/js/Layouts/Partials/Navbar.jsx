@@ -8,9 +8,12 @@ export default function Navbar() {
     const isHome = url === '/';
     const isInfoPpdb = url.startsWith('/info-ppdb');
     const isPendaftaran = url.startsWith('/pendaftaran');
+    const isTentang = url.startsWith('/tentang');
+    const isLembaga = url.startsWith('/lembaga');
+    const isKontak = url.startsWith('/kontak');
     
     // Pages that should have transparent navbar at the top
-    const isTransparentPage = isHome || isInfoPpdb || isPendaftaran;
+    const isTransparentPage = isHome || isInfoPpdb || isPendaftaran || isTentang || isLembaga || isKontak;
     
     const [scrolled, setScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);

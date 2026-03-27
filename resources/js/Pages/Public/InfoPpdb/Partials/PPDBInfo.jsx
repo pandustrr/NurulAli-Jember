@@ -25,7 +25,7 @@ export default function PPDBInfo({ ppdb_settings = {} }) {
     return (
         <section className="bg-slate-50/50 min-h-screen font-medium">
             {/* Header Hero */}
-            <div className="bg-emerald-950 pt-40 pb-28 px-4 relative overflow-hidden text-center">
+            <div className="bg-emerald-950 h-[578px] flex items-center justify-center px-4 relative overflow-hidden text-center">
                 <div className="absolute inset-0 opacity-10">
                     <div className="grid grid-cols-12 h-full">
                         {[...Array(48)].map((_, i) => (
@@ -38,7 +38,7 @@ export default function PPDBInfo({ ppdb_settings = {} }) {
                         Enrollment Center
                     </span>
                     <h1 className="text-4xl md:text-7xl font-black text-white mb-8 tracking-tighter uppercase leading-none">
-                        Informasi <span className="text-emerald-500">Pendaftaran</span>
+                        Informasi <span className="text-emerald-500 underline decoration-8 decoration-emerald-500/20 underline-offset-8">Pendaftaran</span>
                     </h1>
                     <p className="text-lg md:text-xl text-emerald-100/60 max-w-2xl mx-auto leading-relaxed font-medium">
                         Temukan seluruh detail yang Anda butuhkan untuk bergabung menjadi keluarga besar Pondok Pesantren Nurul Ali Jember.
