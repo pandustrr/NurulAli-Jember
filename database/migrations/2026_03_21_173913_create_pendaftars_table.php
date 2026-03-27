@@ -22,10 +22,24 @@ return new class extends Migration
             $table->string('whatsapp')->nullable();
             $table->text('address')->nullable();
             $table->string('school_origin')->nullable();
+            
+            // Kolom Berkas (Daftar Dokumen Lengkap)
+            $table->string('file_kk')->nullable();
+            $table->string('file_akte')->nullable();
+            $table->string('file_ijazah')->nullable();
+            $table->string('file_skhun')->nullable();
+            $table->string('file_kip')->nullable();
+            $table->string('file_sp')->nullable(); // Surat Pernyataan
+            $table->string('file_foto')->nullable(); // Pas Foto Santri
+
             $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending');
             $table->enum('payment_status', ['unpaid', 'paid', 'verified'])->default('unpaid');
             $table->enum('payment_method', ['cash', 'transfer'])->nullable();
             $table->decimal('total_bill', 12, 2)->default(0);
+
+            // Kolom JSON Dinamis (Gabungan Migrasi)
+            $table->json('metadata')->nullable();
+            
             $table->timestamps();
         });
     }

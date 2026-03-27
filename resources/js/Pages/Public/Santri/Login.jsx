@@ -17,7 +17,7 @@ export default function Login({ settings }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('login'));
+        post(route('santri.login.store'));
     };
 
     return (

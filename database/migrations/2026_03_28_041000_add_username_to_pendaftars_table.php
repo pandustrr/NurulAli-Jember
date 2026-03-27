@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pendaftars', function (Blueprint $table) {
-            $table->json('metadata')->nullable()->after('total_bill');
+            $table->string('username')->nullable()->after('name');
+            $table->json('lembaga_ids')->nullable()->after('username');
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pendaftars', function (Blueprint $table) {
-            $table->dropColumn('metadata');
+            $table->dropColumn('username');
         });
     }
 };

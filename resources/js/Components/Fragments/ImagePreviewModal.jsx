@@ -10,6 +10,12 @@ export default function ImagePreviewModal({ isOpen, image, title, onClose, dark 
                 onClick={onClose}
             ></div>
             <div className="relative max-w-sm w-full flex flex-col items-center justify-center animate-in zoom-in-95 duration-300">
+                <div className="absolute -top-12 left-0 h-10 flex items-center gap-3 px-2 animate-in slide-in-from-left-4 duration-500">
+                    <div className="w-1 h-5 bg-emerald-500 rounded-full shadow-sm shadow-emerald-500/50"></div>
+                    <span className="text-[10px] font-black text-white uppercase tracking-[0.25em] drop-shadow-sm">
+                        {title}
+                    </span>
+                </div>
                 <button 
                     onClick={onClose}
                     className={`absolute -top-12 right-0 w-10 h-10 rounded-xl flex items-center justify-center transition-all border shadow-sm backdrop-blur-md ${
@@ -22,11 +28,6 @@ export default function ImagePreviewModal({ isOpen, image, title, onClose, dark 
                 </button>
                 <div className="relative group overflow-hidden rounded-[2.5rem] shadow-2xl shadow-emerald-950/30 border-4 border-white ring-1 ring-slate-200/50">
                     <img src={image} className="max-h-[50vh] w-full object-contain" alt="Full Preview" />
-                    <div className="absolute inset-x-0 bottom-0 p-6 bg-linear-to-t from-black/60 to-transparent flex justify-center">
-                        <span className="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full text-[9px] font-black text-slate-800 tracking-widest uppercase shadow-xl ring-1 ring-slate-200">
-                            {title}
-                        </span>
-                    </div>
                 </div>
             </div>
         </div>

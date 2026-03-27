@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\KontakAdminController;
 use App\Http\Controllers\Admin\PpdbSettingAdminController;
 use App\Http\Controllers\Admin\MessageAdminController;
 use App\Http\Controllers\Admin\SiteSettingAdminController;
+use App\Http\Controllers\Public\SantriDashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,7 +24,15 @@ Route::get('/info-ppdb', [PublicController::class, 'infoPpdb'])->name('info-ppdb
 Route::get('/pendaftaran', [PublicController::class, 'pendaftaran'])->name('pendaftaran');
 Route::post('/pendaftaran', [PublicController::class, 'storePendaftaran'])->name('pendaftaran.store');
 Route::get('/kontak', [PublicController::class, 'kontak'])->name('kontak');
+
+// Santri Authentication
 Route::get('/santri/login', [PublicController::class, 'santriLogin'])->name('santri.login');
+Route::post('/santri/login', [SantriDashboardController::class, 'login'])->name('santri.login.store');
+Route::get('/santri/dashboard', [SantriDashboardController::class, 'index'])->name('santri.dashboard');
+Route::get('/santri/profile', [SantriDashboardController::class, 'profile'])->name('santri.profile');
+Route::post('/santri/profile', [SantriDashboardController::class, 'updateProfile'])->name('santri.profile.update');
+Route::post('/santri/logout', [SantriDashboardController::class, 'logout'])->name('santri.logout');
+
 Route::post('/kontak', [PublicController::class, 'sendMessage'])->name('kontak.send');
 
 

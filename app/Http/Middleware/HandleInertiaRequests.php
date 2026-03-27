@@ -33,11 +33,15 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'santri' => $request->session()->has('santri_id') 
+                    ? \App\Models\Pendaftar::find($request->session()->get('santri_id')) 
+                    : null,
             ],
             'site_settings' => \App\Models\SiteSetting::all()->pluck('value', 'key'),
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
+                'registration' => $request->session()->get('registration'),
             ],
         ];
     }

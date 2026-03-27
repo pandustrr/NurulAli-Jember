@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pendaftars', function (Blueprint $table) {
-            $table->string('file_kk')->nullable()->after('school_origin');
-            $table->string('file_akte')->nullable()->after('file_kk');
-            $table->string('file_ijazah')->nullable()->after('file_akte');
+            $table->string('password')->nullable()->after('username');
         });
     }
 
@@ -24,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pendaftars', function (Blueprint $table) {
-            $table->dropColumn(['file_kk', 'file_akte', 'file_ijazah']);
+            $table->dropColumn('password');
         });
     }
 };
