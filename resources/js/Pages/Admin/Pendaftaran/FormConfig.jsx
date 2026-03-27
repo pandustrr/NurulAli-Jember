@@ -14,7 +14,8 @@ import {
 } from '@heroicons/react/24/outline';
 import Toast from '@/Components/Fragments/Toast';
 import ConfirmModal from '@/Components/Fragments/ConfirmModal';
-import { useState, useMemo, useRef } from 'react';
+import ImagePreviewModal from '@/Components/Fragments/ImagePreviewModal';
+import { useState, useMemo } from 'react';
 
 export default function FormConfig({ settings, examples = [] }) {
     const originalConfig = useMemo(() => settings.form_config ? JSON.parse(settings.form_config) : { sections: [] }, [settings.form_config]);
@@ -99,6 +100,10 @@ export default function FormConfig({ settings, examples = [] }) {
 
     const [previewImg, setPreviewImg] = useState(null);
 
+    const toast = (message, type = 'success') => {
+        window.dispatchEvent(new CustomEvent('toast', { detail: { message, type } }));
+    };
+
     // SECTION ACTIONS
     const addSection = () => {
         const id = 'section_' + Date.now();
@@ -111,6 +116,7 @@ export default function FormConfig({ settings, examples = [] }) {
             fields: []
         });
         setData('form_config', next);
+        toast('Tahapan baru ditambahkan.', 'success');
         
         // Scroll to the newest section
         setTimeout(() => {
@@ -121,8 +127,10 @@ export default function FormConfig({ settings, examples = [] }) {
 
     const removeSection = (index) => {
         const next = { ...data.form_config };
+        const sectionTitle = next.sections[index].title;
         next.sections.splice(index, 1);
         setData('form_config', next);
+        toast(`Tahapan "${sectionTitle}" berhasil dihapus dari draf.`, 'error');
     };
 
     const updateSection = (index, field, val) => {
@@ -145,6 +153,7 @@ export default function FormConfig({ settings, examples = [] }) {
             example_id: null
         });
         setData('form_config', next);
+        toast('Kolom input baru ditambahkan.', 'success');
 
         // Scroll to the newest field
         setTimeout(() => {
@@ -155,8 +164,10 @@ export default function FormConfig({ settings, examples = [] }) {
 
     const removeField = (sectionIndex, fieldIndex) => {
         const next = { ...data.form_config };
+        const fieldLabel = next.sections[sectionIndex].fields[fieldIndex].label;
         next.sections[sectionIndex].fields.splice(fieldIndex, 1);
         setData('form_config', next);
+        toast(`Kolom "${fieldLabel}" berhasil dihapus dari draf.`, 'error');
     };
 
     const updateField = (sectionIndex, fieldIndex, prop, val) => {
@@ -395,7 +406,10 @@ export default function FormConfig({ settings, examples = [] }) {
                                                                         </div>
                                                                         <button 
                                                                             type="button"
-                                                                            onClick={() => updateField(sIdx, fIdx, 'example_id', null)}
+                                                                            onClick={() => {
+                                                                                updateField(sIdx, fIdx, 'example_id', null);
+                                                                                toast('Panduan gambar dihapus.', 'error');
+                                                                            }}
                                                                             className="flex items-center gap-1.5 text-rose-400 hover:text-rose-600 font-black text-[9px] uppercase tracking-widest hover:bg-rose-50 px-3 py-2 rounded-xl transition-all border border-transparent hover:border-rose-100"
                                                                         >
                                                                             <TrashIcon className="w-3.5 h-3.5" /> Hapus
@@ -467,28 +481,13 @@ export default function FormConfig({ settings, examples = [] }) {
 
             <Toast />
 
-            {/* Image Preview Modal for Admin */}
-            {previewImg && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-6 animate-in fade-in duration-300">
-                    <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm" onClick={() => setPreviewImg(null)}></div>
-                    <div className="relative max-w-sm w-full flex flex-col items-center justify-center animate-in zoom-in-95 duration-300">
-                        <button 
-                            onClick={() => setPreviewImg(null)}
-                            className="absolute -top-12 right-0 bg-white/50 backdrop-blur-md hover:bg-white text-slate-900/60 hover:text-slate-900 w-10 h-10 rounded-xl flex items-center justify-center transition-all border border-white/50 shadow-sm"
-                        >
-                            <XMarkIcon className="w-5 h-5" />
-                        </button>
-                        <div className="relative group overflow-hidden rounded-[2.5rem] shadow-2xl shadow-emerald-950/20 border-4 border-white ring-1 ring-slate-200/50">
-                            <img src={previewImg.image} className="max-h-[50vh] w-full object-contain" alt="Full Preview" />
-                            <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent flex justify-center">
-                                <span className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-full text-[8px] font-black text-slate-800 tracking-widest uppercase shadow-xl ring-1 ring-slate-200">
-                                    {previewImg.title}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <ImagePreviewModal 
+                isOpen={!!previewImg}
+                image={previewImg?.image}
+                title={previewImg?.title}
+                onClose={() => setPreviewImg(null)}
+                dark={false}
+            />
         </AdminLayout>
     );
 }

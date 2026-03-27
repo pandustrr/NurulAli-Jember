@@ -12,56 +12,48 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
 {
     public function home()
     {
-        $settings = SiteSetting::all()->pluck('value', 'key');
-        $lembagas = Lembaga::all();
         return Inertia::render('Public/Home/Index', [
-            'settings' => $settings,
-            'lembagas' => $lembagas
+            'settings' => SiteSetting::getMap(),
+            'lembagas' => Lembaga::all()
         ]);
     }
 
     public function tentang()
     {
-        $settings = SiteSetting::all()->pluck('value', 'key');
         return Inertia::render('Public/About/Index', [
-            'settings' => $settings
+            'settings' => SiteSetting::getMap()
         ]);
     }
 
     public function lembaga()
     {
-        $lembagas = Lembaga::all();
-        $settings = SiteSetting::all()->pluck('value', 'key');
         return Inertia::render('Public/Lembaga/Index', [
-            'lembagas' => $lembagas,
-            'settings' => $settings
+            'lembagas' => Lembaga::all(),
+            'settings' => SiteSetting::getMap()
         ]);
     }
 
     public function infoPpdb()
     {
-        $ppdb_settings = PpdbSetting::all()->pluck('value', 'key');
-        $settings = SiteSetting::all()->pluck('value', 'key');
         return Inertia::render('Public/InfoPpdb/Index', [
-            'ppdb_settings' => $ppdb_settings,
-            'settings' => $settings,
+            'ppdb_settings' => PpdbSetting::getMap(),
+            'settings' => SiteSetting::getMap(),
         ]);
     }
 
     public function pendaftaran()
     {
-        $settings = SiteSetting::all()->pluck('value', 'key');
-        $ppdb_settings = PpdbSetting::all()->pluck('value', 'key');
-        $examples = PpdbExample::all();
         return Inertia::render('Public/Pendaftaran/Index', [
-            'settings' => $settings,
-            'ppdb_settings' => $ppdb_settings,
-            'examples' => $examples
+            'settings' => SiteSetting::getMap(),
+            'ppdb_settings' => PpdbSetting::getMap(),
+            'examples' => PpdbExample::all(),
+            'lembagas' => Lembaga::all(),
         ]);
     }
 
@@ -87,10 +79,12 @@ class PublicController extends Controller
             foreach ($request->file('metadata', []) as $key => $file) {
                 if ($file) {
                     $path = $file->store('pendaftaran/documents', 'public');
-                    $metadata[$key] = $path;
+                    $metadata[$key] = Storage::url($path);
                 }
             }
         }
+
+        $ppdb_settings = PpdbSetting::getMap();
 
         $pendaftar = Pendaftar::create([
             ...$validated,
@@ -98,7 +92,7 @@ class PublicController extends Controller
             'reg_id' => 'REG-' . date('Ymd') . '-' . strtoupper(Str::random(5)),
             'status' => 'pending',
             'payment_status' => 'unpaid',
-            'total_bill' => 500000,
+            'total_bill' => $ppdb_settings['total_bill'] ?? 500000,
         ]);
 
         return back()->with('success', 'Pendaftaran Berhasil! ID Registrasi: ' . $pendaftar->reg_id);
@@ -106,9 +100,8 @@ class PublicController extends Controller
 
     public function kontak()
     {
-        $settings = SiteSetting::all()->pluck('value', 'key');
         return Inertia::render('Public/Kontak/Index', [
-            'settings' => $settings
+            'settings' => SiteSetting::getMap()
         ]);
     }
 
