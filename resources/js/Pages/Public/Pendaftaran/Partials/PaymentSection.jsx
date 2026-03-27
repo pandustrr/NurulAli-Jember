@@ -28,7 +28,7 @@ export default function PaymentSection({ data, setData, prevStep, processing, su
                         key={opt.id}
                         type="button"
                         onClick={() => setData('payment_method', opt.id)}
-                        className={`w-full p-6 space-x-6 text-left rounded-4xl border-2 transition-all duration-300 flex items-center group/opt relative overflow-hidden ${data.payment_method === opt.id ? 'bg-emerald-50 border-emerald-500 shadow-xl shadow-emerald-100' : 'bg-slate-50 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-lg'}`}
+                        className={`w-full p-6 space-x-6 text-left rounded-2xl border-2 transition-all duration-300 flex items-center group/opt relative overflow-hidden ${data.payment_method === opt.id ? 'bg-emerald-50 border-emerald-500 shadow-xl shadow-emerald-100' : 'bg-slate-50 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-lg'}`}
                     >
                         {data.payment_method === opt.id && (
                             <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-100/30 rounded-full group-hover/opt:scale-125 transition-transform"></div>
@@ -59,7 +59,7 @@ export default function PaymentSection({ data, setData, prevStep, processing, su
                 <button
                     type="submit"
                     disabled={processing}
-                    className="flex items-center gap-4 px-12 py-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-emerald-200 transition-all hover:-translate-y-1 hover:shadow-emerald-300 disabled:opacity-50 group"
+                    className="flex items-center gap-4 px-12 py-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-emerald-200 transition-all hover:-translate-y-1 hover:shadow-emerald-300 disabled:opacity-50 group"
                 >
                     Selesaikan Pendaftaran
                     <CheckCircleIcon className="w-5 h-5 transition-transform group-hover:scale-110" />

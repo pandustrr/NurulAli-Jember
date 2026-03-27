@@ -105,6 +105,13 @@ class PublicController extends Controller
         ]);
     }
 
+    public function santriLogin()
+    {
+        return Inertia::render('Public/Santri/Login', [
+            'settings' => SiteSetting::getMap()
+        ]);
+    }
+
     public function sendMessage(Request $request)
     {
         $validated = $request->validate([

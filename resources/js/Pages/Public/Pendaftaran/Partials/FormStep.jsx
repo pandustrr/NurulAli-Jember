@@ -79,32 +79,87 @@ export default function FormStep({
                                     />
                                     <label
                                         htmlFor={`file-${field.key}`}
-                                        className="flex items-center justify-between w-full px-6 py-5 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer hover:bg-white hover:border-emerald-400 transition-all duration-300 group/file shadow-sm"
+                                        className="flex items-center justify-between w-full px-6 py-5 bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:bg-white hover:border-emerald-400 transition-all duration-300 group/file shadow-sm"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center text-slate-400 group-hover/file:bg-emerald-50 group-hover/file:text-emerald-600 transition-all shadow-sm">
+                                            <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-slate-400 group-hover/file:bg-emerald-50 group-hover/file:text-emerald-600 transition-all shadow-sm">
                                                 <CameraIcon className="w-5 h-5" />
                                             </div>
                                             <span className="text-xs font-bold text-slate-500 truncate max-w-[150px]">
                                                 {value instanceof File ? value.name : `Pilih berkas ${field.label}`}
                                             </span>
                                         </div>
-                                        <div className="px-4 py-2 bg-white text-emerald-600 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm group-hover/file:bg-emerald-600 group-hover/file:text-white transition-all">Upload</div>
+                                        <div className="px-4 py-2 bg-white text-emerald-600 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-sm group-hover/file:bg-emerald-600 group-hover/file:text-white transition-all">Upload</div>
                                     </label>
                                 </div>
                             ) : field.type === 'textarea' ? (
                                 <textarea
                                     value={value}
                                     onChange={(e) => updateValue(field.key, e.target.value)}
-                                    className="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-3xl text-sm font-bold text-slate-700 outline-none transition-all placeholder:text-slate-300 min-h-[120px]"
+                                    className="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-xl text-sm font-bold text-slate-700 outline-none transition-all placeholder:text-slate-300 min-h-[120px]"
                                     placeholder={`Masukkan ${field.label.toLowerCase()}...`}
                                 />
+                            ) : field.type === 'date' ? (
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div className="relative">
+                                        <select
+                                            value={value ? value.split('-')[2] : ''}
+                                            onChange={(e) => {
+                                                const parts = (value || '--').split('-');
+                                                const year = parts[0] || '';
+                                                const month = parts[1] || '';
+                                                updateValue(field.key, `${year}-${month}-${e.target.value.padStart(2, '0')}`);
+                                            }}
+                                            className="w-full px-4 py-5 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-xl text-xs font-bold text-slate-700 outline-none transition-all appearance-none cursor-pointer"
+                                        >
+                                            <option value="">Tgl</option>
+                                            {[...Array(31)].map((_, i) => (
+                                                <option key={i + 1} value={(i + 1).toString().padStart(2, '0')}>{i + 1}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="relative">
+                                        <select
+                                            value={value ? value.split('-')[1] : ''}
+                                            onChange={(e) => {
+                                                const parts = (value || '--').split('-');
+                                                const year = parts[0] || '';
+                                                const day = parts[2] || '';
+                                                updateValue(field.key, `${year}-${e.target.value.padStart(2, '0')}-${day}`);
+                                            }}
+                                            className="w-full px-4 py-5 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-xl text-xs font-bold text-slate-700 outline-none transition-all appearance-none cursor-pointer"
+                                        >
+                                            <option value="">Bulan</option>
+                                            {['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'].map((m, i) => (
+                                                <option key={i + 1} value={(i + 1).toString().padStart(2, '0')}>{m}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="relative">
+                                        <select
+                                            value={value ? value.split('-')[0] : ''}
+                                            onChange={(e) => {
+                                                const parts = (value || '--').split('-');
+                                                const month = parts[1] || '';
+                                                const day = parts[2] || '';
+                                                updateValue(field.key, `${e.target.value}-${month}-${day}`);
+                                            }}
+                                            className="w-full px-4 py-5 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-xl text-xs font-bold text-slate-700 outline-none transition-all appearance-none cursor-pointer"
+                                        >
+                                            <option value="">Tahun</option>
+                                            {[...Array(30)].map((_, i) => {
+                                                const year = new Date().getFullYear() - 5 - i;
+                                                return <option key={year} value={year}>{year}</option>;
+                                            })}
+                                        </select>
+                                    </div>
+                                </div>
                             ) : (
                                 <input
                                     type={field.type}
                                     value={value}
                                     onChange={(e) => updateValue(field.key, e.target.value)}
-                                    className="w-full px-6 py-5 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-3xl text-sm font-bold text-slate-700 outline-none transition-all placeholder:text-slate-300 shadow-sm"
+                                    className="w-full px-6 py-5 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-xl text-sm font-bold text-slate-700 outline-none transition-all placeholder:text-slate-300 shadow-sm"
                                     placeholder={`Masukkan ${field.label.toLowerCase()}...`}
                                 />
                             )}
@@ -129,7 +184,7 @@ export default function FormStep({
                     type="button"
                     onClick={nextStep}
                     disabled={processing}
-                    className="flex items-center gap-4 px-10 py-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-emerald-200 transition-all hover:-translate-y-1 hover:shadow-emerald-300 disabled:opacity-50 group"
+                    className="flex items-center gap-4 px-10 py-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-emerald-200 transition-all hover:-translate-y-1 hover:shadow-emerald-300 disabled:opacity-50 group"
                 >
                     Lanjutkan Langkah
                     <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-2" />

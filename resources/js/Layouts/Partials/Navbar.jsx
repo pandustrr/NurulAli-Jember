@@ -11,9 +11,10 @@ export default function Navbar() {
     const isTentang = url.startsWith('/tentang');
     const isLembaga = url.startsWith('/lembaga');
     const isKontak = url.startsWith('/kontak');
+    const isSantriLogin = url.startsWith('/santri/login');
     
     // Pages that should have transparent navbar at the top
-    const isTransparentPage = isHome || isInfoPpdb || isPendaftaran || isTentang || isLembaga || isKontak;
+    const isTransparentPage = isHome || isInfoPpdb || isPendaftaran || isTentang || isLembaga || isKontak || isSantriLogin;
     
     const [scrolled, setScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -95,10 +96,24 @@ export default function Navbar() {
                                 {link.name}
                             </Link>
                         ))}
+                        
+                        <Link
+                            href={route('santri.login')}
+                            className={`px-4 py-2 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all border-2 ${isTransparentPage && !scrolled ? 'border-white/20 bg-white/10 text-white hover:bg-white hover:text-emerald-950 shadow-lg' : 'border-emerald-100 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 shadow-sm'}`}
+                        >
+                            Login Santri
+                        </Link>
                     </div>
 
-                    {/* Placeholder for balance in mobile if logo is centered, or just empty space */}
-                    <div className="w-10 h-10 md:hidden invisible"></div>
+                    {/* Mobile Login Button - Right Side */}
+                    <div className="md:hidden">
+                        <Link
+                            href={route('santri.login')}
+                            className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isTransparentPage && !scrolled ? 'bg-white/10 text-white border border-white/20' : 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/20'}`}
+                        >
+                            Login
+                        </Link>
+                    </div>
                 </div>
             </div>
 
