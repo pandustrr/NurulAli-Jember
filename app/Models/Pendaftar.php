@@ -16,10 +16,17 @@ class Pendaftar extends Model
         'whatsapp',
         'address',
         'school_origin',
+        'username',
+        'password',
+        'lembaga_ids',
         'status',
         'payment_status',
         'payment_method',
         'total_bill',
         'metadata'
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 }

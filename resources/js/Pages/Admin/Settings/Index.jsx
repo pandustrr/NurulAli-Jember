@@ -48,12 +48,12 @@ export default function Index({ settings }) {
         >
             <Head title="Admin - Background Setting" />
 
-            <div className="max-w-6xl mx-auto space-y-8 pb-20 font-medium">
+            <div className="max-w-6xl mx-auto space-y-8 pt-10 pb-20 font-medium">
                 <form onSubmit={submit} className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {pages.map((page) => (
-                            <div key={page.id} className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col group overflow-hidden relative">
+                            <div key={page.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col group overflow-hidden relative">
                                 <div className="absolute top-0 right-0 -mt-8 -mr-8 bg-emerald-50 w-32 h-32 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                                 
                                 <div className="relative z-10 flex flex-col h-full">
@@ -67,7 +67,7 @@ export default function Index({ settings }) {
                                         </div>
                                     </div>
 
-                                    <div className="aspect-video rounded-3xl bg-slate-50 border-2 border-dashed border-slate-100 overflow-hidden relative group/preview flex items-center justify-center mb-6">
+                                    <div className="aspect-video rounded-xl bg-slate-50 border-2 border-dashed border-slate-100 overflow-hidden relative group/preview flex items-center justify-center mb-6">
                                         {data[page.id] ? (
                                             <img 
                                                 src={URL.createObjectURL(data[page.id])} 

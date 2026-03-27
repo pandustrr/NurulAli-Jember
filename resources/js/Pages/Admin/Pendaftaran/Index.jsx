@@ -1,7 +1,7 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router } from '@inertiajs/react';
 import { useState, useMemo } from 'react';
-import { EyeIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { EyeIcon, MagnifyingGlassIcon, TrashIcon } from '@heroicons/react/24/outline';
 import StatusBadge from '@/Components/Fragments/StatusBadge';
 import StudentDetailModal from '@/Components/Fragments/StudentDetailModal';
 
@@ -19,6 +19,14 @@ export default function Index({ pendaftars }) {
                 if (updated) setSelectedStudent({ ...updated, status, payment_status });
             }
         });
+    };
+
+    const deletePendaftar = (id) => {
+        if (confirm('Apakah Anda yakin ingin menghapus data pendaftar ini? Seluruh data dan berkas akan hilang permanen.')) {
+            router.delete(route('admin.pendaftar.destroy', id), {
+                onSuccess: () => setSelectedStudent(null)
+            });
+        }
     };
 
     const filteredPendaftars = useMemo(() => {
@@ -97,13 +105,22 @@ export default function Index({ pendaftars }) {
                                             </div>
                                         </td>
                                         <td className="p-6 text-right">
-                                            <button
-                                                onClick={() => setSelectedStudent(p)}
-                                                className="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all flex items-center gap-3 ml-auto shadow-lg shadow-slate-900/10"
-                                            >
-                                                <EyeIcon className="w-4 h-4" />
-                                                View & Edit
-                                            </button>
+                                            <div className="flex items-center justify-end gap-2">
+                                                <button
+                                                    onClick={() => setSelectedStudent(p)}
+                                                    className="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all flex items-center gap-3 shadow-lg shadow-slate-900/10"
+                                                >
+                                                    <EyeIcon className="w-4 h-4" />
+                                                    View & Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => deletePendaftar(p.id)}
+                                                    className="p-2.5 bg-rose-50 text-rose-600 rounded-xl hover:bg-rose-600 hover:text-white transition-all shadow-sm shadow-rose-100"
+                                                    title="Hapus Pendaftar"
+                                                >
+                                                    <TrashIcon className="w-4 h-4" />
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))

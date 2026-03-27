@@ -47,6 +47,7 @@ class PpdbSettingSeeder extends Seeder
                         'description' => 'Identitas Calon Santri',
                         'fields' => [
                             ['id' => 'f_name', 'key' => 'name', 'label' => 'Nama Lengkap', 'placeholder' => 'Nama Lengkap', 'type' => 'text', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_user', 'key' => 'username', 'label' => 'Nama Panggilan / Username', 'placeholder' => 'Username untuk login nanti', 'type' => 'text', 'required' => true, 'example_id' => null],
                             ['id' => 'f_nik', 'key' => 'nik', 'label' => 'NIK (Nomor Induk Kependudukan)', 'placeholder' => 'NIK (Nomor Induk Kependudukan)', 'type' => 'nik', 'required' => true, 'example_id' => null],
                             ['id' => 'f_pb', 'key' => 'place_birth', 'label' => 'Tempat Lahir', 'placeholder' => 'Tempat Lahir', 'type' => 'text', 'required' => true, 'example_id' => null],
                             ['id' => 'f_db', 'key' => 'date_birth', 'label' => 'Tanggal Lahir', 'placeholder' => 'Tanggal Lahir', 'type' => 'date', 'required' => true, 'example_id' => null],
@@ -61,6 +62,19 @@ class PpdbSettingSeeder extends Seeder
                         'fields' => [
                             ['id' => 'f_pn', 'key' => 'parent_name', 'label' => 'Nama Ayah/Ibu/Wali', 'placeholder' => 'Nama Ayah/Ibu/Wali', 'type' => 'text', 'required' => true, 'example_id' => null],
                             ['id' => 'f_wa', 'key' => 'whatsapp', 'label' => 'Nomor WhatsApp Aktif', 'placeholder' => 'Nomor WhatsApp Aktif', 'type' => 'tel', 'required' => true, 'example_id' => null],
+                        ]
+                    ],
+                    [
+                        'id' => 'section_3',
+                        'title' => 'Berkas Persyaratan',
+                        'description' => 'Upload Dokumen',
+                        'fields' => [
+                            ['id' => 'f_foto', 'key' => 'file_foto', 'label' => 'Upload Pas Foto Santri (3x4)', 'placeholder' => 'Upload Pas Foto Santri (3x4)', 'type' => 'file_img', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_kk', 'key' => 'file_kk', 'label' => 'Upload Kartu Keluarga (JPG/PNG)', 'placeholder' => 'Upload Kartu Keluarga (JPG/PNG)', 'type' => 'file_img', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_akte', 'key' => 'file_akte', 'label' => 'Upload Akta Kelahiran (JPG/PNG)', 'placeholder' => 'Upload Akta Kelahiran (JPG/PNG)', 'type' => 'file_img', 'required' => true, 'example_id' => null],
+                            ['id' => 'f_ijazah', 'key' => 'file_ijazah', 'label' => 'Upload Ijazah Terakhir (Opsional)', 'placeholder' => 'Upload Ijazah Terakhir (Opsional)', 'type' => 'file_img', 'required' => false, 'example_id' => null],
+                            ['id' => 'f_skhun', 'key' => 'file_skhun', 'label' => 'Upload SKHUN (Opsional)', 'placeholder' => 'Upload SKHUN (Opsional)', 'type' => 'file_img', 'required' => false, 'example_id' => null],
+                            ['id' => 'f_kip', 'key' => 'file_kip', 'label' => 'Upload Kartu KIP (Jika Ada)', 'placeholder' => 'Upload Kartu KIP (Jika Ada)', 'type' => 'file_img', 'required' => false, 'example_id' => null],
                         ]
                     ]
                 ]

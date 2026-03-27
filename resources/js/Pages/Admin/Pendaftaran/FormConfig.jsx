@@ -174,6 +174,11 @@ export default function FormConfig({ settings, examples = [] }) {
         const next = { ...data.form_config };
         next.sections[sectionIndex].fields[fieldIndex][prop] = val;
         
+        // Auto-set key for specialized types
+        if (prop === 'type' && val === 'username') {
+            next.sections[sectionIndex].fields[fieldIndex].key = 'username';
+        }
+
         // Always sync placeholder with label in background
         if (prop === 'label') {
             next.sections[sectionIndex].fields[fieldIndex].placeholder = val;
@@ -189,6 +194,7 @@ export default function FormConfig({ settings, examples = [] }) {
 
     const inputTypes = [
         { id: 'text', label: 'Teks Biasa' },
+        { id: 'username', label: 'Nama Panggilan / Username' },
         { id: 'nik', label: 'NIK (16 Digit)' },
         { id: 'textarea', label: 'Teks Panjang' },
         { id: 'date', label: 'Tanggal' },
@@ -196,7 +202,7 @@ export default function FormConfig({ settings, examples = [] }) {
         { id: 'number', label: 'Angka' },
         { id: 'email', label: 'Email' },
         { id: 'file_pdf', label: 'Upload PDF' },
-        { id: 'file_img', label: 'Upload Gambar (JPG/PNG)' },
+        { id: 'file_img', label: 'Upload Gambar (JPG / PNG / JPEG)' },
     ];
 
     return (

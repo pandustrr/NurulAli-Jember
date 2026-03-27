@@ -61,7 +61,9 @@ class PublicController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'nik' => 'nullable|string|size:16',
+            'lembaga_ids' => 'required|array|min:1',
             'place_birth' => 'nullable|string|max:255',
             'date_birth' => 'nullable|date',
             'parent_name' => 'nullable|string|max:255',
@@ -72,12 +74,21 @@ class PublicController extends Controller
             'metadata' => 'nullable|array',
         ]);
 
+        // Dynamically Handle ALL file_ columns
+        $uploadedFiles = [];
+        foreach ($request->allFiles() as $key => $file) {
+            if (str_starts_with($key, 'file_')) {
+                $path = $file->store('pendaftaran/documents', 'public');
+                $uploadedFiles[$key] = Storage::url($path);
+            }
+        }
+
         $metadata = $request->input('metadata', []);
         
-        // Handle Files in Metadata
+        // Handle Additional Files in Metadata (if any)
         if ($request->has('metadata')) {
             foreach ($request->file('metadata', []) as $key => $file) {
-                if ($file) {
+                if ($file instanceof \Illuminate\Http\UploadedFile) {
                     $path = $file->store('pendaftaran/documents', 'public');
                     $metadata[$key] = Storage::url($path);
                 }
@@ -88,14 +99,27 @@ class PublicController extends Controller
 
         $pendaftar = Pendaftar::create([
             ...$validated,
+            ...$uploadedFiles,
             'metadata' => count($metadata) > 0 ? json_encode($metadata) : null,
-            'reg_id' => 'REG-' . date('Ymd') . '-' . strtoupper(Str::random(5)),
+            'lembaga_ids' => json_encode($validated['lembaga_ids']),
+            'reg_id' => 'NA-' . date('Y') . '-' . strtoupper(Str::random(5)),
             'status' => 'pending',
             'payment_status' => 'unpaid',
             'total_bill' => $ppdb_settings['total_bill'] ?? 500000,
         ]);
 
-        return back()->with('success', 'Pendaftaran Berhasil! ID Registrasi: ' . $pendaftar->reg_id);
+        $lembaga_names = Lembaga::whereIn('id', $validated['lembaga_ids'])->pluck('title')->toArray();
+
+        return back()->with([
+            'success' => 'Pendaftaran Berhasil!',
+            'registration' => [
+                'reg_id' => $pendaftar->reg_id,
+                'username' => $pendaftar->username,
+                'password' => $pendaftar->reg_id,
+                'name' => $pendaftar->name,
+                'lembaga_summary' => implode(', ', $lembaga_names)
+            ]
+        ]);
     }
 
     public function kontak()
