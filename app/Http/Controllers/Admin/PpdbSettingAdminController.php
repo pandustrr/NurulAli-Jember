@@ -28,14 +28,12 @@ class PpdbSettingAdminController extends Controller
     public function storeExample(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
             'image' => 'required|image|max:2048'
         ]);
 
         $path = $request->file('image')->store('ppdb', 'public');
 
         PpdbExample::create([
-            'title' => $request->title,
             'image' => Storage::url($path)
         ]);
 
@@ -56,14 +54,16 @@ class PpdbSettingAdminController extends Controller
     public function registration()
     {
         return Inertia::render('Admin/Pendaftaran/Registration', [
-            'settings' => PpdbSetting::all()->pluck('value', 'key')
+            'settings' => PpdbSetting::all()->pluck('value', 'key'),
+            'examples' => PpdbExample::all()
         ]);
     }
 
     public function form()
     {
         return Inertia::render('Admin/Pendaftaran/FormConfig', [
-            'settings' => PpdbSetting::all()->pluck('value', 'key')
+            'settings' => PpdbSetting::all()->pluck('value', 'key'),
+            'examples' => PpdbExample::all()
         ]);
     }
 

@@ -12,7 +12,9 @@ import {
     ClipboardDocumentListIcon,
     CloudArrowUpIcon,
     DocumentIcon,
-    PhotoIcon
+    PhotoIcon,
+    XMarkIcon,
+    EyeIcon
 } from '@heroicons/react/24/outline';
 
 export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [] }) {
@@ -63,6 +65,7 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
     });
 
     const [step, setStep] = useState(1);
+    const [previewImage, setPreviewImage] = useState(null);
     const totalSteps = sections.length + 1; // +1 for Payment
 
     const nextStep = () => {
@@ -93,8 +96,6 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
 
     const submit = (e) => {
         e.preventDefault();
-        // Since we are uploading files, ensure we use forceFormData: true if needed,
-        // but Inertia handles automatic conversion to FormData if files are present.
         post(route('pendaftaran.store'), {
             onSuccess: () => {
                 reset();
@@ -187,67 +188,94 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                                                {section.fields?.map((field) => (
-                                                    <div key={field.key} className={`space-y-3 ${['textarea', 'file_pdf', 'file_img'].includes(field.type) ? 'md:col-span-2' : ''}`}>
-                                                        <label className="text-xs font-black text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2">
-                                                            {field.label}
-                                                            {field.required && <span className="text-rose-500 animate-pulse text-lg leading-none mt-1">*</span>}
-                                                        </label>
-                                                        
-                                                        {field.type === 'textarea' ? (
-                                                            <textarea
-                                                                value={['name', 'nik', 'place_birth', 'date_birth', 'parent_name', 'whatsapp', 'address', 'school_origin'].includes(field.key) ? data[field.key] : data.metadata[field.key] || ''}
-                                                                onChange={e => updateValue(field.key, e.target.value)}
-                                                                className="w-full px-6 py-5 rounded-xl bg-slate-50 border border-slate-100 focus:ring-8 focus:ring-emerald-500/5 focus:bg-white focus:border-emerald-500/20 transition-all outline-none h-40 font-bold leading-relaxed text-slate-700 shadow-sm placeholder:font-medium"
-                                                                placeholder={field.placeholder}
-                                                                required={field.required}
-                                                            />
-                                                        ) : (field.type === 'file_pdf' || field.type === 'file_img') ? (
-                                                            <div className="relative group">
-                                                                <input
-                                                                    type="file"
-                                                                    accept={field.type === 'file_pdf' ? '.pdf' : 'image/*'}
-                                                                    onChange={e => updateValue(field.key, e.target.files[0])}
-                                                                    className="hidden"
-                                                                    id={`file-${field.key}`}
-                                                                    required={field.required && !data.metadata[field.key]}
-                                                                />
-                                                                <label 
-                                                                    htmlFor={`file-${field.key}`}
-                                                                    className="w-full flex flex-col items-center justify-center gap-4 px-6 py-10 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/10 transition-all cursor-pointer group"
-                                                                >
-                                                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-slate-300 group-hover:text-emerald-500 shadow-sm transition-all group-hover:scale-110 group-hover:shadow-emerald-100">
-                                                                        {field.type === 'file_pdf' ? <DocumentIcon className="w-8 h-8" /> : <PhotoIcon className="w-8 h-8" />}
-                                                                    </div>
-                                                                    <div className="text-center">
-                                                                        <span className="text-xs font-black uppercase tracking-widest block mb-1">
-                                                                            {data.metadata[field.key] ? 'File Terpilih' : `Pilih File ${field.type === 'file_pdf' ? 'PDF' : 'Gambar'}`}
-                                                                        </span>
-                                                                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest truncate max-w-[200px] block">
-                                                                            {data.metadata[field.key] ? data.metadata[field.key].name : `Maksimal 2MB`}
-                                                                        </span>
-                                                                    </div>
+                                                {section.fields?.map((field) => {
+                                                    const example = field.example_id ? examples.find(ex => ex.id == field.example_id) : null;
+                                                    
+                                                    return (
+                                                        <div key={field.key} className={`space-y-3 ${['textarea', 'file_pdf', 'file_img'].includes(field.type) ? 'md:col-span-2' : ''}`}>
+                                                            <div className="flex justify-between items-center ml-1">
+                                                                <label className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                                                                    {field.label}
+                                                                    {field.required && <span className="text-rose-500 animate-pulse text-lg leading-none mt-1">*</span>}
                                                                 </label>
+                                                                {example && (
+                                                                    <div className="flex items-center gap-3">
+                                                                        <div 
+                                                                            onClick={() => setPreviewImage({ image: example.image, title: field.label })}
+                                                                            className="w-8 h-6 rounded-md overflow-hidden border border-emerald-100 shadow-sm cursor-pointer hover:scale-110 active:scale-95 transition-all group/thumb relative ring-2 ring-emerald-50"
+                                                                        >
+                                                                            <img src={example.image} className="w-full h-full object-cover" alt="Example" />
+                                                                            <div className="absolute inset-0 bg-emerald-600/10 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center">
+                                                                                <EyeIcon className="w-3 h-3 text-white" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <button 
+                                                                            type="button"
+                                                                            onClick={() => setPreviewImage({ image: example.image, title: field.label })}
+                                                                            className="flex items-center gap-1.5 text-emerald-600 hover:text-emerald-700 transition-all group"
+                                                                        >
+                                                                            <EyeIcon className="w-3.5 h-3.5" />
+                                                                            <span className="text-[9px] font-black uppercase tracking-widest border-b border-emerald-200 group-hover:border-emerald-500">Lihat Panduan</span>
+                                                                        </button>
+                                                                    </div>
+                                                                )}
                                                             </div>
-                                                        ) : (
-                                                            <input
-                                                                type={field.type === 'nik' ? 'text' : field.type}
-                                                                inputMode={field.type === 'nik' ? 'numeric' : undefined}
-                                                                value={['name', 'nik', 'place_birth', 'date_birth', 'parent_name', 'whatsapp', 'address', 'school_origin'].includes(field.key) ? data[field.key] : data.metadata[field.key] || ''}
-                                                                onChange={e => {
-                                                                    const val = e.target.value;
-                                                                    if (field.type === 'nik' && !/^\d*$/.test(val)) return;
-                                                                    updateValue(field.key, val);
-                                                                }}
-                                                                className="w-full px-6 py-5 rounded-xl bg-slate-50 border border-slate-100 focus:ring-8 focus:ring-emerald-500/5 focus:bg-white focus:border-emerald-500/20 transition-all outline-none text-slate-700 font-black shadow-sm placeholder:font-medium"
-                                                                placeholder={field.placeholder}
-                                                                required={field.required}
-                                                                maxLength={(field.key === 'nik' || field.type === 'nik') ? 16 : undefined}
-                                                            />
-                                                        )}
-                                                        {errors[field.key] && <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest ml-1 mt-1">{errors[field.key]}</p>}
-                                                    </div>
-                                                ))}
+                                                            
+                                                            {field.type === 'textarea' ? (
+                                                                <textarea
+                                                                    value={['name', 'nik', 'place_birth', 'date_birth', 'parent_name', 'whatsapp', 'address', 'school_origin'].includes(field.key) ? data[field.key] : data.metadata[field.key] || ''}
+                                                                    onChange={e => updateValue(field.key, e.target.value)}
+                                                                    className="w-full px-6 py-5 rounded-xl bg-slate-50 border border-slate-100 focus:ring-8 focus:ring-emerald-500/5 focus:bg-white focus:border-emerald-500/20 transition-all outline-none h-40 font-bold leading-relaxed text-slate-700 shadow-sm placeholder:font-medium"
+                                                                    placeholder={field.placeholder}
+                                                                    required={field.required}
+                                                                />
+                                                            ) : (field.type === 'file_pdf' || field.type === 'file_img') ? (
+                                                                <div className="relative group">
+                                                                    <input
+                                                                        type="file"
+                                                                        accept={field.type === 'file_pdf' ? '.pdf' : 'image/*'}
+                                                                        onChange={e => updateValue(field.key, e.target.files[0])}
+                                                                        className="hidden"
+                                                                        id={`file-${field.key}`}
+                                                                        required={field.required && !data.metadata[field.key]}
+                                                                    />
+                                                                    <label 
+                                                                        htmlFor={`file-${field.key}`}
+                                                                        className="w-full flex flex-col items-center justify-center gap-4 px-6 py-10 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/10 transition-all cursor-pointer group"
+                                                                    >
+                                                                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-slate-300 group-hover:text-emerald-500 shadow-sm transition-all group-hover:scale-110 group-hover:shadow-emerald-100">
+                                                                            {field.type === 'file_pdf' ? <DocumentIcon className="w-8 h-8" /> : <PhotoIcon className="w-8 h-8" />}
+                                                                        </div>
+                                                                        <div className="text-center">
+                                                                            <span className="text-xs font-black uppercase tracking-widest block mb-1">
+                                                                                {data.metadata[field.key] ? 'File Terpilih' : `Pilih File ${field.type === 'file_pdf' ? 'PDF' : 'Gambar'}`}
+                                                                            </span>
+                                                                            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest truncate max-w-[200px] block">
+                                                                                {data.metadata[field.key] ? data.metadata[field.key].name : `Maksimal 2MB`}
+                                                                            </span>
+                                                                        </div>
+                                                                    </label>
+                                                                </div>
+                                                            ) : (
+                                                                <input
+                                                                    type={field.type === 'nik' ? 'text' : field.type}
+                                                                    inputMode={field.type === 'nik' ? 'numeric' : undefined}
+                                                                    value={['name', 'nik', 'place_birth', 'date_birth', 'parent_name', 'whatsapp', 'address', 'school_origin'].includes(field.key) ? data[field.key] : data.metadata[field.key] || ''}
+                                                                    onChange={e => {
+                                                                        const val = e.target.value;
+                                                                        if (field.type === 'nik' && !/^\d*$/.test(val)) return;
+                                                                        updateValue(field.key, val);
+                                                                    }}
+                                                                    className="w-full px-6 py-5 rounded-xl bg-slate-50 border border-slate-100 focus:ring-8 focus:ring-emerald-500/5 focus:bg-white focus:border-emerald-500/20 transition-all outline-none text-slate-700 font-black shadow-sm placeholder:font-medium"
+                                                                    placeholder={field.placeholder}
+                                                                    required={field.required}
+                                                                    maxLength={(field.key === 'nik' || field.type === 'nik') ? 16 : undefined}
+                                                                />
+                                                            )}
+                                                            {errors[field.key] && <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest ml-1 mt-1">{errors[field.key]}</p>}
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
                                             
                                             <div className="pt-8 flex flex-col sm:flex-row gap-4">
@@ -343,6 +371,29 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
                     </div>
                 </main>
             </div>
+
+            {/* Image Preview Overlay */}
+            {previewImage && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-6 animate-in fade-in duration-300">
+                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setPreviewImage(null)}></div>
+                    <div className="relative max-w-sm w-full flex flex-col items-center justify-center animate-in zoom-in-95 duration-500">
+                        <button 
+                            onClick={() => setPreviewImage(null)}
+                            className="absolute -top-12 right-0 bg-white/10 hover:bg-white/20 text-white w-10 h-10 rounded-xl flex items-center justify-center transition-all backdrop-blur-md border border-white/20 shadow-sm"
+                        >
+                            <XMarkIcon className="w-5 h-5" />
+                        </button>
+                        <div className="relative group overflow-hidden rounded-[2.5rem] shadow-2xl shadow-emerald-950/30 border-4 border-white ring-1 ring-slate-200/50">
+                            <img src={previewImage.image} className="max-h-[50vh] w-full object-contain" alt="Full Preview" />
+                            <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent flex justify-center">
+                                <span className="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full text-[9px] font-black text-slate-800 tracking-widest uppercase shadow-xl ring-1 ring-slate-200">
+                                    {previewImage.title}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </PublicLayout>
     );
 }

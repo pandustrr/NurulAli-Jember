@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PpdbExample extends Model
 {
-    protected $fillable = ['title', 'image'];
+    protected $fillable = ['image'];
 }
