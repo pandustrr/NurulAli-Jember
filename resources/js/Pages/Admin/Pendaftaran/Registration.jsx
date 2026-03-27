@@ -1,6 +1,6 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
     CalendarDaysIcon, 
     ClipboardDocumentCheckIcon, 
@@ -10,13 +10,24 @@ import {
     TableCellsIcon,
     CalendarIcon,
     ClipboardDocumentListIcon,
-    InformationCircleIcon
+    InformationCircleIcon,
 } from '@heroicons/react/24/outline';
 import ConfirmModal from '@/Components/Fragments/ConfirmModal';
 import Toast from '@/Components/Fragments/Toast';
 
 export default function Registration({ settings }) {
-    const [activeTab, setActiveTab] = useState('schedule'); // 'schedule', 'requirements', 'fees'
+    const [activeTab, setActiveTab] = useState(() => {
+        const params = new URLSearchParams(window.location.search);
+        const t = params.get('tab');
+        // Fallback to info if no tab or if tab was 'form' (since we removed it)
+        return (t && t !== 'form') ? t : 'info'; 
+    });
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const t = params.get('tab');
+        if (t && t !== activeTab && t !== 'form') setActiveTab(t);
+    }, [window.location.search]);
 
     const { data, setData, post, processing } = useForm({
         ppdb_info: settings.ppdb_info || '',
@@ -75,21 +86,21 @@ export default function Registration({ settings }) {
 
     return (
         <AdminLayout 
-            header="Pengaturan Pendaftaran PPDB"
+            header="Pengaturan Pendaftaran"
             icon={TableCellsIcon}
-            description="Konfigurasi jadwal, syarat, dan rincian biaya pendaftaran santri baru."
+            description="Konfigurasi alur, jadwal, syarat, dan rincian biaya pendaftaran."
         >
-            <Head title="Admin - Pendaftaran PPDB" />
+            <Head title="Admin - Pengaturan Pendaftaran" />
 
             <div className="max-w-4xl mx-auto space-y-6 pb-20 font-medium">
                 
                 {/* Static Tab Navigation */}
-                <div className="flex justify-center pb-8 border-b border-slate-100/60 mb-8">
+                <div className="flex justify-center pb-8 border-b border-slate-100/60 mb-8 overflow-x-auto no-scrollbar">
                     <div className="flex bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50 font-bold shrink-0">
                         {[
                             { id: 'info', label: 'Informasi Umum', icon: InformationCircleIcon },
                             { id: 'schedule', label: 'Jadwal Gelombang', icon: CalendarDaysIcon },
-                            { id: 'requirements', label: 'Persyaratan', icon: ClipboardDocumentCheckIcon },
+                            { id: 'requirements', label: 'Persyaratan Berkas', icon: ClipboardDocumentCheckIcon },
                             { id: 'fees', label: 'Rincian Biaya', icon: BanknotesIcon },
                         ].map((tab) => (
                             <button 
@@ -300,7 +311,7 @@ export default function Registration({ settings }) {
                         )}
                     </div>
 
-                    {/* Static Action Bar at the end of form */}
+                    {/* Static Action Bar */}
                     <div className="flex justify-center pt-8">
                         <button
                             type="submit"

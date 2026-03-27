@@ -34,8 +34,8 @@ const ConfirmModal = ({
     const current = colors[type] || colors.info;
 
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            <div className="bg-white w-full max-w-md rounded-2xl p-8 shadow-2xl animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-[0_50px_100px_rgba(30,41,59,0.25)] ring-1 ring-slate-100 animate-in fade-in zoom-in duration-300">
                 <div className="flex flex-col items-center text-center">
                     <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 ${current.icon}`}>
                         <current.IconComp className="w-8 h-8" />

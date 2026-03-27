@@ -76,12 +76,13 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
 
     const ppdbSubItems = [
         { name: 'Data Pendaftar', icon: UsersIcon, route: 'admin.pendaftar' },
-        { name: 'Setting Pendaftaran', icon: ClipboardDocumentCheckIcon, route: 'admin.ppdb-registration' },
+        { name: 'Formulir Pendaftaran', icon: PencilSquareIcon, route: 'admin.ppdb-form' },
     ];
 
     const infoPpdbSubItems = [
         { name: 'Info & FAQ', icon: InformationCircleIcon, route: 'admin.ppdb-info' },
         { name: 'Contoh Gambar', icon: PhotoIcon, route: 'admin.ppdb-examples' },
+        { name: 'Setting Info PPDB', icon: ClipboardDocumentCheckIcon, route: 'admin.ppdb-registration' },
     ];
 
     const kontakSubItems = [
@@ -116,7 +117,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
 
         return (
             <Link
-                href={route(item.route)}
+                href={route(item.route, item.params)}
                 onClick={() => isMobile && setIsSidebarOpen(false)}
                 className={`flex items-center px-4 py-2 transition-all duration-200 ${active ? 'bg-emerald-800 border-l-4 border-emerald-400 text-white' : 'hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white'} ${isSub ? 'pl-8 py-1.5 text-[12px] opacity-80' : ''}`}
             >

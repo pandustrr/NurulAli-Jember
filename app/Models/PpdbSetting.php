@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PpdbSetting extends Model
 {
-    //
+    protected $fillable = ['key', 'value'];
 }

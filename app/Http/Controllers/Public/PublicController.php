@@ -56,9 +56,11 @@ class PublicController extends Controller
     public function pendaftaran()
     {
         $settings = SiteSetting::all()->pluck('value', 'key');
+        $ppdb_settings = PpdbSetting::all()->pluck('value', 'key');
         $examples = PpdbExample::all();
         return Inertia::render('Public/Pendaftaran/Index', [
             'settings' => $settings,
+            'ppdb_settings' => $ppdb_settings,
             'examples' => $examples
         ]);
     }
@@ -67,18 +69,32 @@ class PublicController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'nik' => 'required|string|size:16',
-            'place_birth' => 'required|string|max:255',
-            'date_birth' => 'required|date',
-            'parent_name' => 'required|string|max:255',
-            'whatsapp' => 'required|string|max:20',
-            'address' => 'required|string',
-            'school_origin' => 'required|string|max:255',
+            'nik' => 'nullable|string|size:16',
+            'place_birth' => 'nullable|string|max:255',
+            'date_birth' => 'nullable|date',
+            'parent_name' => 'nullable|string|max:255',
+            'whatsapp' => 'nullable|string|max:20',
+            'address' => 'nullable|string',
+            'school_origin' => 'nullable|string|max:255',
             'payment_method' => 'required|in:cash,transfer',
+            'metadata' => 'nullable|array',
         ]);
+
+        $metadata = $request->input('metadata', []);
+        
+        // Handle Files in Metadata
+        if ($request->has('metadata')) {
+            foreach ($request->file('metadata', []) as $key => $file) {
+                if ($file) {
+                    $path = $file->store('pendaftaran/documents', 'public');
+                    $metadata[$key] = $path;
+                }
+            }
+        }
 
         $pendaftar = Pendaftar::create([
             ...$validated,
+            'metadata' => count($metadata) > 0 ? json_encode($metadata) : null,
             'reg_id' => 'REG-' . date('Ymd') . '-' . strtoupper(Str::random(5)),
             'status' => 'pending',
             'payment_status' => 'unpaid',

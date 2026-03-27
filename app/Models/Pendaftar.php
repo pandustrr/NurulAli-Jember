@@ -19,6 +19,7 @@ class Pendaftar extends Model
         'status',
         'payment_status',
         'payment_method',
-        'total_bill'
+        'total_bill',
+        'metadata'
     ];
 }
