@@ -2,7 +2,7 @@ import React from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import Programs from './Partials/Programs';
 
-export default function Lembaga({ lembagas }) {
+export default function Lembaga({ settings, lembagas }) {
     return (
         <PublicLayout title="Lembaga Pendidikan - Pondok Pesantren Nurul Ali">
             <main className="pt-0 pb-16 font-medium">
@@ -10,7 +10,7 @@ export default function Lembaga({ lembagas }) {
                 <div className="bg-emerald-950 h-[578px] flex items-center justify-center px-4 relative overflow-hidden text-center">
                     <div className="absolute inset-0">
                         <img 
-                            src="/hero_lembaga.png" 
+                            src={settings.hero_lembaga || '/hero_lembaga.png'} 
                             className="w-full h-full object-cover opacity-40 transition-transform duration-1000 scale-105" 
                             alt="Hero Background"
                         />
