@@ -25,9 +25,10 @@ import {
 
 export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
     // Nav States
-    const isPpdbActive = route().current('admin.pendaftar') || route().current('admin.ppdb-info') || route().current('admin.ppdb-registration');
+    const isPpdbActive = route().current('admin.pendaftar') || route().current('admin.ppdb-info');
     const isKontakActive = route().current('admin.kontak') || route().current('admin.messages');
     const isLembagaActive = route().current('admin.lembaga.index') || route().current('admin.lembaga.accounts');
+    const isInfoPpdbSettingActive = route().current('admin.ppdb-info') || route().current('admin.ppdb-registration');
     
     // Persisted Nav States
     const [openMenus, setOpenMenus] = useState(() => {
@@ -38,6 +39,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
                 ppdb: initial.ppdb || isPpdbActive,
                 kontak: initial.kontak || isKontakActive,
                 lembaga: initial.lembaga || isLembagaActive,
+                infoPpdbSetting: initial.infoPpdbSetting || false,
             };
         } catch (e) {
             return { ppdb: !!isPpdbActive, kontak: !!isKontakActive, lembaga: !!isLembagaActive };
@@ -54,7 +56,8 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
         if (isPpdbActive) setOpenMenus(prev => ({ ...prev, ppdb: true }));
         if (isKontakActive) setOpenMenus(prev => ({ ...prev, kontak: true }));
         if (isLembagaActive) setOpenMenus(prev => ({ ...prev, lembaga: true }));
-    }, [isPpdbActive, isKontakActive, isLembagaActive]);
+        if (isInfoPpdbSettingActive) setOpenMenus(prev => ({ ...prev, infoPpdbSetting: true }));
+    }, [isPpdbActive, isKontakActive, isLembagaActive, isInfoPpdbSettingActive]);
 
     const toggleMenu = (key) => {
         setOpenMenus(prev => ({ ...prev, [key]: !prev[key] }));
@@ -62,6 +65,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
 
     const mainMenuItems = [
         { name: 'Dashboard', icon: Squares2X2Icon, route: 'dashboard' },
+        { name: 'Beranda Setting', icon: HomeIcon, route: null, badge: 'On Going' },
         { name: 'Tentang Setting', icon: BuildingLibraryIcon, route: 'admin.tentang' },
     ];
 
@@ -71,10 +75,13 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
     ];
 
     const ppdbSubItems = [
-        { name: 'Info & FAQ', icon: InformationCircleIcon, route: 'admin.ppdb-info' },
         { name: 'Contoh Berkas', icon: PhotoIcon, route: 'admin.ppdb-examples' },
-        { name: 'Pendaftaran PPDB', icon: ClipboardDocumentCheckIcon, route: 'admin.ppdb-registration' },
         { name: 'Data Pendaftar', icon: UsersIcon, route: 'admin.pendaftar' },
+    ];
+
+    const infoPpdbSettingSubItems = [
+        { name: 'Info & FAQ', icon: InformationCircleIcon, route: 'admin.ppdb-info' },
+        { name: 'Info Pendaftaran', icon: ClipboardDocumentCheckIcon, route: 'admin.ppdb-registration' },
     ];
 
     const kontakSubItems = [
@@ -101,7 +108,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
 
         if (!item.route) {
             return (
-                <div className={`flex items-center px-4 py-2.5 text-emerald-100/30 cursor-not-allowed ${isSub ? 'pl-9 py-2 text-[13px]' : ''}`}>
+                <div className={`flex items-center px-4 py-2.5 text-emerald-100/30 cursor-not-allowed ${isSub ? 'pl-8 py-2 text-[13px]' : ''}`}>
                     {content}
                 </div>
             );
@@ -111,14 +118,14 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
             <Link
                 href={route(item.route)}
                 onClick={() => isMobile && setIsSidebarOpen(false)}
-                className={`flex items-center px-4 py-2.5 transition-all duration-200 ${active ? 'bg-emerald-800 border-l-4 border-emerald-400 text-white' : 'hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white'} ${isSub ? 'pl-9 py-2 text-[13px] opacity-80' : ''}`}
+                className={`flex items-center px-4 py-2.5 transition-all duration-200 ${active ? 'bg-emerald-800 border-l-4 border-emerald-400 text-white' : 'hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white'} ${isSub ? 'pl-8 py-2 text-[13px] opacity-80' : ''}`}
             >
                 {content}
             </Link>
         );
     };
 
-    const DropdownMenu = ({ name, icon: Icon, isActive, isOpen, setIsOpen, subItems }) => (
+    const DropdownMenu = ({ name, icon: Icon, badge, isActive, isOpen, setIsOpen, subItems }) => (
         <div>
             <button 
                 onClick={() => {
@@ -127,9 +134,18 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
                 }}
                 className={`w-full flex items-center justify-between px-4 py-2.5 transition-all duration-200 hover:bg-emerald-800/50 text-emerald-100/70 hover:text-white ${isActive ? 'text-white bg-emerald-800/30' : ''}`}
             >
-                <div className="flex items-center">
+                <div className="flex items-center gap-3">
                     <Icon className="w-5 h-5 shrink-0" />
-                    <span className={`${isSidebarOpen ? 'ml-3' : 'hidden'} font-medium`}>{name}</span>
+                    {isSidebarOpen && (
+                        <div className="flex items-center gap-2">
+                            <span className="font-medium whitespace-nowrap">{name}</span>
+                            {badge && (
+                                <span className="bg-amber-500/20 text-amber-400 text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-tighter">
+                                    {badge}
+                                </span>
+                            )}
+                        </div>
+                    )}
                 </div>
                 {isSidebarOpen && (
                     <ChevronDownIcon className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
@@ -177,6 +193,15 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
                     isOpen={openMenus.lembaga} 
                     setIsOpen={() => toggleMenu('lembaga')} 
                     subItems={lembagaSubItems} 
+                />
+
+                <DropdownMenu 
+                    name="Info PPDB Setting" 
+                    icon={InformationCircleIcon}
+                    isActive={isInfoPpdbSettingActive} 
+                    isOpen={openMenus.infoPpdbSetting} 
+                    setIsOpen={() => toggleMenu('infoPpdbSetting')} 
+                    subItems={infoPpdbSettingSubItems} 
                 />
 
                 <DropdownMenu 
