@@ -13,7 +13,7 @@ export default function Hero({ settings = {} }) {
             >
                 {/* Subtle Diamond Pattern Overlay */}
                 <div className="absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E")` }}></div>
-                <div className="absolute inset-0 bg-emerald-950/85 backdrop-blur-[0.5px]"></div>
+                <div className="absolute inset-0 bg-emerald-950/65 backdrop-blur-[0.5px]"></div>
             </div>
 
             {/* Hero Content */}

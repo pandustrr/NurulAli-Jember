@@ -5,8 +5,32 @@ import Programs from './Partials/Programs';
 export default function Lembaga({ lembagas }) {
     return (
         <PublicLayout title="Lembaga Pendidikan - Pondok Pesantren Nurul Ali">
-            <main className="pt-20">
-                <Programs lembagas={lembagas} />
+            <main className="pt-0 pb-16 font-medium">
+                {/* Header Hero - Matches Site Branding */}
+                <div className="bg-emerald-950 h-[578px] flex items-center justify-center px-4 relative overflow-hidden text-center">
+                    <div className="absolute inset-0 opacity-10">
+                        <div className="grid grid-cols-12 h-full">
+                            {[...Array(48)].map((_, i) => (
+                                <div key={i} className="border-r border-b border-emerald-400/20"></div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="relative z-10 max-w-4xl mx-auto">
+                        <span className="inline-block px-5 py-2 bg-emerald-600/30 backdrop-blur-md rounded-full text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-emerald-500/20">
+                            Educational Units
+                        </span>
+                        <h1 className="text-4xl md:text-7xl font-black text-white mb-8 tracking-tighter uppercase leading-none">
+                            Lembaga <span className="text-emerald-500 underline decoration-8 decoration-emerald-500/20 underline-offset-8">Pendidikan</span>
+                        </h1>
+                        <p className="text-lg md:text-xl text-emerald-100/60 max-w-2xl mx-auto leading-relaxed font-bold">
+                            Menyediakan berbagai jenjang pendidikan formal dan non-formal untuk mencetak generasi yang berdaya saing dan berakhlakul karimah.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="-mt-16 relative z-30">
+                    <Programs lembagas={lembagas} />
+                </div>
             </main>
         </PublicLayout>
     );

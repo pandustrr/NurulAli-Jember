@@ -16,15 +16,7 @@ export default function Programs({ lembagas = [] }) {
     const getStyle = (index) => baseStyles[index % baseStyles.length];
 
     return (
-        <section id="lembaga" className="py-24 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <span className="text-emerald-700 font-bold tracking-widest text-sm uppercase block mb-4">Unit Pendidikan</span>
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 font-display">Lembaga Pendidikan Kami</h2>
-                    <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed text-lg">
-                        Ponpes Nurul Ali menaungi berbagai unit lembaga pendidikan formal dan non-formal yang terintegrasi untuk mencetak generasi unggul.
-                    </p>
-                </div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {lembagas.map((program, index) => {
@@ -133,6 +125,5 @@ export default function Programs({ lembagas = [] }) {
                     </div>
                 )}
             </div>
-        </section>
     );
 }
