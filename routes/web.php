@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route untuk Admin mengelola PPDB
     Route::get('/admin/pendaftar', [PpdbController::class, 'index'])->name('admin.pendaftar');
     Route::post('/admin/pendaftar/{pendaftar}/status', [PpdbController::class, 'updateStatus'])->name('admin.pendaftar.status');
+    Route::put('/admin/pendaftar/{pendaftar}', [PpdbController::class, 'update'])->name('admin.pendaftar.update');
+    Route::delete('/admin/pendaftar/{pendaftar}', [PpdbController::class, 'destroy'])->name('admin.pendaftar.destroy');
 
     // CMS Management
     Route::get('/admin/lembaga/accounts', [LembagaAdminController::class, 'accounts'])->name('admin.lembaga.accounts');

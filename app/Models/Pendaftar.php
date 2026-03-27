@@ -6,5 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pendaftar extends Model
 {
-    //
+    protected $fillable = [
+        'reg_id',
+        'name',
+        'nik',
+        'place_birth',
+        'date_birth',
+        'parent_name',
+        'whatsapp',
+        'address',
+        'school_origin',
+        'status',
+        'payment_status',
+        'payment_method',
+        'total_bill'
+    ];
 }

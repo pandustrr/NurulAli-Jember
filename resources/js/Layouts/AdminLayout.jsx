@@ -49,7 +49,7 @@ export default function AdminLayout({ children, header, icon, description }) {
                 />
 
                 <main className="p-4 md:p-6 lg:p-10 grow overflow-y-auto no-scrollbar scroll-smooth">
-                    <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    <div className="max-w-6xl mx-auto text-[13.5px] animate-in fade-in slide-in-from-bottom-2 duration-500">
                         {children}
                     </div>
                 </main>
