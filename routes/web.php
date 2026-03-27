@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/ppdb-examples', [PpdbSettingAdminController::class, 'storeExample'])->name('admin.ppdb-examples.store');
     Route::delete('/admin/ppdb-examples/{example}', [PpdbSettingAdminController::class, 'destroyExample'])->name('admin.ppdb-examples.destroy');
     Route::get('/admin/ppdb-registration', [PpdbSettingAdminController::class, 'registration'])->name('admin.ppdb-registration');
+    Route::get('/admin/ppdb-form', [PpdbSettingAdminController::class, 'form'])->name('admin.ppdb-form');
     Route::post('/admin/ppdb-settings', [PpdbSettingAdminController::class, 'update'])->name('admin.ppdb-settings.update');
     Route::get('/admin/messages', [MessageAdminController::class, 'index'])->name('admin.messages');
     Route::post('/admin/messages/{message}/read', [MessageAdminController::class, 'markAsRead'])->name('admin.messages.read');

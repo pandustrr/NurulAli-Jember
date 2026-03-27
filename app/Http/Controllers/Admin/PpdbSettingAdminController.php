@@ -60,6 +60,13 @@ class PpdbSettingAdminController extends Controller
         ]);
     }
 
+    public function form()
+    {
+        return Inertia::render('Admin/Pendaftaran/FormConfig', [
+            'settings' => PpdbSetting::all()->pluck('value', 'key')
+        ]);
+    }
+
     public function update(Request $request)
     {
         $settings = $request->except(['_token', '_method']);

@@ -24,8 +24,8 @@ export default function Topbar({ header, description, icon: Icon, isSidebarOpen,
     }, []);
 
     return (
-        <header className="bg-white/80 backdrop-blur-md h-16 flex items-center justify-between px-4 md:px-6 sticky top-0 z-30 border-b border-slate-100/50">
-            <div className="flex items-center gap-4">
+        <header className="bg-white/80 backdrop-blur-md h-20 flex items-center justify-between px-4 md:px-6 sticky top-0 z-30 border-b border-slate-100/50">
+            <div className="flex items-center gap-6">
                 {/* Mobile Toggle */}
                 <button 
                     onClick={() => setIsSidebarOpen(true)}
@@ -40,9 +40,9 @@ export default function Topbar({ header, description, icon: Icon, isSidebarOpen,
                     </div>
                 )}
                 <div className="min-w-0">
-                    <h2 className="font-black text-slate-800 text-xs md:text-sm tracking-tight leading-none uppercase truncate">{header}</h2>
+                    <h2 className="font-black text-slate-800 text-xs md:text-sm tracking-wide leading-none uppercase truncate">{header}</h2>
                     {description && (
-                        <p className="text-slate-400 text-[8px] md:text-[9px] font-bold uppercase tracking-widest mt-1 hidden md:block truncate">
+                        <p className="text-slate-400 text-[8px] md:text-[9px] font-bold uppercase tracking-widest mt-2 hidden md:block truncate">
                             {description}
                         </p>
                     )}
