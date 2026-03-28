@@ -48,7 +48,7 @@ export default function Index({ settings }) {
         >
             <Head title="Admin - Background Setting" />
 
-            <div className="max-w-6xl mx-auto space-y-8 pt-10 pb-20 font-medium">
+            <div className="max-w-6xl mx-auto space-y-8 font-medium">
                 <form onSubmit={submit} className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

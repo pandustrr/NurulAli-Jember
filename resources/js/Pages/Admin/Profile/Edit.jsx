@@ -1,12 +1,17 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head } from '@inertiajs/react';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 
 export default function Edit({ status }) {
     return (
-        <AdminLayout header="Edit Profile">
+        <AdminLayout 
+            header="Edit Profil Admin"
+            icon={UserCircleIcon}
+            description="Perbarui informasi profil dan keamanan akun administrator Anda."
+        >
             <Head title="Profile" />
 
             <div className="py-12">

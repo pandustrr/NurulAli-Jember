@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/pendaftar', [PpdbController::class, 'index'])->name('admin.pendaftar');
     Route::post('/admin/pendaftar/{pendaftar}/status', [PpdbController::class, 'updateStatus'])->name('admin.pendaftar.status');
     Route::put('/admin/pendaftar/{pendaftar}', [PpdbController::class, 'update'])->name('admin.pendaftar.update');
+    Route::post('/admin/pendaftar/bulk-generate', [PpdbController::class, 'bulkUpdateUsernames'])->name('admin.pendaftar.bulk-generate');
     Route::delete('/admin/pendaftar/{pendaftar}', [PpdbController::class, 'destroy'])->name('admin.pendaftar.destroy');
 
     // CMS Management

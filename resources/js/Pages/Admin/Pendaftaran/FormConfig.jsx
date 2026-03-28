@@ -213,7 +213,7 @@ export default function FormConfig({ settings, examples = [] }) {
         >
             <Head title="Admin - Formulir Pendaftaran" />
 
-            <div className="max-w-4xl mx-auto space-y-12 pb-20 font-medium text-slate-900">
+            <div className="max-w-4xl mx-auto space-y-12 font-medium text-slate-900">
                 
                 <div className="space-y-12">
                     <div className="flex justify-between items-center bg-white p-6 rounded-4xl shadow-sm border border-slate-100 mb-10">

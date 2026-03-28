@@ -1,5 +1,6 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, useForm } from '@inertiajs/react';
+import { PhoneIcon } from '@heroicons/react/24/outline';
 
 export default function Index({ settings }) {
     const { data, setData, post, processing } = useForm({
@@ -15,14 +16,18 @@ export default function Index({ settings }) {
     };
 
     return (
-        <AdminLayout header="Pengaturan Kontak & Alamat">
+        <AdminLayout 
+            header="Pengaturan Kontak & Alamat"
+            icon={PhoneIcon}
+            description="Manajemen nomor telepon, email, dan lokasi fisik pondok pesantren."
+        >
             <Head title="Admin - Kontak" />
 
             <form onSubmit={submit} className="max-w-4xl space-y-8">
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                     <div className="mb-8">
                         <h3 className="text-xl font-bold text-slate-800 tracking-tight flex items-center gap-3">
-                            <span className="bg-emerald-100 p-2 rounded-lg">📞</span> Informasi Kontak Utama
+                            Informasi Kontak Utama
                         </h3>
                         <p className="text-sm text-slate-500 mt-2">Nomor WhatsApp dan Email yang Anda masukkan di sini akan berubah otomatis di **seluruh bagian website** (Halaman Kontak, Footer, dan tombol Fast-Response).</p>
                     </div>

@@ -5,7 +5,8 @@ import {
     CheckCircleIcon, 
     ClockIcon, 
     InboxArrowDownIcon,
-    RocketLaunchIcon
+    RocketLaunchIcon,
+    Squares2X2Icon
 } from '@heroicons/react/24/outline';
 
 export default function Dashboard({ stats, recent_pendaftars }) {
@@ -17,10 +18,14 @@ export default function Dashboard({ stats, recent_pendaftars }) {
     ];
 
     return (
-        <AdminLayout header="Ringkasan Dashboard">
+        <AdminLayout 
+            header="Ringkasan Dashboard"
+            icon={Squares2X2Icon}
+            description="Statistik pendaftaran dan aktivitas terbaru sistem PPDB hari ini."
+        >
             <Head title="Admin - Dashboard" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 md:pt-10 mb-10">
                 {cards.map((card, i) => (
                     <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-6 group hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
                         <div className={`w-16 h-16 rounded-xl ${card.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>

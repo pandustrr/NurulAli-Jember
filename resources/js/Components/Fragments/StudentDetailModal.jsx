@@ -4,14 +4,19 @@ import {
     DocumentMagnifyingGlassIcon,
     PencilSquareIcon,
     TrashIcon,
-    CheckCircleIcon
+    CheckCircleIcon,
+    IdentificationIcon
 } from '@heroicons/react/24/outline';
 import { useForm, router } from '@inertiajs/react';
 import ConfirmModal from './ConfirmModal';
 
-const StudentDetailModal = ({ student, isOpen, onClose, onUpdateStatus }) => {
-    const [isEditing, setIsEditing] = useState(false);
+const StudentDetailModal = ({ student, isOpen, onClose, onUpdateStatus, initialEditMode = false }) => {
+    const [isEditing, setIsEditing] = useState(initialEditMode);
     const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+
+    useEffect(() => {
+        setIsEditing(initialEditMode);
+    }, [isOpen, initialEditMode]);
     
     const { data, setData, put, processing, errors, reset } = useForm({
         name: '',
@@ -23,6 +28,7 @@ const StudentDetailModal = ({ student, isOpen, onClose, onUpdateStatus }) => {
         address: '',
         school_origin: '',
         payment_method: 'cash',
+        username: '',
         status: 'pending',
         payment_status: 'unpaid',
     });
@@ -39,6 +45,7 @@ const StudentDetailModal = ({ student, isOpen, onClose, onUpdateStatus }) => {
                 address: student.address || '',
                 school_origin: student.school_origin || '',
                 payment_method: student.payment_method || 'cash',
+                username: student.username || '',
                 status: student.status || 'pending',
                 payment_status: student.payment_status || 'unpaid',
             });
@@ -68,7 +75,7 @@ const StudentDetailModal = ({ student, isOpen, onClose, onUpdateStatus }) => {
     return (
         <>
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 text-slate-900 leading-normal">
-                <div className="bg-white w-full max-w-2xl rounded-[3rem] p-6 md:p-10 shadow-[0_50px_100px_rgba(30,41,59,0.25)] ring-1 ring-slate-100 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto no-scrollbar relative z-50">
+                <div className="bg-white w-full max-w-2xl rounded-3xl p-6 md:p-10 shadow-[0_50px_100px_rgba(30,41,59,0.25)] ring-1 ring-slate-100 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto no-scrollbar relative z-50">
                     <div className="flex justify-between items-start mb-8">
                         <div className="flex items-center gap-4">
                             <div className="w-16 h-16 bg-emerald-100/50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-inner">
@@ -238,6 +245,54 @@ const StudentDetailModal = ({ student, isOpen, onClose, onUpdateStatus }) => {
                                 ) : (
                                     <p className="font-bold text-slate-700 px-1 leading-relaxed">{student.address}</p>
                                 )}
+                            </div>
+
+                            {/* Username Santri */}
+                            <div className="col-span-full p-6 bg-emerald-50/50 rounded-3xl border border-emerald-100/50 space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <label className="text-[10px] font-black uppercase text-emerald-600 tracking-widest ml-1">Akun Login Santri (Otomatis)</label>
+                                    {!student.username && !isEditing && (
+                                        <button 
+                                            type="button"
+                                            onClick={() => {
+                                                const randomId = Math.floor(Math.random() * 9000) + 1000;
+                                                const generated = `SNT-${new Date().getFullYear()}-${randomId}`;
+                                                setData('username', generated);
+                                                setIsEditing(true);
+                                            }}
+                                            className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-200"
+                                        >
+                                            Generate Username
+                                        </button>
+                                    )}
+                                </div>
+                                
+                                {isEditing ? (
+                                    <div className="flex flex-col gap-2">
+                                        <input 
+                                            type="text" 
+                                            className="w-full bg-white border-2 border-emerald-100 rounded-2xl py-4 px-6 text-sm font-black text-emerald-700 tracking-tight focus:ring-8 focus:ring-emerald-500/5 transition-all" 
+                                            placeholder="SNT-2026-XXXX"
+                                            value={data.username} 
+                                            onChange={e => setData('username', e.target.value)} 
+                                        />
+                                        <p className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest ml-1">Password bawaan akan disamakan dengan ID Registrasi ({student.reg_id})</p>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-11 h-11 bg-white rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-50">
+                                            <IdentificationIcon className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            {student.username ? (
+                                                <p className="text-xl font-black text-emerald-900 tracking-tighter">{student.username}</p>
+                                            ) : (
+                                                <p className="text-sm font-bold text-slate-400 italic">Belum dibuat oleh admin</p>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                                {errors.username && <p className="text-rose-500 text-[10px] font-bold uppercase tracking-widest ml-1">{errors.username}</p>}
                             </div>
                         </div>
 

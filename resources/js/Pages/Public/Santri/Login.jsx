@@ -52,14 +52,14 @@ export default function Login({ settings }) {
 
                             <form onSubmit={submit} className="space-y-5">
                                 <div className="space-y-1">
-                                    <label className="block text-left text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Username / NIK</label>
+                                    <label className="block text-left text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Username / ID Santri</label>
                                     <div className="relative">
                                         <input
                                             type="text"
                                             value={data.username}
                                             onChange={e => setData('username', e.target.value)}
                                             className="w-full px-5 py-3.5 md:px-6 md:py-4 bg-slate-100 border-2 border-transparent focus:border-emerald-500 rounded-xl text-xs md:text-sm font-bold text-slate-700 outline-none transition-all placeholder:text-slate-400"
-                                            placeholder="Masukkan username..."
+                                            placeholder="Masukkan username/ID pendaftaran..."
                                             required
                                         />
                                         {errors.username && <p className="text-[9px] font-bold text-rose-500 uppercase tracking-widest text-left ml-1 mt-1">{errors.username}</p>}
