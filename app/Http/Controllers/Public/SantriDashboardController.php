@@ -18,7 +18,9 @@ class SantriDashboardController extends Controller
             'password' => 'required|string',
         ]);
 
-        $pendaftar = Pendaftar::where('username', $validated['username'])->first();
+        $pendaftar = Pendaftar::where('username', $validated['username'])
+            ->orWhere('reg_id', $validated['username'])
+            ->first();
 
         if (!$pendaftar) {
             return back()->withErrors([

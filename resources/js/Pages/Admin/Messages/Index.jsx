@@ -1,6 +1,7 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { formatDate } from '@/Utils/formatters';
 import MessageDetail from '@/Components/Fragments/MessageDetail';
 import ConfirmModal from '@/Components/Fragments/ConfirmModal';
@@ -31,7 +32,11 @@ export default function Index({ messages }) {
     };
 
     return (
-        <AdminLayout header="Kotak Masuk Pesan">
+        <AdminLayout 
+            header="Kotak Masuk Pesan"
+            icon={EnvelopeIcon}
+            description="Daftar pesan dan formulir kontak yang dikirim oleh pengunjung website."
+        >
             <Head title="Admin - Messages" />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-slate-900">

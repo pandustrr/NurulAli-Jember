@@ -60,34 +60,18 @@ function SuccessModal({ isOpen, registration, onClose }) {
                     </div>
 
                     <div className="space-y-4 mb-10">
-                        {/* Reg ID */}
+                        {/* Reg ID / Password */}
                         <div className="bg-white p-5 rounded-2xl border border-slate-100 flex items-center justify-between group hover:border-emerald-200 transition-all shadow-sm">
                             <div className="flex items-center gap-4 text-left">
                                 <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-emerald-500 transition-colors shadow-sm">
                                     <IdentificationIcon className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="text-[8px] font-black uppercase text-slate-400 tracking-widest mb-1 group-hover:text-emerald-600">ID Registrasi / Password</p>
+                                    <p className="text-[8px] font-black uppercase text-slate-400 tracking-widest mb-1 group-hover:text-emerald-600">ID Registrasi / Password Awal</p>
                                     <p className="text-sm font-black text-slate-700 tracking-tight">{registration.reg_id}</p>
                                 </div>
                             </div>
                             <button onClick={() => copyToClipboard(registration.reg_id, 'ID Registrasi')} className="p-2 text-slate-300 hover:text-emerald-500 transition-colors">
-                                <ClipboardIcon className="w-5 h-5" />
-                            </button>
-                        </div>
-
-                        {/* Username */}
-                        <div className="bg-white p-5 rounded-2xl border border-slate-100 flex items-center justify-between group hover:border-emerald-200 transition-all shadow-sm">
-                            <div className="flex items-center gap-4 text-left">
-                                <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-emerald-500 transition-colors shadow-sm">
-                                    <UserIcon className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-[8px] font-black uppercase text-slate-400 tracking-widest mb-1 group-hover:text-emerald-600">Username Santri</p>
-                                    <p className="text-sm font-black text-slate-700 tracking-tight">{registration.username}</p>
-                                </div>
-                            </div>
-                            <button onClick={() => copyToClipboard(registration.username, 'Username')} className="p-2 text-slate-300 hover:text-emerald-500 transition-colors">
                                 <ClipboardIcon className="w-5 h-5" />
                             </button>
                         </div>
@@ -131,7 +115,6 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
                 description: 'Biodata',
                 fields: [
                     { key: 'name', label: 'Nama Lengkap', placeholder: 'Nama Lengkap', type: 'text', required: true },
-                    { key: 'username', label: 'Nama Panggilan / Username', placeholder: 'Username untuk login nanti', type: 'text', required: true },
                     { key: 'nik', label: 'NIK (Nomor Induk Kependudukan)', placeholder: 'NIK (Nomor Induk Kependudukan)', type: 'nik', required: true },
                     { key: 'place_birth', label: 'Tempat Lahir', placeholder: 'Tempat Lahir', type: 'text', required: true },
                     { key: 'date_birth', label: 'Tanggal Lahir', placeholder: 'Tanggal Lahir', type: 'date', required: true },
@@ -160,7 +143,6 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
         lembaga_ids: [],
         // Fixed Fields
         name: '',
-        username: '',
         nik: '',
         place_birth: '',
         date_birth: '',
@@ -249,7 +231,7 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
         // Simple client-side validation for mandatory fields in current step
         if (step <= sections.length) {
             const currentFields = sections[step - 1].fields;
-            const fixedKeys = ['name', 'username', 'nik', 'place_birth', 'date_birth', 'parent_name', 'whatsapp', 'address', 'school_origin'];
+            const fixedKeys = ['name', 'nik', 'place_birth', 'date_birth', 'parent_name', 'whatsapp', 'address', 'school_origin'];
             
             const missing = currentFields.filter(f => {
                 const isFixed = fixedKeys.includes(f.key) || f.key.startsWith('file_');
@@ -269,7 +251,7 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
 
     const updateValue = (key, val) => {
         const fixed = [
-            'name', 'username', 'nik', 'place_birth', 'date_birth', 
+            'name', 'nik', 'place_birth', 'date_birth', 
             'parent_name', 'whatsapp', 'address', 'school_origin', 
             'lembaga_ids'
         ];

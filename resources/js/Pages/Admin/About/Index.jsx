@@ -1,5 +1,6 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, useForm } from '@inertiajs/react';
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Index({ settings }) {
     // Parse JSON strings back to arrays if needed
@@ -33,7 +34,11 @@ export default function Index({ settings }) {
     };
 
     return (
-        <AdminLayout header="Pengaturan Konten (Tentang)">
+        <AdminLayout 
+            header="Profil & Visi Misi"
+            icon={InformationCircleIcon}
+            description="Atur informasi sejarah, visi, dan misi pondok pesantren secara detail."
+        >
             <Head title="Admin - Tentang" />
 
             <form onSubmit={submit} className="max-w-4xl space-y-8">

@@ -56,7 +56,7 @@ export default function Info({ settings }) {
         >
             <Head title="Admin - FAQ PPDB" />
 
-            <div className="max-w-4xl mx-auto space-y-6 pb-20 font-medium">
+            <div className="max-w-4xl mx-auto space-y-6 font-medium">
                 
                 {/* FAQ Management Section */}
                 <form onSubmit={submitSettings} className="pb-20">

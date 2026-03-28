@@ -92,7 +92,7 @@ export default function Registration({ settings }) {
         >
             <Head title="Admin - Pengaturan Pendaftaran" />
 
-            <div className="max-w-4xl mx-auto space-y-6 pb-20 font-medium">
+            <div className="max-w-4xl mx-auto space-y-6 pt-6 md:pt-10 pb-20 font-medium">
                 
                 {/* Static Tab Navigation */}
                 <div className="flex justify-center pb-8 border-b border-slate-100/60 mb-8 overflow-x-auto no-scrollbar">

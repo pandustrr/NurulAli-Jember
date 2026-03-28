@@ -61,7 +61,6 @@ class PublicController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
             'nik' => 'nullable|string|size:16',
             'lembaga_ids' => 'required|array|min:1',
             'place_birth' => 'nullable|string|max:255',
@@ -114,8 +113,6 @@ class PublicController extends Controller
             'success' => 'Pendaftaran Berhasil!',
             'registration' => [
                 'reg_id' => $pendaftar->reg_id,
-                'username' => $pendaftar->username,
-                'password' => $pendaftar->reg_id,
                 'name' => $pendaftar->name,
                 'lembaga_summary' => implode(', ', $lembaga_names)
             ]
