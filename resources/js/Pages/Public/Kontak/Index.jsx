@@ -25,7 +25,7 @@ export default function Kontak({ settings }) {
                     <div className="absolute inset-0">
                         <img 
                             src={settings.hero_kontak || '/hero_kontak.png'} 
-                            className="w-full h-full object-cover opacity-40 transition-transform duration-1000 scale-105" 
+                            className="w-full h-full object-cover transition-transform duration-1000 scale-105" 
                             alt="Hero Background"
                         />
                         <div className="absolute inset-0 bg-emerald-950/65 backdrop-blur-[0.5px]"></div>
