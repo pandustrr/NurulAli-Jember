@@ -71,13 +71,13 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen, isMobile }) {
     ];
 
     const lembagaSubItems = [
-        { name: 'Kelola Lembaga', icon: ClipboardDocumentListIcon, route: 'admin.lembaga.index' },
         { name: 'Akun Lembaga', icon: IdentificationIcon, route: 'admin.lembaga.accounts' },
     ];
 
     const ppdbSubItems = [
         { name: 'Data Pendaftar', icon: UsersIcon, route: 'admin.pendaftar' },
         { name: 'Formulir Pendaftaran', icon: PencilSquareIcon, route: 'admin.ppdb-form' },
+        { name: 'Kelola Jenjang Pendidikan', icon: AcademicCapIcon, route: 'admin.lembaga.index' },
     ];
 
     const infoPpdbSubItems = [

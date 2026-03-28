@@ -1,5 +1,5 @@
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, router } from '@inertiajs/react';
 import { useState } from 'react';
 import LembagaCard from './Partials/LembagaCard';
 import LembagaInfoModal from './Partials/LembagaInfoModal';
@@ -11,9 +11,12 @@ export default function Index({ lembagas }) {
 
     const { data, setData, post, reset, processing, errors } = useForm({
         title: '',
+        subtitle: '',
+        icon: 'AcademicCapIcon',
         description: '',
         detailed_description: '',
         image: null,
+        prices: [{ label: '', value: '' }],
     });
 
     const openModal = (lembaga = null) => {
@@ -21,9 +24,12 @@ export default function Index({ lembagas }) {
             setEditData(lembaga);
             setData({
                 title: lembaga.title,
+                subtitle: lembaga.subtitle || '',
+                icon: lembaga.icon || 'AcademicCapIcon',
                 description: lembaga.description,
                 detailed_description: lembaga.detailed_description || '',
                 image: null,
+                prices: (lembaga.prices && lembaga.prices.length > 0) ? lembaga.prices : [{ label: '', value: '' }],
             });
         } else {
             setEditData(null);
@@ -35,9 +41,11 @@ export default function Index({ lembagas }) {
     const submit = (e) => {
         e.preventDefault();
         if (editData) {
-            post(route('admin.lembaga.update', editData.id), {
-                forceFormData: true,
+            router.post(route('admin.lembaga.update', editData.id), {
+                ...data,
                 _method: 'PUT',
+            }, {
+                forceFormData: true,
                 onSuccess: () => {
                     setIsModalOpen(false);
                     reset();

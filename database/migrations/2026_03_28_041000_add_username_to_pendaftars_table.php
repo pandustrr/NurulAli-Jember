@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pendaftars', function (Blueprint $table) {
-            $table->string('username')->nullable()->after('name');
-            $table->json('lembaga_ids')->nullable()->after('username');
+            if (!Schema::hasColumn('pendaftars', 'username')) {
+                $table->string('username')->nullable()->after('name');
+            }
+            if (!Schema::hasColumn('pendaftars', 'lembaga_ids')) {
+                $table->json('lembaga_ids')->nullable()->after('username');
+            }
         });
     }
 

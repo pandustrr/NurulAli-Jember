@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pendaftars', function (Blueprint $table) {
-            if (!Schema::hasColumn('pendaftars', 'password')) {
-                $table->string('password')->nullable();
-            }
+        Schema::table('lembagas', function (Blueprint $table) {
+            $table->string('subtitle')->after('title')->nullable();
+            $table->json('prices')->after('detailed_description')->nullable();
         });
     }
 
@@ -23,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pendaftars', function (Blueprint $table) {
-            $table->dropColumn('password');
+        Schema::table('lembagas', function (Blueprint $table) {
+            $table->dropColumn(['subtitle', 'prices']);
         });
     }
 };
