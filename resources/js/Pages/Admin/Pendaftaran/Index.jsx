@@ -72,75 +72,78 @@ export default function Index({ pendaftars }) {
         >
             <Head title="Admin - Pendaftar" />
 
-            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="relative group max-w-sm w-full">
-                    <MagnifyingGlassIcon className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
-                    <input 
-                        type="text" 
-                        placeholder="Cari Nama atau ID Reg..." 
-                        value={searchTerm}
-                        onChange={e => setSearchTerm(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3 bg-white border-none rounded-2xl shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500/20 text-sm font-medium transition-all"
-                    />
-                </div>
-                <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">
-                    Total: <span className="text-slate-900">{filteredPendaftars.length} / {pendaftars.length}</span> Pendaftar
-                </div>
-            </div>
-
-            {/* Minimalist Quick Actions Card */}
-            <div className="mb-6 p-5 bg-white rounded-2xl border border-slate-100 shadow-sm inline-flex flex-col gap-5">
-                <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
-                        <UserPlusIcon className="w-5 h-5" />
+            <div className="mb-10 flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+                <div className="flex-1 max-w-md space-y-3">
+                    <div className="flex items-center gap-2 text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mb-1">
+                        <TableCellsIcon className="w-3.5 h-3.5" />
+                        Total Pendaftar: <span className="text-emerald-700 font-black">{filteredPendaftars.length} / {pendaftars.length}</span>
                     </div>
-                    <div>
-                        <h4 className="text-[11px] font-black text-slate-800 uppercase tracking-tight">Generate ID Santri</h4>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">
-                            Pilih atau checklist pendaftar untuk buat ID otomatis
-                        </p>
+                    <div className="relative group w-full">
+                        <MagnifyingGlassIcon className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-500 transition-colors" />
+                        <input 
+                            type="text" 
+                            placeholder="Cari Nama atau ID Reg..." 
+                            value={searchTerm}
+                            onChange={e => setSearchTerm(e.target.value)}
+                            className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-transparent rounded-[1.25rem] shadow-sm ring-1 ring-slate-100 focus:ring-8 focus:ring-emerald-500/5 focus:border-emerald-500/20 text-sm font-bold text-slate-700 transition-all placeholder:text-slate-300"
+                        />
                     </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
-                    <button 
-                        onClick={() => {
-                            if (selectedIds.length === 1) {
-                                const student = pendaftars.find(p => p.id === selectedIds[0]);
-                                if (student) setSelectedStudent(student);
-                            } else if (selectedIds.length > 1) {
-                                window.dispatchEvent(new CustomEvent('toast', { detail: { message: "Fitur 'Buat Satuan' hanya untuk 1 santri. Gunakan 'Generate Otomatis' untuk banyak data sekaligus.", type: 'warning' } }));
-                            } else {
-                                window.dispatchEvent(new CustomEvent('toast', { detail: { message: "Silakan klik kotak centang pada salah satu pendaftar terlebih dahulu.", type: 'error' } }));
-                            }
-                        }}
-                        className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-100 transition-all active:scale-95 border border-emerald-100/50"
-                    >
-                        <UserPlusIcon className="w-3.5 h-3.5" />
-                        Buat Satuan
-                    </button>
-                    <button 
-                        onClick={() => {
-                            if (selectedIds.length === 0) {
-                                window.dispatchEvent(new CustomEvent('toast', { detail: { message: "Silakan klik kotak centang di tabel pendaftar terlebih dahulu.", type: 'error' } }));
-                            } else {
-                                setIsBulkModalOpen(true);
-                            }
-                        }}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-100 active:scale-95"
-                    >
-                        <SparklesIcon className="w-3.5 h-3.5" />
-                        Generate Otomatis
-                    </button>
-
-                    {selectedIds.length > 0 && (
-                        <div className="px-3 py-2 bg-emerald-50 rounded-xl flex items-center gap-2 animate-in zoom-in-95 duration-300 ml-1 border border-emerald-100">
-                            <span className="text-[9px] font-black text-emerald-700 uppercase tracking-widest">
-                                {selectedIds.length} Terpilih
-                            </span>
-                            <button onClick={() => setSelectedIds([])} className="text-[9px] font-black text-rose-500 uppercase tracking-widest hover:underline border-l border-emerald-200/50 pl-2">Reset</button>
+                {/* Compact Quick Actions */}
+                <div className="p-3 bg-white rounded-[1.25rem] border border-slate-100 shadow-xl shadow-slate-900/[0.02] flex items-center gap-4 animate-in slide-in-from-right-10 duration-700">
+                    <div className="hidden md:flex items-center gap-3 pr-4 border-r border-slate-100">
+                        <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
+                            <UserPlusIcon className="w-5 h-5" />
                         </div>
-                    )}
+                        <div className="shrink-0">
+                            <h4 className="text-[10px] font-black text-slate-800 uppercase tracking-tight">Generate ID Santri</h4>
+                            <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Checklist pendaftar di tabel</p>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <button 
+                            onClick={() => {
+                                if (selectedIds.length === 1) {
+                                    const student = pendaftars.find(p => p.id === selectedIds[0]);
+                                    if (student) setSelectedStudent(student);
+                                    setIsEditMode(true);
+                                } else if (selectedIds.length > 1) {
+                                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: "Gunakan 'Generate Otomatis' untuk banyak data.", type: 'warning' } }));
+                                } else {
+                                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: "Klik kotak centang di tabel terlebih dahulu.", type: 'error' } }));
+                                }
+                            }}
+                            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-50 text-emerald-600 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-100 transition-all active:scale-95 border border-emerald-100/50"
+                        >
+                            <UserPlusIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
+                            Buat Satuan
+                        </button>
+                        <button 
+                            onClick={() => {
+                                if (selectedIds.length === 0) {
+                                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: "Klik kotak centang di tabel terlebih dahulu.", type: 'error' } }));
+                                } else {
+                                    setIsBulkModalOpen(true);
+                                }
+                            }}
+                            className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-900/10 active:scale-95"
+                        >
+                            <SparklesIcon className="w-3.5 h-3.5" strokeWidth={2.5} />
+                            Generate Otomatis
+                        </button>
+
+                        {selectedIds.length > 0 && (
+                            <div className="ml-2 pl-4 border-l border-slate-100 flex items-center gap-2 animate-in zoom-in-95 duration-300">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span className="text-[9px] font-black text-emerald-700 uppercase tracking-widest">
+                                    {selectedIds.length} Terpilih
+                                </span>
+                                <button onClick={() => setSelectedIds([])} className="text-[9px] font-black text-rose-500 uppercase tracking-widest hover:underline border-l border-emerald-200/50 pl-2">Reset</button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
