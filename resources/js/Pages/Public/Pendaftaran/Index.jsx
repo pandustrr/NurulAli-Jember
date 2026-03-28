@@ -102,7 +102,7 @@ function SuccessModal({ isOpen, registration, onClose }) {
     );
 }
 
-export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [] }) {
+export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [], lembagas = [] }) {
     const { props } = usePage();
     const flash = props.flash || {};
 
@@ -180,6 +180,22 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
             }
         }
     }, []);
+
+    useEffect(() => {
+        if (lembagas.length > 0 && data.lembaga_ids.length > 0) {
+            const validIds = lembagas.map(l => Number(l.id));
+            const filtered = data.lembaga_ids
+                .map(id => Number(id))
+                .filter(id => !isNaN(id) && validIds.includes(id));
+            
+            const isChanged = filtered.length !== data.lembaga_ids.length || 
+                            filtered.some((v, i) => v !== Number(data.lembaga_ids[i]));
+
+            if (isChanged) {
+                setData('lembaga_ids', filtered);
+            }
+        }
+    }, [lembagas]);
 
     // 2. Sync to localStorage
     useEffect(() => {
@@ -323,6 +339,7 @@ export default function Pendaftaran({ settings, ppdb_settings = {}, examples = [
                         <SelectionSection
                             data={data}
                             toggleLembaga={toggleLembaga}
+                            lembagas={lembagas}
                         />
 
                         {/* 2. Main Registration Form Card */}

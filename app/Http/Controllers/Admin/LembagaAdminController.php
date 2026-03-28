@@ -28,9 +28,12 @@ class LembagaAdminController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'detailed_description' => 'nullable|string',
+            'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'prices' => 'nullable|array',
             'admin_name' => 'nullable|string|max:255',
             'username' => 'nullable|string|max:255|unique:lembagas,username',
             'email' => 'nullable|email|max:255|unique:lembagas,email',
@@ -56,9 +59,12 @@ class LembagaAdminController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'detailed_description' => 'nullable|string',
+            'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'prices' => 'nullable|array',
             'admin_name' => 'nullable|string|max:255',
             'username' => 'nullable|string|max:255|unique:lembagas,username,' . $lembaga->id,
             'email' => 'nullable|email|max:255|unique:lembagas,email,' . $lembaga->id,
